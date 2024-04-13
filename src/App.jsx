@@ -1,14 +1,14 @@
 import "./App.css";
 
 import WelcomPage from "./pages/WelcomPage";
-import FCSignGroup from './FuncComps/FCSignGroup'
+import SignGroupPage from "./pages/SignGroupPage";
 
 
 function App() {
   return (
     <div className="app-container">
    <WelcomPage/>
-   <FCSignGroup/>
+   <SignGroupPage/>
    </div>
   )
 }

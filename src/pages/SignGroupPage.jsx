@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextField, Button, Grid, Typography, Select, MenuItem } from '@mui/material';
 
-export default function FCSignGroup() {
+export default function SignGroupPage() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
