@@ -10,7 +10,7 @@ export default function SignGroupPage() {
   const txtToBtn = "צור קבוצה";
 
   const [showInfo, setShowInfo] = useState(false);
-  const [NumOfParticipants, setNumOfParticipants] = useState('כמות משתתפים');
+  const [numOfParticipants, setNumOfParticipants] = useState('כמות משתתפים');
 
   const handleInfoClick = () => {
     setShowInfo(!showInfo);
@@ -19,8 +19,9 @@ export default function SignGroupPage() {
     setShowInfo(false);
   };
 
-  const handleAgeChange = (event) => {
-    setAge(event.target.value);
+
+  const handleNumOfParticipantsChange = (event) => {
+    setNumOfParticipants(event.target.value);
   };
 
 
@@ -48,17 +49,18 @@ export default function SignGroupPage() {
         <Grid item>
           <Select
             fullWidth
-            value={NumOfParticipants}
-            onChange={handleAgeChange}
+            value={numOfParticipants}
+            onChange={handleNumOfParticipantsChange}
             label="NumOfParticipants"
             variant="standard"
+            defaultValue="NumOfParticipants"
             required
           >
-            <option value="NumOfParticipants">כמות משתתפים</option>
+            <MenuItem value="NumOfParticipants">כמות משתתפים</MenuItem>
             {Array.from({ length: 14 }, (_, i) => (
-              <option key={i + 1} value={i + 1}>
+              <MenuItem key={i + 1} value={i + 1}>
                 {i + 1}
-              </option>
+              </MenuItem>
             ))}
 
           </Select>
