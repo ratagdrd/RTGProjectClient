@@ -13,7 +13,7 @@ export default function WelcomPage() {
     <div>
       <Header textToHeader={txtToHeader} />
       <MainContent textToMainContent={txtTomainContent} />
-      <MainButton textToBtn={txtToBtn} />
+      <MainButton textToBtn={txtToBtn} navigateTo={"/register"} />
       <FooterGraphic />
     </div>
   );

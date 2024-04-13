@@ -55,6 +55,8 @@
   justify-content: space-around; /* This will space your main elements evenly */
   height: 100vh;
   padding: 20px; /* Add padding around the app container */
+  border-radius: 20px;
+  width: 404px;
 }
 
 .welcome-page {

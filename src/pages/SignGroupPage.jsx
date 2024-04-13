@@ -1,19 +1,27 @@
-import React from 'react';
-import { TextField, Button, Grid, Typography, Select, MenuItem } from '@mui/material';
+import React from "react";
+import {
+  TextField,
+  Button,
+  Grid,
+  Typography,
+  Select,
+  MenuItem,
+} from "@mui/material";
 
 export default function SignGroupPage() {
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Handle form submission logic here
-      };
-
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Handle form submission logic here
+  };
 
   return (
-   <form onSubmit={handleSubmit}> 
+    <form onSubmit={handleSubmit}>
       <Grid container direction="column" spacing={2}>
         <Grid item>
-          <Typography variant="h5" align="center"> פרטי קבוצה</Typography>
+          <Typography variant="h5" align="center">
+            {" "}
+            פרטי קבוצה
+          </Typography>
         </Grid>
         <Grid item>
           <TextField
@@ -38,7 +46,7 @@ export default function SignGroupPage() {
             <MenuItem value="both">משתמש</MenuItem>
           </Select>
         </Grid>
-       
+
         <Grid item>
           <Button type="submit" variant="contained" color="primary" fullWidth>
             Sign In
@@ -48,4 +56,3 @@ export default function SignGroupPage() {
     </form>
   );
 }
-  
