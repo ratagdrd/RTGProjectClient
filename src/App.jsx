@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import WelcomPage from "./pages/WelcomPage";
 import SignGroupPage from "./pages/SignGroupPage";
-import Trivia from "./pages/Trivia";
+import TriviaPage from "./pages/TriviaPage";
 
 function App() {
   return (
@@ -12,11 +12,9 @@ function App() {
         <Routes>
           <Route path="/" element={<WelcomPage />} />
           <Route path="/register" element={<SignGroupPage />} />
+          <Route path="/Trivia" element={<TriviaPage />} />
         </Routes>
-      <br></br>   <br></br>
-
-   <Trivia question="1234" answersList={["a","b","c","d"]}/>
-   </div>
+      </div>
     </Router>
   );
 }
