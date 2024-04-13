@@ -1,16 +1,16 @@
-import { useState } from 'react'
-import './App.css'
+import "./App.css";
+
+import WelcomPage from "./pages/WelcomPage";
 import FCSignGroup from './FuncComps/FCSignGroup'
 
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-   <>
+    <div className="app-container">
+   <WelcomPage/>
    <FCSignGroup/>
-   </>
+   </div>
   )
 }
 
-export default App
+export default App;

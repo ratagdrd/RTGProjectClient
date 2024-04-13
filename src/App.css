@@ -40,3 +40,52 @@
 .read-the-docs {
   color: #888;
 }
+
+/* our css */
+/* App.css  */
+@import url("https://fonts.googleapis.com/css2?family=Secular+One&display=swap");
+
+.app-container {
+  font-family: "Secular One", sans-serif;
+  font-weight: bold;
+  background: linear-gradient(180deg, #a8d4ef 0%, #ccebe6 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around; /* This will space your main elements evenly */
+  height: 100vh;
+  padding: 20px; /* Add padding around the app container */
+}
+
+.welcome-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f4f4f9;
+}
+.header {
+  font-size: 2rem; /* Adjust to match the size in the image */
+  color: #004a3a; /* Replace with the exact color from the image */
+  text-align: center;
+}
+.main-button {
+  display: block; /* Ensures it fills the container width */
+  width: 80%; /* Button width relative to its container */
+  padding: 12px;
+  margin: 20px auto; /* Center the button horizontally */
+  background-color: #004a3a; /* Light salmon background */
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 50px; /* Rounded edges */
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+.footer-graphic img {
+  text-align: center; /* Center the logo horizontally */
+  padding: 10px 0; /* Padding top and bottom */
+  width: 200px; /* Control size of the logo */
+  height: auto; /* Maintain aspect ratio */
+}
