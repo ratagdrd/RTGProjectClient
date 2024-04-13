@@ -1,0 +1,66 @@
+.trivia-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #A8D4EF; /* Based on the gradient color from your previous screen */
+    border-radius: 20px;
+    padding: 20px;
+    max-width: 400px; /* Adjust based on your layout requirements */
+    margin: auto;
+    height: 100vh;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    background-color: #5C946E; /* Green background for the progress bar */
+    color: rgb(228, 225, 225);
+    padding: 5px 0;
+    text-align: center;
+    border-radius: 15px;
+    font-size: 1em;
+  }
+  
+  .next-button {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    font-size: 2em;
+    color: #5C946E; /* Same color as the progress bar for consistency */
+    cursor: pointer;
+  }
+  
+  .question-container {
+    width: 100%;
+  }
+  
+  .question-text {
+    background: #0f0707;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  
+  .trivia-image {
+    width: 50%;
+    border-radius: 10px;
+  }
+  
+
+  .answers-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .answer-button {
+    background-color: #004A3A;
+    border: 1px solid #004A3A;
+    color:aliceblue;
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 10px; /* Space between buttons */
+    cursor: pointer;
+    font-family: 'Secular One', sans-serif;
+  }
+  
