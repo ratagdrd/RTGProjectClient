@@ -1,0 +1,7 @@
+.mapboxgl-ctrl-attrib {
+  display: none;
+}
+
+.mapboxgl-map {
+  position: absolute;
+}
