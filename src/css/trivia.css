@@ -9,39 +9,71 @@
   height: 100vh;
 }
 
-.progress-bar {
+.progress-bar-container {
   width: 100%;
-  background-color: #5c946e; /* Green background for the progress bar */
-  color: rgb(228, 225, 225);
+  background-color: #f2f2f2;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  background-color: #004a3a;
+  height: 30px;
+  border-radius: 4px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.3s ease;
+}
+.quesProgress-container {
+  display: flex;
+  justify-content: flex-start; /* Align items to the start (left) */
+  width: 100%; 
+  padding: 10px; 
+}
+.quesProgress {
+  width: 20%;
+  background: none;
+  color:white;
+  border: 1px solid #004a3a;
   padding: 5px 0;
   text-align: center;
   border-radius: 15px;
   font-size: 1em;
 }
 
+.next-button-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 5px; /* Add margin-bottom to create space between the button and the question */
+}
+
 .next-button {
-  align-self: flex-end;
   background: none;
   border: none;
-  font-size: 2em;
-  color: #5c946e; /* Same color as the progress bar for consistency */
+  font-size: 1em;
+  color: #004a3a;
   cursor: pointer;
 }
+
 
 .question-container {
   width: 100%;
 }
 
 .question-text {
-  background: #0f0707;
+  background: white;
+  color:#004a3a;
   border-radius: 10px;
   padding: 15px;
-  margin: 20px 0;
+  margin: 0px;
   text-align: center;
 }
 
 .trivia-image {
-  width: 50%;
+  width: 90%;
   border-radius: 10px;
 }
 
@@ -55,8 +87,9 @@
   background-color: #004a3a;
   border: 1px solid #004a3a;
   color: aliceblue;
-  border-radius: 20px;
-  padding: 10px;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 0px;
   margin-bottom: 10px; /* Space between buttons */
   cursor: pointer;
   font-family: "Secular One", sans-serif;
