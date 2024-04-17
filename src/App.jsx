@@ -10,6 +10,7 @@ import Flag from "./pages/Flag";
 import familyPhoto from "./images/familyPhoto.jpeg";
 import BonusStation from "./pages/BonusStation";
 import WordGamePage1 from "./pages/WordGamePage1";
+import WordGamePage2 from "./pages/WordGamePage2";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               }
             />
           <Route path="/WordGameInst" element={<WordGamePage1/>} />
+          <Route path="/WordGame" element={<WordGamePage2/>} />
           </Routes>
         </div>
       </Router>

@@ -1,10 +1,14 @@
+/*trivia*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap'); 
+
 .trivia-game {
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 20px;
   padding: 20px;
-  max-width: 400px; /* Adjust based on your layout requirements */
+  max-width: 400px;
+  /* Adjust based on your layout requirements */
   margin: auto;
   height: 100vh;
 }
@@ -26,16 +30,20 @@
   justify-content: center;
   transition: width 0.3s ease;
 }
+
 .quesProgress-container {
   display: flex;
-  justify-content: flex-start; /* Align items to the start (left) */
-  width: 100%; 
-  padding: 10px; 
+  justify-content: space-between;
+  align-items: center;
+  /* Align items to the start (left) */
+  width: 100%;
+  position: relative; /* Make the container relative */
 }
+
 .quesProgress {
   width: 20%;
   background: none;
-  color:white;
+  color: white;
   border: 1px solid #004a3a;
   padding: 5px 0;
   text-align: center;
@@ -47,7 +55,11 @@
   display: flex;
   justify-content: flex-end;
   width: 100%;
-  margin-bottom: 5px; /* Add margin-bottom to create space between the button and the question */
+  margin-bottom: 5px;
+  margin-left: auto;
+  position: absolute; /* Position the button absolutely */
+  left: 30%; /* Align the button to the right of its parent */
+  /* Add margin-bottom to create space between the button and the question */
 }
 
 .next-button {
@@ -65,7 +77,7 @@
 
 .question-text {
   background: white;
-  color:#004a3a;
+  color: #004a3a;
   border-radius: 10px;
   padding: 15px;
   margin: 0px;
@@ -83,14 +95,36 @@
   width: 100%;
 }
 
-.answer-button {
-  background-color: #004a3a;
-  border: 1px solid #004a3a;
+.buttons-game{
+  /*background-color: #004a3a;
+  border: 1px solid #004a3a;*/
   color: aliceblue;
   border-radius: 10px;
   padding: 15px;
   margin: 0px;
-  margin-bottom: 10px; /* Space between buttons */
-  cursor: pointer;
-  font-family: "Secular One", sans-serif;
+  margin-bottom: 10px;
+   /* Space between buttons */
+   cursor: pointer;
+   font-family: "Roboto", sans-serif;
+   font-weight: bold;
+   font-size: 20px;
 }
+
+
+/*wordGame*/
+
+.words-container {
+  font-size: 60px;
+  font-weight: bold;
+  margin: 20% 0 20% 0;
+  color: #004a3a;
+}
+
+.correct-ans{
+  background-color: #004a3a;
+}
+
+.wrong-ans{
+  background-color: #CE6548;
+}
+
