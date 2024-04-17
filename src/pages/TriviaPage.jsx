@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "./../css/Games.css";
 import pic1 from "../images/HordusPort.jpg";
 
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import { IconButton } from "@mui/material";
 
-export default function TriviaPage({ ques, ans, prog, tot }) {
+export default function TriviaPage({ ques, ans, prog, tot, correctAns }) {
   const question = " איפה היה ארמון הורדוס בלה בלה בלה בלה ";
   const answersList = ["תשובה 1 בלה בלה", "תשובה 2 בלה בלה", "תשובה 3 בלה בלה", "תשובה 4 בלה בלה"];  //להחליף כשמגיע דאטה מהשרת
   const percentage = (1 / 10) * 100;
+
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const correctAnswerIndex = 0; 
+
+  const handleAnswerClick = (index) => {
+    if (index === correctAnswerIndex) {
+      // Correct answer selected
+      setSelectedAnswer(index);
+    } else {
+      // Incorrect answer selected
+      setSelectedAnswer(-1); // Marking the selected answer as incorrect
+    }
+  };
+
 
   return (
     <div className="trivia-game">
@@ -30,9 +44,13 @@ export default function TriviaPage({ ques, ans, prog, tot }) {
       <br />
       <div className="answers-container">
         {answersList.map((answer, index) => (
-          <button key={index} className="buttons-game correct-ans">
-            {answer}
-          </button>
+          <button
+          key={index}
+          className={`buttons-game correct-ans ${selectedAnswer === index ? (index === correctAnswerIndex ? '' : 'wrong-ans') : ''}`}
+          onClick={() => handleAnswerClick(index)}
+        >
+          {answer}
+        </button>
         ))}
       </div>
     </div>
