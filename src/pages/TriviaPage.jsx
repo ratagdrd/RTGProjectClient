@@ -4,6 +4,7 @@ import pic1 from "../images/HordusPort.jpg";
 
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import { IconButton } from "@mui/material";
+import FooterGraphic from "../FuncComp/FooterGraphic";
 
 export default function TriviaPage({ ques, ans, prog, tot, correctAns }) {
   const question = " איפה היה ארמון הורדוס בלה בלה בלה בלה ";
@@ -11,16 +12,18 @@ export default function TriviaPage({ ques, ans, prog, tot, correctAns }) {
   const percentage = (1 / 10) * 100;
 
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const correctAnswerIndex = 0; 
+  const correctAnswerIndex = 1; 
 
   const handleAnswerClick = (index) => {
-    if (index === correctAnswerIndex) {
-      // Correct answer selected
+    debugger
       setSelectedAnswer(index);
-    } else {
-      // Incorrect answer selected
-      setSelectedAnswer(-1); // Marking the selected answer as incorrect
-    }
+      const buttons = document.querySelectorAll('.buttons-game');
+      buttons.forEach((button, i) => {
+        if ( i !== correctAnswerIndex) {
+          button.classList.add('wrong-ans');
+        }
+      });
+    
   };
 
 
@@ -46,13 +49,14 @@ export default function TriviaPage({ ques, ans, prog, tot, correctAns }) {
         {answersList.map((answer, index) => (
           <button
           key={index}
-          className={`buttons-game correct-ans ${selectedAnswer === index ? (index === correctAnswerIndex ? '' : 'wrong-ans') : ''}`}
+          className={`buttons-game correct-ans`}
           onClick={() => handleAnswerClick(index)}
         >
           {answer}
         </button>
         ))}
       </div>
+      <FooterGraphic/>
     </div>
   );
 }

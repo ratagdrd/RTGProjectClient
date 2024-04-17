@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import "./../css/Games.css";
 
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
-import {
-    TextField, Button, Grid, Typography, Select, MenuItem,
-    IconButton, Dialog, DialogTitle, DialogContent, DialogActions
-} from '@mui/material';
+import { Button, Typography, IconButton, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import FooterGraphic from "../FuncComp/FooterGraphic";
 import InfoIcon from '@mui/icons-material/Info';
 
@@ -29,12 +26,12 @@ export default function WordGamePage2() {
             <div className="container">
 
                 <div className="quesProgress-container">
-                    <IconButton onClick={handleInfoClick} style={{ position: 'absolute', right: '50%', top: '50%', transform: 'translateY(-50%)' }}>
+                    <IconButton onClick={handleInfoClick}>
                         <InfoIcon />
                     </IconButton>
                     <Dialog open={showInfo} onClose={handleInfoClose}>
-                        <DialogTitle className="instructions" style={{ direction: "rtl"}}> הוראות</DialogTitle>
-                        <DialogContent style={{ direction: "rtl" }}>
+                        <DialogTitle className="instructions" style={{ direction: "rtl" ,padding:"10px 14px" }}> הוראות</DialogTitle>
+                        <DialogContent style={{ direction: "rtl", width: '350px' , padding:"0px 14px 10px"}}>
                             <Typography className="instructions" > {Instructions} </Typography>
                         </DialogContent>
                         <DialogActions>
@@ -43,7 +40,7 @@ export default function WordGamePage2() {
                             </Button>
                         </DialogActions>
                     </Dialog>
-                    <div className="quesProgress">Q1/10</div>
+                    <div className="quesProgress">Q1/5</div>
                     <IconButton className="next-button-container" style={{ color: "#004a3a" }}> <ArrowForwardIosOutlinedIcon /> </IconButton>
                 </div>
             </div>

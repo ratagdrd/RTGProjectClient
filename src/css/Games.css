@@ -12,6 +12,8 @@
   /* Adjust based on your layout requirements */
   margin: auto;
   height: 100vh;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .progress-bar-container {
@@ -126,11 +128,6 @@
 
 .wrong-ans{
   background-color: #CE6548;
-}
-
-.instructions{
-  font-size: 10px ;
-  font-family: inherit;
 }
 
 
