@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Row, Col } from 'react-bootstrap';
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
+
 
 import {
   TextField, Button, Grid, Typography, Select, MenuItem,
@@ -14,6 +18,7 @@ import Groups2Icon from '@mui/icons-material/Groups2';
 import InfoIcon from '@mui/icons-material/Info';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import AltRouteIcon from '@mui/icons-material/AltRoute';
+import EscalatorWarningIcon from '@mui/icons-material/EscalatorWarning';
 
 import Header from '../FuncComp/Header';
 import MainButton from '../FuncComp/MainButton';
@@ -23,10 +28,10 @@ export default function SignGroupPage() {
 
   const theme = createTheme({ direction: 'rtl' })
 
-const cacheRtl = createCache({
-  key: 'muirtl',
-  stylisPlugins: [prefixer, rtlPlugin],
-});
+  const cacheRtl = createCache({
+    key: 'muirtl',
+    stylisPlugins: [prefixer, rtlPlugin],
+  });
 
   const txtToHeader = "פרטי קבוצה";
   const txtToBtn = "צור קבוצה";
@@ -66,89 +71,80 @@ const cacheRtl = createCache({
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
           <form onSubmit={handleSubmit} >
-            <Grid container direction="column" spacing={2}>
-              <Grid item>
-                <Header textToHeader={txtToHeader}></Header>
-              </Grid>
-              <Grid container alignItems="center" spacing={2}>
-                <Grid item>
-                  <TextField
-                    label="שם הקבוצה"
-                    type="groupName"
-                    variant="standard"
-                    fullWidth
-                    required
-                  />
-                </Grid>
-                <Grid item>
-                  <Groups2Icon style={{ marginTop: "25px" }} />
-                </Grid>
-              </Grid>
-              <Grid container alignItems="flex-start" spacing={2}>
-                <Grid item>
-                  <Select
-                    fullWidth
-                    value={numOfParticipants}
-                    onChange={handleNumOfParticipantsChange}
-                    label="NumOfParticipants"
-                    variant="standard"
-                    defaultValue="NumOfParticipants"
-                    required
-                    displayEmpty
-                    renderValue={value => value || 'כמות משתתפים '}
-                  >
-                    <MenuItem value="NumOfParticipants" disabled>כמות משתתפים</MenuItem>
-                    {Array.from({ length: 14 }, (_, i) => (
-                      <MenuItem key={i + 1} value={i + 1}>
-                        {i + 1}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </Grid>
-                <Grid item>
-                  <GroupAddIcon />
-                </Grid>
-              </Grid>
-              <Grid item  alignItems="center">
-                <Grid item>
-                  <AltRouteIcon />
-                </Grid>
-                <Grid item xs>
-                  <Select
-                    fullWidth
-                    label="roadType"
-                    variant="standard"
-                    defaultValue="type"
-                    required
-                  >
-                    <MenuItem value="type" disabled>בחר סוג מסלול</MenuItem>
-                    <MenuItem value="regular">רגיל</MenuItem>
-                    <MenuItem value="accessible">נגיש</MenuItem>
-                  </Select>
-                </Grid>
-                <Grid item>
-                  <IconButton onClick={handleInfoClick}>
-                    <InfoIcon />
-                  </IconButton>
-                  <Dialog open={showInfo} onClose={handleInfoClose}>
-                    <DialogTitle style={{ direction: "rtl", fontWeight: "bold" }}> סוגי מסלולים</DialogTitle>
-                    <DialogContent style={{ direction: "rtl" }}>
-                      <Typography> מסלול נגיש- מסלול המכיל תחנות נגישות* בלבד
-                        <p style={{ fontSize: "12px" }}>*תחנות עם דרכי גישה נוחות וללא מכשולים לאנשים עם מגבלת ניידות</p>
-                      </Typography>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleInfoClose} style={{ direction: "rtl", color: "#004a3a" }}>
-                        סגור
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
-                </Grid>
-              </Grid>
-              <Grid item>
-                <Typography variant="caption" >:הזן טווח גילאים</Typography>
-              </Grid>
-              <Grid item>
+            <Row className="mb-3">
+              <Header textToHeader={txtToHeader}></Header>
+            </Row>
+            <Row className="mb-3">
+              <Col xs={9}>
+                <TextField label="שם הקבוצה" type="groupName" variant="standard" fullWidth required style={{ textAlign: 'center' }}/>
+              </Col>
+              <Col xs={3} className="d-flex align-items-center">
+                <Groups2Icon style={{ marginTop: "25px" }} />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col xs={9}>
+                <Select
+                  fullWidth
+                  value={numOfParticipants}
+                  onChange={handleNumOfParticipantsChange}
+                  label="NumOfParticipants"
+                  variant="standard"
+                  defaultValue="NumOfParticipants"
+                  required
+                  displayEmpty
+                  renderValue={(value) => value || 'כמות משתתפים '}
+                >
+                  <MenuItem value="NumOfParticipants" disabled>
+                    כמות משתתפים
+                  </MenuItem>
+                  {Array.from({ length: 14 }, (_, i) => (
+                    <MenuItem key={i + 1} value={i + 1}>
+                      {i + 1}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </Col>
+              <Col xs={3} className="d-flex align-items-center">
+                <GroupAddIcon />
+              </Col>
+            </Row>
+            <Row className="mb-3"  style={{ position: 'relative' }}>
+                <IconButton onClick={handleInfoClick}   style={{ position: 'absolute', right: '50%', top: '50%', transform: 'translateY(-50%)' }}>
+                  <InfoIcon />
+                </IconButton>
+                <Dialog open={showInfo} onClose={handleInfoClose}>
+                  <DialogTitle style={{ direction: "rtl", fontWeight: "bold" }}> סוגי מסלולים</DialogTitle>
+                  <DialogContent style={{ direction: "rtl" }}>
+                    <Typography> מסלול נגיש- מסלול המכיל תחנות נגישות* בלבד
+                      <p style={{ fontSize: "12px" }}>*תחנות עם דרכי גישה נוחות וללא מכשולים לאנשים עם מגבלת ניידות</p>
+                    </Typography>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleInfoClose} style={{ direction: "rtl", color: "#004a3a" }}>
+                      סגור
+                    </Button>
+                  </DialogActions>
+                </Dialog>
+              <Col xs={9}>
+                <Select
+                  fullWidth
+                  label="roadType"
+                  variant="standard"
+                  defaultValue="type"
+                  required
+                >
+                  <MenuItem value="type" disabled>בחר סוג מסלול</MenuItem>
+                  <MenuItem value="regular">רגיל</MenuItem>
+                  <MenuItem value="accessible">נגיש</MenuItem>
+                </Select>
+              </Col>
+              <Col xs={3} className="d-flex align-items-center">
+                <AltRouteIcon />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col xs={9}>
                 <Select
                   fullWidth
                   value={minAge}
@@ -167,9 +163,13 @@ const cacheRtl = createCache({
                     </MenuItem>
                   ))}
                 </Select>
-              </Grid>
-
-              <Grid item>
+              </Col>
+              <Col xs={3} className="d-flex align-items-center">
+                <EscalatorWarningIcon />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col xs={9}>
                 <Select
                   fullWidth
                   value={maxAge}
@@ -189,15 +189,19 @@ const cacheRtl = createCache({
                     </MenuItem>
                   ))}
                 </Select>
-              </Grid>
-              <Grid item>
-                <MainButton textToBtn={txtToBtn}></MainButton>
-              </Grid>
+              </Col>
+              <Col xs={3} className="d-flex align-items-center">
+                <EscalatorWarningIcon />
+              </Col>
+            </Row>
+            <Grid item  style={{ marginTop:"40%" }}>
+              <MainButton textToBtn={txtToBtn}></MainButton>
             </Grid>
+
           </form>
         </ThemeProvider>
         <FooterGraphic />
-      </CacheProvider>
+      </CacheProvider >
     </>
   );
 }
