@@ -61,7 +61,7 @@
   margin-bottom: 5px;
   margin-left: auto;
   position: absolute; /* Position the button absolutely */
-  left: 30%; /* Align the button to the right of its parent */
+  left: 25%; /* Align the button to the right of its parent */
   /* Add margin-bottom to create space between the button and the question */
 }
 
