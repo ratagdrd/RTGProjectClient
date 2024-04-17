@@ -9,6 +9,8 @@ import MapGame from "./FuncComp/MapGame";
 import Flag from "./pages/Flag";
 import familyPhoto from "./images/familyPhoto.jpeg";
 import BonusStation from "./pages/BonusStation";
+import WordGamePage1 from "./pages/WordGamePage1";
+
 function App() {
   return (
     <>
@@ -26,6 +28,7 @@ function App() {
                 <BonusStation familyImg={familyPhoto} MaxAgediffrence="50" />
               }
             />
+          <Route path="/WordGameInst" element={<WordGamePage1/>} />
           </Routes>
         </div>
       </Router>
