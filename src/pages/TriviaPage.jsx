@@ -8,6 +8,7 @@ import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutl
 import { IconButton } from "@mui/material";
 import FooterGraphic from "../FuncComp/FooterGraphic";
 import { useEffect } from "react";
+import { IndeterminateCheckBox } from "@mui/icons-material";
 
 export default function TriviaPage() {
   const [data,setData]=useState(null);
@@ -20,7 +21,7 @@ export default function TriviaPage() {
   const [popupMessage, setPopupMessage] = useState(null);
   const [currentQues, setCurrentQues] = useState(0);
   
-
+//TODO להוסיף רנדום בתשובות וניקוד
 
   useEffect(() => {
     onLoad();
@@ -57,7 +58,7 @@ export default function TriviaPage() {
   const fillTrivia = (data) => {
     
     if(currentQues>1){
-      // יש 10 שאלות, צריך לעבוד מעבר לעמוד אחר ולהחליף ל10
+      // יש 10 שאלות, צריך לעבוד מעבר לעמוד אחר ולהחליף ל10 וגם לעשות פוסט לניקוד
       window.location.href = 'http://localhost:5173';
         return;
     }
@@ -77,15 +78,17 @@ export default function TriviaPage() {
 
 
   const handleAnswerClick = (index) => {
-    debugger
     setSelectedAnswer(index);
+    console.log(selectedAnswer); 
+    console.log(correctAns);
+
     const buttons = document.querySelectorAll('.buttons-game');
     buttons.forEach((button, i) => {
       if (i !== correctAns) {
         button.classList.add('wrong-ans');
       }
     });
-    const message = index === correctAns ? "Good job!" : "Wrong answer!";
+    const message = index === correctAns ? "תשובה נכונה" : "טעות, נסה בפעם הבאה";
   setPopupMessage(message);
 
   // Hide the message after 3 seconds
@@ -99,8 +102,6 @@ export default function TriviaPage() {
         button.classList.remove('wrong-ans');
       }
     });
-   
-
   }, 3000);
   };
 

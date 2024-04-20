@@ -1,12 +1,86 @@
 import React, { useState } from 'react';
 import "./../css/Games.css";
-
+import { useEffect } from 'react';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import { Button, Typography, IconButton, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import FooterGraphic from "../FuncComp/FooterGraphic";
 import InfoIcon from '@mui/icons-material/Info';
 
 export default function WordGamePage2() {
+    const [data,setData]=useState(null);
+    const [word, setWord] = useState("");
+    const [popupMessage, setPopupMessage] = useState(null);
+    const [quesNum, setQuesNum] = useState(0);
+    const [currentQues, setCurrentQues] = useState(0);
+    const [showInfo, setShowInfo] = useState(false);
+    const percentage = (quesNum / 5) * 100;
+    const Instructions = "נציג מהמקריאים אומר בקול את המילה הכתובה על המסך (שימו לב- המטרה שהמנחשים ישמעו את המילה גם בלי שתצעקו!). קבוצת השומעים תשלח נציג לבמה שיאמר את המילה ששמעו בכל שלב החליפו נציגים. ";
+
+
+    useEffect(() => {
+        onLoad();
+      }, []);
+    
+    
+      const onLoad = () => {
+        fetch("https://localhost:7052/api/QuestionForActivity/2", {
+          method: 'GET',
+          headers: new Headers({
+            'Content-Type': 'application/json; charset=UTF-8',
+          })
+        })
+          .then(res => {
+            console.log('res=', res);
+            console.log('res.status', res.status);
+            console.log('res.ok', res.ok);
+            return res.json()
+          })
+          .then(
+            (result) => {
+              console.log("fetch result: ", result);
+              setData(result);
+              fillWord(result);
+              // Process the result as needed
+            },
+            (error) => {
+              console.log("Error fetching word data:", error);
+            }
+          );
+      };
+    
+    
+      const fillWord = (data) => {  
+        if(currentQues>1){
+          // יש 5 מילים, צריך לעבוד מעבר לעמוד אחר ולהחליף ל5 וגם לעשות פוסט לניקוד
+          window.location.href = 'http://localhost:5173';
+            return;
+        }
+        setWord(data[currentQues]["question"]);
+       setQuesNum(data[currentQues]["questionNo"]);
+    
+      }
+      useEffect(() => {
+        if (currentQues !== 0) {
+          fillWord(data);
+        }
+      }, [currentQues]);
+    
+    
+      const handleAnswerClick = (event) => {
+        const index = event.target.dataset.index;
+    console.log(index);
+        const message = index == 1 ? "כל הכבוד" : "נסה בפעם הבאה";
+      setPopupMessage(message);
+    
+      // Hide the message after 3 seconds
+      setTimeout(() => {
+        setPopupMessage(null);
+        setCurrentQues(prevCurrentQues => prevCurrentQues + 1);
+        console.log(currentQues);
+      }, 3000);
+      };
+    
+
 
     const handleInfoClick = () => {
         setShowInfo(!showInfo);
@@ -16,15 +90,11 @@ export default function WordGamePage2() {
     };
 
 
-    const [showInfo, setShowInfo] = useState(false);
-    const percentage = (1 / 5) * 100;
-    const Word = ["היפודרום"];
-    const Instructions = "נציג מהמקריאים אומר בקול את המילה הכתובה על המסך (שימו לב- המטרה שהמנחשים ישמעו את המילה גם בלי שתצעקו!). קבוצת השומעים תשלח נציג לבמה שיאמר את המילה ששמעו בכל שלב החליפו נציגים. ";
-
+   
     return (
         <>
             <div className="container">
-
+            {popupMessage && <div className="popup-message">{popupMessage}</div>}
                 <div className="quesProgress-container">
                     <IconButton onClick={handleInfoClick}>
                         <InfoIcon />
@@ -40,7 +110,7 @@ export default function WordGamePage2() {
                             </Button>
                         </DialogActions>
                     </Dialog>
-                    <div className="quesProgress">Q1/5</div>
+                    <div className="quesProgress">Q{currentQues+1}/5</div>
                     <IconButton className="next-button-container" style={{ color: "#004a3a" }}> <ArrowForwardIosOutlinedIcon /> </IconButton>
                 </div>
             </div>
@@ -50,12 +120,12 @@ export default function WordGamePage2() {
             </div>
 
             <div className="words-container">
-                {Word}
+                {word}
             </div>
 
             <div className="answers-container">
-                <button className="buttons-game correct-ans">מילה נכונה</button>
-                <button className="buttons-game wrong-ans"> טעות</button>
+                <button className="buttons-game correct-ans" data-index="1" onClick={handleAnswerClick}>מילה נכונה</button>
+                <button className="buttons-game wrong-ans" data-index="0" onClick={handleAnswerClick}> טעות</button>
             </div>
 
 
