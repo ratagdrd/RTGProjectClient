@@ -15,8 +15,8 @@ export default function WordGamePage2() {
     const [totalPoints, setTotalPoints] = useState(0);
     const [points, setPoints] = useState(0);
     const [showInfo, setShowInfo] = useState(false);
+    const [Instructions, setInstructions] = useState("");
     const percentage = (quesNum / 5) * 100;
-    const Instructions = "נציג מהמקריאים אומר בקול את המילה הכתובה על המסך (שימו לב- המטרה שהמנחשים ישמעו את המילה גם בלי שתצעקו!). קבוצת השומעים תשלח נציג לבמה שיאמר את המילה ששמעו בכל שלב החליפו נציגים. ";
 
 
     useEffect(() => {
@@ -51,6 +51,33 @@ export default function WordGamePage2() {
                     console.log("Error fetching word data:", error);
                 }
             );
+  // Fetch from Activity Data table
+  fetch("https://localhost:7052/api/Activity", {
+    method: 'GET',
+    headers: new Headers({
+        'Content-Type': 'application/json; charset=UTF-8',
+    })
+})
+    .then(res => res.json())
+    .then(
+        (activities) => {
+            console.log("Activities fetch result: ", activities);
+            // Filter activities to find the one with activity code 2
+            const activity = activities.find(activity => activity.activitycode === 2);
+            if (activity) {
+                console.log("Activity with code 2:", activity);
+                const instructions = activity && activity.instruction ? activity.instruction : '';
+                console.log(instructions);
+                setInstructions(instructions); // Set instructions state based on the fetched data
+            } else {
+                console.log("Activity with code 2 not found.");
+            }
+            // Process the result as needed
+        },
+        (error) => {
+            console.log("Error fetching activity data:", error);
+        }
+    );
     };
 
 
@@ -74,13 +101,13 @@ export default function WordGamePage2() {
     const handleAnswerClick = (event) => {
         const index = event.target.dataset.index;
         console.log(index);
-        const message = index == 1 ? " כל הכבוד! זכיתם ב" +points+ " נקודות " : "אולי בפעם הבאה";
+        const message = index == 1 ? " כל הכבוד! זכיתם ב" + points + " נקודות " : "אולי בפעם הבאה";
         setPopupMessage(message);
 
         // Increment points if correct answer
         if (index == 1) {
             setTotalPoints(prevTotalPoints => prevTotalPoints + points);
-            console.log("points:" +totalPoints);
+            console.log("points:" + totalPoints);
         }
 
         // Hide the message after 3 seconds
