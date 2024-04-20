@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./../css/Games.css";
 import pic1 from "../images/HordusPort.jpg";
+import { useNavigate } from "react-router-dom";
+
 
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import { IconButton } from "@mui/material";
@@ -8,12 +10,16 @@ import FooterGraphic from "../FuncComp/FooterGraphic";
 import { useEffect } from "react";
 
 export default function TriviaPage() {
+  const [data,setData]=useState(null);
   const [question, setQuestion] = useState("");
   const [ansList, setAnsList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [correctAns, setCorrectAns] = useState(0);
   const [quesNum, setQuesNum] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [popupMessage, setPopupMessage] = useState(null);
+  const [currentQues, setCurrentQues] = useState(0);
+  
 
 
   useEffect(() => {
@@ -37,6 +43,7 @@ export default function TriviaPage() {
       .then(
         (result) => {
           console.log("fetch result: ", result);
+          setData(result);
           fillTrivia(result);
           // Process the result as needed
         },
@@ -48,13 +55,23 @@ export default function TriviaPage() {
 
 
   const fillTrivia = (data) => {
-    setQuestion(data[0]["question"]);
-    setAnsList([data[0]["answer1"], data[0]["answer2"], data[0]["answer3"], data[0]["answer4"]]);
-    setCorrectAns(data[0]["correctedAnswer"]);
-    setQuesNum(data[0]["questionNo"]);
+    
+    if(currentQues>1){
+      // יש 10 שאלות, צריך לעבוד מעבר לעמוד אחר ולהחליף ל10
+      window.location.href = 'http://localhost:5173';
+        return;
+    }
+    setQuestion(data[currentQues]["question"]);
+    setAnsList([data[currentQues]["answer1"], data[currentQues]["answer2"], data[currentQues]["answer3"], data[currentQues]["answer4"]]);
+    setCorrectAns(data[currentQues]["correctedAnswer"]);
+    setQuesNum(data[currentQues]["questionNo"]);
 
   }
-
+  useEffect(() => {
+    if (currentQues !== 0) {
+      fillTrivia(data);
+    }
+  }, [currentQues]);
 
   const percentage = (quesNum / 10) * 100;
 
@@ -68,14 +85,31 @@ export default function TriviaPage() {
         button.classList.add('wrong-ans');
       }
     });
+    const message = index === correctAns ? "Good job!" : "Wrong answer!";
+  setPopupMessage(message);
 
+  // Hide the message after 3 seconds
+  setTimeout(() => {
+    setPopupMessage(null);
+    setCurrentQues(prevCurrentQues => prevCurrentQues + 1);
+    
+    console.log(currentQues);
+    buttons.forEach((button, i) => {
+      if (i !== correctAns) {
+        button.classList.remove('wrong-ans');
+      }
+    });
+   
+
+  }, 3000);
   };
 
 
   return (
     <div className="trivia-game">
+    {popupMessage && <div className="popup-message">{popupMessage}</div>}
       <div className="quesProgress-container">
-        <div className="quesProgress">Q1/10</div>
+        <div className="quesProgress">Q{currentQues+1}/10</div>
         <IconButton className="next-button-container" style={{ color: "#004a3a" }}> <ArrowForwardIosOutlinedIcon /> </IconButton>
       </div>
 
@@ -101,7 +135,7 @@ export default function TriviaPage() {
           </button>
         ))}
       </div>
-      <FooterGraphic />
+      {/* <FooterGraphic /> */}
     </div>
   );
 }
