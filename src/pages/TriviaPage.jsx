@@ -17,6 +17,8 @@ export default function TriviaPage() {
   const [loading, setLoading] = useState(true);
   const [correctAns, setCorrectAns] = useState(0);
   const [quesNum, setQuesNum] = useState(0);
+  const [totalPoints, setTotalPoints] = useState(0);
+  const [points, setPoints] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [popupMessage, setPopupMessage] = useState(null);
   const [currentQues, setCurrentQues] = useState(0);
@@ -46,6 +48,9 @@ export default function TriviaPage() {
           console.log("fetch result: ", result);
           setData(result);
           fillTrivia(result);
+          const pointsFromDatabase = result[currentQues]["noOfPoints"];
+          setTotalPoints(pointsFromDatabase);
+          setPoints(pointsFromDatabase);
           // Process the result as needed
         },
         (error) => {
@@ -88,8 +93,14 @@ export default function TriviaPage() {
         button.classList.add('wrong-ans');
       }
     });
-    const message = index === correctAns ? "תשובה נכונה" : "טעות, נסה בפעם הבאה";
+    const message = index == 1 ? " כל הכבוד! זכיתם ב" +points+ " נקודות " : "אולי בפעם הבאה";
   setPopupMessage(message);
+
+   // Increment points if correct answer
+   if (index == 1) {
+    setTotalPoints(prevTotalPoints => prevTotalPoints + points);
+    console.log("points:" +totalPoints);
+}
 
   // Hide the message after 3 seconds
   setTimeout(() => {
