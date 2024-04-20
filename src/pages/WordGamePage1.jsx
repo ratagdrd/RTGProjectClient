@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./../css/Instructions.css";
+import "./../css/GeneralPages.css";
 
 
 import MainButton from "../FuncComp/MainButton";
@@ -15,7 +15,7 @@ export default function wordGamePage1() {
   const txtToHeader = "ברוכים הבאים לאמפי תיאטרון ";
 
   return (
-    <div className="instDiv">
+    <div className="container-1">
       <div className="headerInst">
       <Header textToHeader={txtToHeader} />
       </div>
