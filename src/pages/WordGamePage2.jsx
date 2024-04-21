@@ -16,6 +16,8 @@ export default function WordGamePage2() {
     const [points, setPoints] = useState(0);
     const [showInfo, setShowInfo] = useState(false);
     const [Instructions, setInstructions] = useState("");
+    const [gameOver, setGameOver] = useState(false);
+
     const percentage = (quesNum / 5) * 100;
 
 
@@ -51,42 +53,44 @@ export default function WordGamePage2() {
                     console.log("Error fetching word data:", error);
                 }
             );
-  // Fetch from Activity Data table
-  fetch("https://localhost:7052/api/Activity", {
-    method: 'GET',
-    headers: new Headers({
-        'Content-Type': 'application/json; charset=UTF-8',
-    })
-})
-    .then(res => res.json())
-    .then(
-        (activities) => {
-            console.log("Activities fetch result: ", activities);
-            // Filter activities to find the one with activity code 2
-            const activity = activities.find(activity => activity.activitycode === 2);
-            if (activity) {
-                console.log("Activity with code 2:", activity);
-                const instructions = activity && activity.instruction ? activity.instruction : '';
-                console.log(instructions);
-                setInstructions(instructions); // Set instructions state based on the fetched data
-            } else {
-                console.log("Activity with code 2 not found.");
-            }
-            // Process the result as needed
-        },
-        (error) => {
-            console.log("Error fetching activity data:", error);
-        }
-    );
+        // Fetch from Activity Data table
+        fetch("https://localhost:7052/api/Activity", {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json; charset=UTF-8',
+            })
+        })
+            .then(res => res.json())
+            .then(
+                (activities) => {
+                    console.log("Activities fetch result: ", activities);
+                    // Filter activities to find the one with activity code 2
+                    const activity = activities.find(activity => activity.activitycode === 2);
+                    if (activity) {
+                        console.log("Activity with code 2:", activity);
+                        const instructions = activity && activity.instruction ? activity.instruction : '';
+                        console.log(instructions);
+                        setInstructions(instructions); // Set instructions state based on the fetched data
+                    } else {
+                        console.log("Activity with code 2 not found.");
+                    }
+                    // Process the result as needed
+                },
+                (error) => {
+                    console.log("Error fetching activity data:", error);
+                }
+            );
     };
 
 
     const fillWord = (data) => {
-        if (currentQues > 5) {
-            // יש 5 מילים, צריך לעבוד מעבר לעמוד אחר ולהחליף ל5 וגם לעשות פוסט לניקוד
-            window.location.href = 'http://localhost:5173';
+        console.log("current before the if " + currentQues);
+        if (currentQues == 4) {
+            setGameOver(true);
+            setQuesNum(currentQues+1);
             return;
         }
+        console.log(currentQues);
         setWord(data[currentQues]["question"]);
         setQuesNum(data[currentQues]["questionNo"]);
 
@@ -96,6 +100,7 @@ export default function WordGamePage2() {
             fillWord(data);
         }
     }, [currentQues]);
+
 
 
     const handleAnswerClick = (event) => {
@@ -113,7 +118,10 @@ export default function WordGamePage2() {
         // Hide the message after 3 seconds
         setTimeout(() => {
             setPopupMessage(null);
-            setCurrentQues(prevCurrentQues => prevCurrentQues + 1);
+            if (currentQues < 4) {
+                console.log("current on the if " + currentQues);
+                setCurrentQues(prevCurrentQues => prevCurrentQues + 1);
+            }
             console.log(currentQues);
         }, 3000);
     };
@@ -166,7 +174,21 @@ export default function WordGamePage2() {
                 <button className="buttons-game wrong-ans" data-index="0" onClick={handleAnswerClick}> טעות</button>
             </div>
 
-
+            {gameOver && (
+                <div className="game-over-popup" style={{ fontWeight: "100" }}>
+                    <div>
+                        <h4 className='game-over-header'>התחנה הסתיימה</h4>
+                        <p className='pWithoutmargin'>קצת מידע על המילים שניחשתם:</p>
+                        {data.map((item, index) => (
+                            <div key={index}>
+                                {console.log(item.answer1)}
+                                <p className='pWithoutmargin'> {item.question}: {item.answer1}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <button onClick={() => setGameOver(false)}>המשך </button>
+                </div>
+            )}
             <FooterGraphic />
 
         </>
