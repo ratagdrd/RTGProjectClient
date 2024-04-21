@@ -84,7 +84,9 @@ export default function TriviaPage() {
 
   const handleAnswerClick = (index) => {
     setSelectedAnswer(index);
+    console.log("selected"); 
     console.log(selectedAnswer); 
+    console.log("correct"); 
     console.log(correctAns);
 
     const buttons = document.querySelectorAll('.buttons-game');
@@ -93,7 +95,7 @@ export default function TriviaPage() {
         button.classList.add('wrong-ans');
       }
     });
-    const message = index == 1 ? " כל הכבוד! זכיתם ב" +points+ " נקודות " : "אולי בפעם הבאה";
+    const message = index === correctAns ? " כל הכבוד! זכיתם ב" +points+ " נקודות " : "אולי בפעם הבאה";
   setPopupMessage(message);
 
    // Increment points if correct answer
