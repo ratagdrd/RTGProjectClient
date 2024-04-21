@@ -85,9 +85,10 @@ export default function WordGamePage2() {
 
     const fillWord = (data) => {
         console.log("current before the if " + currentQues);
-        if (currentQues == 4) {
+        if (currentQues == 5) {
             setGameOver(true);
-            setQuesNum(currentQues+1);
+            console.log(quesNum);
+            setCurrentQues(quesNum);
             return;
         }
         console.log(currentQues);
@@ -118,7 +119,7 @@ export default function WordGamePage2() {
         // Hide the message after 3 seconds
         setTimeout(() => {
             setPopupMessage(null);
-            if (currentQues < 4) {
+            if (currentQues < 5) {
                 console.log("current on the if " + currentQues);
                 setCurrentQues(prevCurrentQues => prevCurrentQues + 1);
             }
@@ -156,7 +157,7 @@ export default function WordGamePage2() {
                             </Button>
                         </DialogActions>
                     </Dialog>
-                    <div className="quesProgress">Q{currentQues + 1}/5</div>
+                    <div className="quesProgress">Q{quesNum}/5</div>
                     <IconButton className="next-button-container" style={{ color: "#004a3a" }}> <ArrowForwardIosOutlinedIcon /> </IconButton>
                 </div>
             </div>
@@ -177,12 +178,14 @@ export default function WordGamePage2() {
             {gameOver && (
                 <div className="game-over-popup" style={{ fontWeight: "100" }}>
                     <div>
-                        <h4 className='game-over-header'>התחנה הסתיימה</h4>
-                        <p className='pWithoutmargin'>קצת מידע על המילים שניחשתם:</p>
+                        <h4 className='game-over-header'> כל הכבוד משפחת שנהב</h4>
+                        <h5 className='game-over-header'>השלמתם את אתגר המילים!</h5>
+                        <h5 className='game-over-header'>{" זכיתם ב" + totalPoints + " נקודות "}</h5>
+                        <p className='game-over-p'>קצת מידע על המילים:</p>
                         {data.map((item, index) => (
                             <div key={index}>
                                 {console.log(item.answer1)}
-                                <p className='pWithoutmargin'> {item.question}: {item.answer1}</p>
+                                <p className='game-over-p'> {item.question}: {item.answer1}</p>
                             </div>
                         ))}
                     </div>

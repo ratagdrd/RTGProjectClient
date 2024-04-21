@@ -1,5 +1,6 @@
 /*trivia*/
 @import url("https://fonts.googleapis.com/css2?family=Secular+One&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
 
 .trivia-game {
   display: flex;
@@ -145,6 +146,7 @@
   direction: rtl;
   border-radius: 10px;
   width: 25%;
+  font-family: 'Rubik', sans-serif;
 }
 
 .game-over-popup button {
@@ -163,13 +165,17 @@
   background-color: #003529;
 }
 
-.pWithoutmargin {
-  margin-bottom: 10px;
+.game-over-p {
+  margin-bottom: 3px;
+  font-weight: 100 !important;
+  text-align: right;
 }
 
 .game-over-header{
   margin: 10px 0px;
   color: #004a3a;
+  text-align: center;
+  font-weight: bold;
 }
 
 
