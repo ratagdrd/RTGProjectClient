@@ -99,7 +99,7 @@ export default function TriviaPage() {
   setPopupMessage(message);
 
    // Increment points if correct answer
-   if (index == 1) {
+   if (index == correctAns) {
     setTotalPoints(prevTotalPoints => prevTotalPoints + points);
     console.log("points:" +totalPoints);
 }
