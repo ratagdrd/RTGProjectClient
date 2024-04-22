@@ -12,7 +12,9 @@ import BonusStation from "./pages/BonusStation";
 import WordGamePage1 from "./pages/WordGamePage1";
 import WordGamePage2 from "./pages/WordGamePage2";
 import RatingPage from "./pages/RatingPage";
-
+import TheSpeakerComp from "./AR/TheSpeaker";
+import DummyComp from "./AR/DummyComp";
+import TestComp from "./AR/TestComp";
 function App() {
   return (
     <>
@@ -30,9 +32,11 @@ function App() {
                 <BonusStation familyImg={familyPhoto} MaxAgediffrence="50" />
               }
             />
-          <Route path="/WordGameInst" element={<WordGamePage1/>} />
-          <Route path="/WordGame" element={<WordGamePage2/>} />
-          <Route path="/Rating" element={<RatingPage/>} />
+            <Route path="/WordGameInst" element={<WordGamePage1 />} />
+            <Route path="/WordGame" element={<WordGamePage2 />} />
+            <Route path="/Rating" element={<RatingPage />} />
+            <Route path="/ARR" element={<TheSpeakerComp />} />
+            <Route path="/dummy" element={<TestComp />} />
           </Routes>
         </div>
       </Router>

@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Secular+One&display=swap");
 
-
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -46,7 +45,6 @@
 
 /* our css */
 /* App.css  */
-
 .app-container {
   font-family: "Secular One", sans-serif;
   font-weight: bold;
@@ -60,7 +58,6 @@
   border-radius: 20px;
   width: 404px;
 }
-
 .welcome-page {
   display: flex;
   flex-direction: column;
