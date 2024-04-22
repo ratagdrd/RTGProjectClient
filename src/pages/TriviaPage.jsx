@@ -62,7 +62,7 @@ export default function TriviaPage() {
 
   const fillTrivia = (data) => {
     
-    if(currentQues>1){
+    if(currentQues>8){
       // יש 10 שאלות, צריך לעבוד מעבר לעמוד אחר ולהחליף ל10 וגם לעשות פוסט לניקוד
       window.location.href = 'http://localhost:5173';
         return;
@@ -79,7 +79,7 @@ export default function TriviaPage() {
     }
   }, [currentQues]);
 
-  const percentage = (quesNum / 10) * 100;
+  const percentage = (quesNum / 9) * 100;
 
 
   const handleAnswerClick = (index) => {
@@ -91,11 +91,11 @@ export default function TriviaPage() {
 
     const buttons = document.querySelectorAll('.buttons-game');
     buttons.forEach((button, i) => {
-      if (i !== correctAns) {
+      if (i !== (correctAns-1)) {
         button.classList.add('wrong-ans');
       }
     });
-    const message = index === correctAns ? " כל הכבוד! זכיתם ב" +points+ " נקודות " : "אולי בפעם הבאה";
+    const message = index === (correctAns-1) ? " כל הכבוד! זכיתם ב" +points+ " נקודות " : "אולי בפעם הבאה";
   setPopupMessage(message);
 
    // Increment points if correct answer
@@ -104,14 +104,14 @@ export default function TriviaPage() {
     console.log("points:" +totalPoints);
 }
 
-  // Hide the message after 3 seconds
+  // Hide the message after 3 seconds and remove the red background
   setTimeout(() => {
     setPopupMessage(null);
     setCurrentQues(prevCurrentQues => prevCurrentQues + 1);
     
     console.log(currentQues);
     buttons.forEach((button, i) => {
-      if (i !== correctAns) {
+      if (i !== (correctAns-1)) {
         button.classList.remove('wrong-ans');
       }
     });
@@ -123,7 +123,7 @@ export default function TriviaPage() {
     <div className="trivia-game">
     {popupMessage && <div className="popup-message">{popupMessage}</div>}
       <div className="quesProgress-container">
-        <div className="quesProgress">Q{currentQues+1}/10</div>
+        <div className="quesProgress">Q{currentQues+1}/9</div>
         <IconButton className="next-button-container" style={{ color: "#004a3a" }}> <ArrowForwardIosOutlinedIcon /> </IconButton>
       </div>
 
