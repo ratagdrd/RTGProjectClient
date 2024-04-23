@@ -14,8 +14,7 @@ import WordGamePage2 from "./pages/WordGamePage2";
 import RatingPage from "./pages/RatingPage";
 import TheSpeakerComp from "./AR/TheSpeaker";
 import HipodromComp from "./AR/Hipodrom";
-import DummyComp from "./AR/DummyComp";
-import TestComp from "./AR/TestComp";
+import VideoComp from "./AR/VideoComp";
 function App() {
   return (
     <>
@@ -37,8 +36,8 @@ function App() {
             <Route path="/WordGame" element={<WordGamePage2 />} />
             <Route path="/Rating" element={<RatingPage />} />
             <Route path="/theSpeaker" element={<TheSpeakerComp />} />
-            <Route path="/dummy" element={<TestComp />} />
             <Route path="/hipodrom" element={<HipodromComp />} />
+            <Route path="/Video" element={<VideoComp />} />
           </Routes>
         </div>
       </Router>

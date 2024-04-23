@@ -1,6 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+import { useNavigate } from "react-router-dom";
+
 import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
+
 import * as THREE from "three";
+
+import "../css/Remake.css";
 
 const loadTexture = (path) => {
   return new Promise((resolve, reject) => {
@@ -25,7 +31,12 @@ const loadTexture = (path) => {
 
 const TheSpeakerComp = () => {
   const containerRef = useRef(null);
+  const [buttonVisible, setButtonVisible] = useState(false);
+  const navigate = useNavigate();
 
+  const handleFinish = () => {
+    navigate("/");
+  };
   useEffect(() => {
     let mindarThree;
     let rendererCommon;
@@ -65,6 +76,8 @@ const TheSpeakerComp = () => {
       rendererCommon?.setAnimationLoop(() => {
         rendererCommon.render(scene, camera);
       });
+
+      setButtonVisible(true); // Optionally hide the button after AR is initialized
     }
 
     initAR();
@@ -88,9 +101,11 @@ const TheSpeakerComp = () => {
           zIndex: 5,
         }}
       ></div>
-      <button style={{ zIndex: 10 }} onClick={() => console.log("burald")}>
-        submit
-      </button>
+      {buttonVisible && (
+        <button className="finish-button" onClick={handleFinish}>
+          סיימנו, אפשר להמשיך
+        </button>
+      )}
     </>
   );
 };

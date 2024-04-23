@@ -1,0 +1,30 @@
+.start-button {
+  display: block; /* Ensures it fills the container width */
+  width: 80%; /* Button width relative to its container */
+  padding: 12px;
+  margin: 20px auto; /* Center the button horizontally */
+  background-color: #004a3a; /* Light salmon background */
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 50px; /* Rounded edges */
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  z-index: 10;
+}
+.finish-button {
+  display: block; /* Ensures it fills the container width */
+  width: 80%; /* Button width relative to its container */
+  padding: 12px;
+  margin: 20px auto; /* Center the button horizontally */
+  background-color: #004a3a; /* Light salmon background */
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 50px; /* Rounded edges */
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  z-index: 10;
+  position: relative;
+  top: 350px;
+}
