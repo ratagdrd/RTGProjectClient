@@ -17,7 +17,6 @@ export default function WordGamePage2() {
     const [showInfo, setShowInfo] = useState(false);
     const [Instructions, setInstructions] = useState("");
     const [gameOver, setGameOver] = useState(false);
-    const [darkenBackground, setDarkenBackground] = useState(false);
 
     const percentage = (quesNum / 5) * 100;
 
@@ -72,133 +71,132 @@ export default function WordGamePage2() {
                         const instructions = activity && activity.instruction ? activity.instruction : '';
                         console.log(instructions);
                         setInstructions(instructions); // Set instructions state based on the fetched data
-                    } else {
-                        console.log("Activity with code 2 not found.");
-                    }
+
+                        // Handle nullable 'rate' field
+                        const rate = activity.rate !== null ? activity.rate : 0; // Assuming default value is 0
+                        console.log("Rate:", rate);
+                    // Process the result as needed
+                } else {
+                console.log("Activity with code 2 not found.");
+            }
                     // Process the result as needed
                 },
-                (error) => {
-                    console.log("Error fetching activity data:", error);
-                }
+    (error) => {
+        console.log("Error fetching activity data:", error);
+    }
             );
-    };
+};
 
 
-    const fillWord = (data) => {
-        console.log("current before the if " + currentQues);
-        if (currentQues == 5) {
-            setGameOver(true);
-            console.log(quesNum);
-            setCurrentQues(quesNum);
-            return;
+const fillWord = (data) => {
+    console.log("current before the if " + currentQues);
+    if (currentQues == 5) {
+        setGameOver(true);
+        console.log(quesNum);
+        setCurrentQues(quesNum);
+        return;
+    }
+    console.log(currentQues);
+    setWord(data[currentQues]["question"]);
+    setQuesNum(data[currentQues]["questionNo"]);
+
+}
+useEffect(() => {
+    if (currentQues !== 0) {
+        fillWord(data);
+    }
+}, [currentQues]);
+
+
+
+const handleAnswerClick = (event) => {
+    const index = event.target.dataset.index;
+    console.log(index);
+    const message = index == 1 ? " כל הכבוד! זכיתם ב" + points + " נקודות " : "אולי בפעם הבאה";
+    setPopupMessage(message);
+
+    // Increment points if correct answer
+    if (index == 1) {
+        setTotalPoints(prevTotalPoints => prevTotalPoints + points);
+        console.log("points:" + totalPoints);
+    }
+
+    // Hide the message after 3 seconds
+    setTimeout(() => {
+        setPopupMessage(null);
+        if (currentQues < 5) {
+            console.log("current on the if " + currentQues);
+            setCurrentQues(prevCurrentQues => prevCurrentQues + 1);
         }
         console.log(currentQues);
-        setWord(data[currentQues]["question"]);
-        setQuesNum(data[currentQues]["questionNo"]);
-
-    }
-    useEffect(() => {
-        if (currentQues !== 0) {
-            fillWord(data);
-        }
-    }, [currentQues]);
+    }, 3000);
+};
 
 
 
-    const handleAnswerClick = (event) => {
-        const index = event.target.dataset.index;
-        console.log(index);
-        const message = index == 1 ? " כל הכבוד! זכיתם ב" + points + " נקודות " : "אולי בפעם הבאה";
-        setPopupMessage(message);
-
-        // Increment points if correct answer
-        if (index == 1) {
-            setTotalPoints(prevTotalPoints => prevTotalPoints + points);
-            console.log("points:" + totalPoints);
-        }
-
-        // Hide the message after 3 seconds
-        setTimeout(() => {
-            setPopupMessage(null);
-            if (currentQues < 5) {
-                console.log("current on the if " + currentQues);
-                setCurrentQues(prevCurrentQues => prevCurrentQues + 1);
-            }
-            console.log(currentQues);
-        }, 3000);
-    };
+const handleInfoClick = () => {
+    setShowInfo(!showInfo);
+};
+const handleInfoClose = () => {
+    setShowInfo(false);
+};
 
 
 
-    const handleInfoClick = () => {
-        setShowInfo(!showInfo);
-    };
-    const handleInfoClose = () => {
-        setShowInfo(false);
-    };
+return (
+    <>
+        <div className= "container">
+            {popupMessage && <div className="popup-message">{popupMessage}</div>}
+            <div className="quesProgress-container">
+                <IconButton onClick={handleInfoClick}>
+                    <InfoIcon />
+                </IconButton>
+                <Dialog open={showInfo} onClose={handleInfoClose}>
+                    <DialogTitle className="instructions" style={{ direction: "rtl", padding: "10px 14px" }}> הוראות</DialogTitle>
+                    <DialogContent style={{ direction: "rtl", width: '350px', padding: "0px 14px 10px" }}>
+                        <Typography className="instructions" > {Instructions} </Typography>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleInfoClose} style={{ direction: "rtl", color: "#004a3a" }}>
+                            סגור
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+                <div className="quesProgress">Q{quesNum}/5</div>
+                <IconButton className="next-button-container" style={{ color: "#004a3a" }}> <ArrowForwardIosOutlinedIcon /> </IconButton>
+            </div>
+        </div>
 
-    useEffect(() => {
-        if (gameOver) {
-          setDarkenBackground(true);
-        }
-      }, [gameOver]);
+        <div className="progress-bar-container">
+            <div className="progress-bar" style={{ width: `${percentage}%` }}>  </div>
+        </div>
 
+        <div className="words-container">
+            {word}
+        </div>
 
+        <div className="answers-container">
+            <button className="buttons-game correct-ans" data-index="1" onClick={handleAnswerClick}>מילה נכונה</button>
+            <button className="buttons-game wrong-ans" data-index="0" onClick={handleAnswerClick}> טעות</button>
+        </div>
 
-    return (
-        <>
-            <div className={`container ${darkenBackground ? 'darken-background' : ''}`}>
-                {popupMessage && <div className="popup-message">{popupMessage}</div>}
-                <div className="quesProgress-container">
-                    <IconButton onClick={handleInfoClick}>
-                        <InfoIcon />
-                    </IconButton>
-                    <Dialog open={showInfo} onClose={handleInfoClose}>
-                        <DialogTitle className="instructions" style={{ direction: "rtl", padding: "10px 14px" }}> הוראות</DialogTitle>
-                        <DialogContent style={{ direction: "rtl", width: '350px', padding: "0px 14px 10px" }}>
-                            <Typography className="instructions" > {Instructions} </Typography>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleInfoClose} style={{ direction: "rtl", color: "#004a3a" }}>
-                                סגור
-                            </Button>
-                        </DialogActions>
-                    </Dialog>
-                    <div className="quesProgress">Q{quesNum}/5</div>
-                    <IconButton className="next-button-container" style={{ color: "#004a3a" }}> <ArrowForwardIosOutlinedIcon /> </IconButton>
+        {gameOver && (
+            <div className="game-over-popup" >
+                <div >
+                    <h4 className='game-over-header'>התחנה הסתיימה</h4>
+                    <p className='game-over-p'>קצת מידע על המילים:</p>
+                    {data.map((item, index) => (
+                        <div key={index}>
+                            {console.log(item.answer1)}
+                            <p className='game-over-p'> {item.question}: {item.answer1}</p>
+                        </div>
+                    ))}
                 </div>
+                <button onClick={() => setGameOver(false)}>המשך </button>
             </div>
+        )}
+        <FooterGraphic />
 
-            <div className="progress-bar-container">
-                <div className="progress-bar" style={{ width: `${percentage}%` }}>  </div>
-            </div>
-
-            <div className="words-container">
-                {word}
-            </div>
-
-            <div className="answers-container">
-                <button className="buttons-game correct-ans" data-index="1" onClick={handleAnswerClick}>מילה נכונה</button>
-                <button className="buttons-game wrong-ans" data-index="0" onClick={handleAnswerClick}> טעות</button>
-            </div>
-
-            {gameOver && (
-                <div className="game-over-popup" >
-                    <div >
-                        <h4 className='game-over-header'>התחנה הסתיימה</h4>
-                        <p className='game-over-p'>קצת מידע על המילים:</p>
-                        {data.map((item, index) => (
-                            <div key={index}>
-                                {console.log(item.answer1)}
-                                <p className='game-over-p'> {item.question}: {item.answer1}</p>
-                            </div>
-                        ))}
-                    </div>
-                    <button onClick={() => setGameOver(false)}>המשך </button>
-                </div>
-            )}
-            <FooterGraphic />
-
-        </>
-    );
+    </>
+);
 }
