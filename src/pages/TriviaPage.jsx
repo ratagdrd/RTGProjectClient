@@ -11,7 +11,7 @@ import { useEffect } from "react";
 import { IndeterminateCheckBox } from "@mui/icons-material";
 
 export default function TriviaPage() {
-  const [data,setData]=useState(null);
+  const [data, setData] = useState(null);
   const [question, setQuestion] = useState("");
   const [ansList, setAnsList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,8 +22,10 @@ export default function TriviaPage() {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [popupMessage, setPopupMessage] = useState(null);
   const [currentQues, setCurrentQues] = useState(0);
-  
-//TODO להוסיף רנדום בתשובות וניקוד
+  const [gameOver, setGameOver] = useState(false);
+  const [darkenBackground, setDarkenBackground] = useState(false);
+
+  //TODO להוסיף רנדום בתשובות וניקוד
 
   useEffect(() => {
     onLoad();
@@ -61,11 +63,11 @@ export default function TriviaPage() {
 
 
   const fillTrivia = (data) => {
-    
-    if(currentQues>8){
+
+    if (currentQues > 8) {
       // יש 10 שאלות, צריך לעבוד מעבר לעמוד אחר ולהחליף ל10 וגם לעשות פוסט לניקוד
-      window.location.href = 'http://localhost:5173';
-        return;
+      setGameOver(true);
+      return;
     }
     setQuestion(data[currentQues]["question"]);
     setAnsList([data[currentQues]["answer1"], data[currentQues]["answer2"], data[currentQues]["answer3"], data[currentQues]["answer4"]]);
@@ -81,49 +83,57 @@ export default function TriviaPage() {
 
   const percentage = (quesNum / 9) * 100;
 
+  useEffect(() => {
+    if (gameOver) {
+      setDarkenBackground(true);
+    }
+  }, [gameOver]);
 
   const handleAnswerClick = (index) => {
     setSelectedAnswer(index);
-    console.log("selected"); 
-    console.log(selectedAnswer); 
-    console.log("correct"); 
+    console.log("selected");
+    console.log(selectedAnswer);
+    console.log("correct");
     console.log(correctAns);
 
     const buttons = document.querySelectorAll('.buttons-game');
     buttons.forEach((button, i) => {
-      if (i !== (correctAns-1)) {
+      if (i !== (correctAns - 1)) {
         button.classList.add('wrong-ans');
       }
     });
-    const message = index === (correctAns-1) ? " כל הכבוד! זכיתם ב" +points+ " נקודות " : "אולי בפעם הבאה";
-  setPopupMessage(message);
+    const message = index === (correctAns - 1) ? " כל הכבוד! זכיתם ב" + points + " נקודות " : "אולי בפעם הבאה";
+    setPopupMessage(message);
 
-   // Increment points if correct answer
-   if (index == correctAns) {
-    setTotalPoints(prevTotalPoints => prevTotalPoints + points);
-    console.log("points:" +totalPoints);
-}
+    // Increment points if correct answer
+    if (index == correctAns) {
+      setTotalPoints(prevTotalPoints => prevTotalPoints + points);
+      console.log("points:" + totalPoints);
+    }
 
-  // Hide the message after 3 seconds and remove the red background
-  setTimeout(() => {
-    setPopupMessage(null);
-    setCurrentQues(prevCurrentQues => prevCurrentQues + 1);
-    
-    console.log(currentQues);
-    buttons.forEach((button, i) => {
-      if (i !== (correctAns-1)) {
-        button.classList.remove('wrong-ans');
-      }
-    });
-  }, 3000);
+    // Hide the message after 3 seconds and remove the red background
+    setTimeout(() => {
+      setPopupMessage(null);
+      setCurrentQues(prevCurrentQues => prevCurrentQues + 1);
+
+      console.log(currentQues);
+      buttons.forEach((button, i) => {
+        if (i !== (correctAns - 1)) {
+          button.classList.remove('wrong-ans');
+        }
+      });
+    }, 3000);
   };
+
+ 
 
 
   return (
-    <div className="trivia-game">
-    {popupMessage && <div className="popup-message">{popupMessage}</div>}
+    <div>
+    <div className={`trivia-game ${darkenBackground ? 'darken-background' : ''}`}>
+      {popupMessage && <div className="popup-message">{popupMessage}</div>}
       <div className="quesProgress-container">
-        <div className="quesProgress">Q{currentQues+1}/9</div>
+        <div className="quesProgress">Q{quesNum}/9</div>
         <IconButton className="next-button-container" style={{ color: "#004a3a" }}> <ArrowForwardIosOutlinedIcon /> </IconButton>
       </div>
 
@@ -149,7 +159,17 @@ export default function TriviaPage() {
           </button>
         ))}
       </div>
-      {/* <FooterGraphic /> */}
+      
+      <FooterGraphic />
     </div>
+    {gameOver && (
+        <div className="game-over-popup" style={{ fontWeight: "100" }}>
+          <div>
+            <h4 className='game-over-header'>התחנה הסתיימה</h4>
+          </div>
+          <button onClick={() => setGameOver(false)}>המשך </button>
+        </div>
+      )}
+      </div>
   );
 }

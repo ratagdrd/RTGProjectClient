@@ -15,7 +15,7 @@ export default function wordGamePage1() {
   const txtToHeader = "ברוכים הבאים לאמפי תיאטרון ";
 
   return (
-    <div className="container-1">
+    <div className="inner-container">
       <div className="headerInst">
       <Header textToHeader={txtToHeader} />
       </div>

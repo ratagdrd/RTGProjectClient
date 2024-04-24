@@ -17,6 +17,7 @@ export default function WordGamePage2() {
     const [showInfo, setShowInfo] = useState(false);
     const [Instructions, setInstructions] = useState("");
     const [gameOver, setGameOver] = useState(false);
+    const [darkenBackground, setDarkenBackground] = useState(false);
 
     const percentage = (quesNum / 5) * 100;
 
@@ -136,11 +137,17 @@ export default function WordGamePage2() {
         setShowInfo(false);
     };
 
+    useEffect(() => {
+        if (gameOver) {
+          setDarkenBackground(true);
+        }
+      }, [gameOver]);
+
 
 
     return (
         <>
-            <div className="container">
+            <div className={`container ${darkenBackground ? 'darken-background' : ''}`}>
                 {popupMessage && <div className="popup-message">{popupMessage}</div>}
                 <div className="quesProgress-container">
                     <IconButton onClick={handleInfoClick}>
@@ -176,11 +183,9 @@ export default function WordGamePage2() {
             </div>
 
             {gameOver && (
-                <div className="game-over-popup" style={{ fontWeight: "100" }}>
-                    <div>
-                        <h4 className='game-over-header'> כל הכבוד משפחת שנהב</h4>
-                        <h5 className='game-over-header'>השלמתם את אתגר המילים!</h5>
-                        <h5 className='game-over-header'>{" זכיתם ב" + totalPoints + " נקודות "}</h5>
+                <div className="game-over-popup" >
+                    <div >
+                        <h4 className='game-over-header'>התחנה הסתיימה</h4>
                         <p className='game-over-p'>קצת מידע על המילים:</p>
                         {data.map((item, index) => (
                             <div key={index}>
