@@ -44,7 +44,6 @@ function App() {
             <Route path="/hipodrom" element={<HipodromComp />} />
             <Route path="/port" element={<PortComp />} />
             <Route path="/amfi" element={<AmfiComp />} />
-
             <Route path="/Video" element={<VideoComp />} />
           </Routes>
         </div>
