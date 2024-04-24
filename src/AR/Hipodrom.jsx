@@ -53,21 +53,16 @@ const HipodromComp = () => {
 
       const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
       scene.add(light);
-      console.log("light", light);
       // Use the loadTexture function to load the image as a texture
       const texture = await loadTexture("/target/remake-hipodrom.jpg"); // Ensure this is correctly pathed
-      console.log("texture", texture);
 
-      const geometry = new THREE.PlaneGeometry(1, 0.55); // Adjust size as needed, consider aspect ratio
-      console.log("geometry", geometry);
+      const geometry = new THREE.PlaneGeometry(1, 1); // Adjust size as needed, consider aspect ratio
 
       const material = new THREE.MeshBasicMaterial({ map: texture });
-      console.log("material", material);
 
       const plane = new THREE.Mesh(geometry, material);
       plane.rotation.x = -Math.PI / 16; // Adjust rotation as needed
       plane.position.set(0, 0, 0); // Adjust position as needed
-      console.log("plane", plane);
 
       const anchor = mindarThree.addAnchor(0);
       anchor.group.add(plane);
