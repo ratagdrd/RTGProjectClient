@@ -29,7 +29,7 @@ const loadTexture = (path) => {
   });
 };
 
-const HipodromComp = () => {
+const PortComp = () => {
   const containerRef = useRef(null);
   const [buttonVisible, setButtonVisible] = useState(false);
   const navigate = useNavigate();
@@ -37,7 +37,6 @@ const HipodromComp = () => {
   const handleFinish = () => {
     navigate("/");
   };
-
   useEffect(() => {
     let mindarThree;
     let rendererCommon;
@@ -45,7 +44,7 @@ const HipodromComp = () => {
     async function initAR() {
       mindarThree = new MindARThree({
         container: containerRef.current,
-        imageTargetSrc: "/target/hipodrom.mind",
+        imageTargetSrc: "/target/sky-look.mind",
       });
       console.log("mind", mindarThree);
       const { scene, camera } = mindarThree;
@@ -53,16 +52,21 @@ const HipodromComp = () => {
 
       const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
       scene.add(light);
+      console.log("light", light);
       // Use the loadTexture function to load the image as a texture
-      const texture = await loadTexture("/target/remake-hipodrom.jpg"); // Ensure this is correctly pathed
+      const texture = await loadTexture("/target/port.jpg"); // Ensure this is correctly pathed
+      console.log("texture", texture);
 
-      const geometry = new THREE.PlaneGeometry(1, 1); // Adjust size as needed, consider aspect ratio
+      const geometry = new THREE.PlaneGeometry(1, 0.55); // Adjust size as needed, consider aspect ratio
+      console.log("geometry", geometry);
 
       const material = new THREE.MeshBasicMaterial({ map: texture });
+      console.log("material", material);
 
       const plane = new THREE.Mesh(geometry, material);
       plane.rotation.x = -Math.PI / 16; // Adjust rotation as needed
       plane.position.set(0, 0, 0); // Adjust position as needed
+      console.log("plane", plane);
 
       const anchor = mindarThree.addAnchor(0);
       anchor.group.add(plane);
@@ -79,7 +83,7 @@ const HipodromComp = () => {
     initAR();
 
     return () => {
-      rendererCommon.setAnimationLoop(null); // This stops the animation loop when component unmounts
+      rendererCommon?.setAnimationLoop(null); // This stops the animation loop when component unmounts
       mindarThree.stop(); // Ensure you properly stop and dispose of resources to prevent memory leaks
     };
   }, []);
@@ -106,4 +110,4 @@ const HipodromComp = () => {
   );
 };
 
-export default HipodromComp;
+export default PortComp;
