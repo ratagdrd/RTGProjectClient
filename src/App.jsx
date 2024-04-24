@@ -15,6 +15,7 @@ import RatingPage from "./pages/RatingPage";
 import TheSpeakerComp from "./AR/TheSpeaker";
 import HipodromComp from "./AR/Hipodrom";
 import VideoComp from "./AR/VideoComp";
+import ImagePost from "./pages/imagePost";
 function App() {
   return (
     <>
@@ -23,6 +24,8 @@ function App() {
           <Routes>
             <Route path="/" element={<WelcomPage />} />
             <Route path="/register" element={<SignGroupPage />} />
+            <Route path="/image" element={<ImagePost />} />
+
             <Route path="/Trivia" element={<TriviaPage />} />
             <Route path="/PlayMap" element={<MapGame />} />
             <Route path="/Flag" element={<Flag familyImg={familyPhoto} />} />

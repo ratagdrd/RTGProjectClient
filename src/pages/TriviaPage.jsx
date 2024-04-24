@@ -63,7 +63,7 @@ export default function TriviaPage() {
   const fillTrivia = (data) => {
     
     if(currentQues>8){
-      // יש 10 שאלות, צריך לעבוד מעבר לעמוד אחר ולהחליף ל10 וגם לעשות פוסט לניקוד
+      // יהיו 10 שאלות, צריך לעבוד מעבר לעמוד אחר ולהחליף ל9 וגם לעשות פוסט לניקוד
       window.location.href = 'http://localhost:5173';
         return;
     }
