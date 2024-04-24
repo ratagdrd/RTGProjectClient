@@ -18,6 +18,7 @@ import VideoComp from "./AR/VideoComp";
 import PortComp from "./AR/Port";
 import AmfiComp from "./AR/Amfi";
 import ImagePost from "./pages/imagePost";
+import FlagRegisterComp from "./pages/FlagRegister";
 function App() {
   return (
     <>
@@ -45,6 +46,7 @@ function App() {
             <Route path="/port" element={<PortComp />} />
             <Route path="/amfi" element={<AmfiComp />} />
             <Route path="/Video" element={<VideoComp />} />
+            <Route path="/flagRegister" element={<FlagRegisterComp />} />
           </Routes>
         </div>
       </Router>

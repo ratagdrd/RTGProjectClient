@@ -8,10 +8,16 @@ import * as THREE from "three";
 
 import "../css/Remake.css";
 
-import { Button, Typography, IconButton, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import InfoIcon from '@mui/icons-material/Info';
-
-
+import {
+  Button,
+  Typography,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
 
 const loadTexture = (path) => {
   return new Promise((resolve, reject) => {
@@ -51,20 +57,23 @@ const TheSpeakerComp = () => {
     async function initAR() {
       // Fetch from Activity Data table
       fetch("https://localhost:7052/api/Activity", {
-        method: 'GET',
+        method: "GET",
         headers: new Headers({
-          'Content-Type': 'application/json; charset=UTF-8',
-        })
+          "Content-Type": "application/json; charset=UTF-8",
+        }),
       })
-        .then(res => res.json())
+        .then((res) => res.json())
         .then(
           (activities) => {
             console.log("Activities fetch result: ", activities);
             // Filter activities to find the one with activity code 3
-            const activity = activities.find(activity => activity.activitycode === 7);
+            const activity = activities.find(
+              (activity) => activity.activitycode === 7
+            );
             if (activity) {
               console.log("Activity with code 3:", activity);
-              const instructions = activity && activity.instruction ? activity.instruction : '';
+              const instructions =
+                activity && activity.instruction ? activity.instruction : "";
               console.log(instructions);
               setInstructions(instructions); // Set instructions state based on the fetched data
 
@@ -135,29 +144,43 @@ const TheSpeakerComp = () => {
     setShowInfo(false);
   };
 
-
   return (
     <>
       <div
-       style={{
-        width: "100%",
-        height: "100%",
-        position: "fixed",
-        top: 30,
-        right: 150,
-        zIndex: 10,
-      }}
+        style={{
+          width: "100%",
+          height: "100%",
+          position: "fixed",
+          top: 30,
+          right: 150,
+          zIndex: 10,
+        }}
       >
         <IconButton onClick={handleInfoClick}>
           <InfoIcon />
         </IconButton>
         <Dialog open={showInfo} onClose={handleInfoClose}>
-          <DialogTitle className="instructions" style={{ direction: "rtl", padding: "10px 14px" }}> הוראות</DialogTitle>
-          <DialogContent style={{ direction: "rtl", width: '350px', padding: "0px 14px 10px" }}>
-            <Typography className="instructions" > {Instructions} </Typography>
+          <DialogTitle
+            className="instructions"
+            style={{ direction: "rtl", padding: "10px 14px" }}
+          >
+            {" "}
+            הוראות
+          </DialogTitle>
+          <DialogContent
+            style={{
+              direction: "rtl",
+              width: "350px",
+              padding: "0px 14px 10px",
+            }}
+          >
+            <Typography className="instructions"> {Instructions} </Typography>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleInfoClose} style={{ direction: "rtl", color: "#004a3a" }}>
+            <Button
+              onClick={handleInfoClose}
+              style={{ direction: "rtl", color: "#004a3a" }}
+            >
               סגור
             </Button>
           </DialogActions>
