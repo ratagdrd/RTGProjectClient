@@ -8,6 +8,11 @@ import * as THREE from "three";
 
 import "../css/Remake.css";
 
+import { Button, Typography, IconButton, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
+
+
+
 const loadTexture = (path) => {
   return new Promise((resolve, reject) => {
     const loader = new THREE.TextureLoader();
@@ -33,6 +38,8 @@ const TheSpeakerComp = () => {
   const containerRef = useRef(null);
   const [buttonVisible, setButtonVisible] = useState(false);
   const navigate = useNavigate();
+  const [showInfo, setShowInfo] = useState(false);
+  const [Instructions, setInstructions] = useState("");
 
   const handleFinish = () => {
     navigate("/");
@@ -42,6 +49,39 @@ const TheSpeakerComp = () => {
     let rendererCommon;
 
     async function initAR() {
+      // Fetch from Activity Data table
+      fetch("https://localhost:7052/api/Activity", {
+        method: 'GET',
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+        })
+      })
+        .then(res => res.json())
+        .then(
+          (activities) => {
+            console.log("Activities fetch result: ", activities);
+            // Filter activities to find the one with activity code 3
+            const activity = activities.find(activity => activity.activitycode === 7);
+            if (activity) {
+              console.log("Activity with code 3:", activity);
+              const instructions = activity && activity.instruction ? activity.instruction : '';
+              console.log(instructions);
+              setInstructions(instructions); // Set instructions state based on the fetched data
+
+              // Handle nullable 'rate' field
+              const rate = activity.rate !== null ? activity.rate : 0; // Assuming default value is 0
+              console.log("Rate:", rate);
+              // Process the result as needed
+            } else {
+              console.log("Activity with code 3 not found.");
+            }
+            // Process the result as needed
+          },
+          (error) => {
+            console.log("Error fetching activity data:", error);
+          }
+        );
+
       mindarThree = new MindARThree({
         container: containerRef.current,
         imageTargetSrc: "/target/speaker.mind",
@@ -88,8 +128,41 @@ const TheSpeakerComp = () => {
     };
   }, []);
 
+  const handleInfoClick = () => {
+    setShowInfo(!showInfo);
+  };
+  const handleInfoClose = () => {
+    setShowInfo(false);
+  };
+
+
   return (
     <>
+      <div
+       style={{
+        width: "100%",
+        height: "100%",
+        position: "fixed",
+        top: 30,
+        right: 150,
+        zIndex: 10,
+      }}
+      >
+        <IconButton onClick={handleInfoClick}>
+          <InfoIcon />
+        </IconButton>
+        <Dialog open={showInfo} onClose={handleInfoClose}>
+          <DialogTitle className="instructions" style={{ direction: "rtl", padding: "10px 14px" }}> הוראות</DialogTitle>
+          <DialogContent style={{ direction: "rtl", width: '350px', padding: "0px 14px 10px" }}>
+            <Typography className="instructions" > {Instructions} </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleInfoClose} style={{ direction: "rtl", color: "#004a3a" }}>
+              סגור
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
       <div
         ref={containerRef}
         style={{
