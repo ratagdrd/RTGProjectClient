@@ -44,15 +44,22 @@ export default function SignGroupPage() {
   const txtToBtn = "צור קבוצה";
 
   const [showInfo, setShowInfo] = useState(false);
+  const [groupName, setGroupName] = useState("");
   const [numOfParticipants, setNumOfParticipants] = useState("");
   const [minAge, setminAge] = useState("");
   const [maxAge, setmaxAge] = useState("");
+  const [roadTypeUi, setRoadTypeUi] = useState("בחר סוג מסלול");
+  const [roadType, setRoadType] = useState("");
 
   const handleInfoClick = () => {
     setShowInfo(!showInfo);
   };
   const handleInfoClose = () => {
     setShowInfo(false);
+  };
+
+  const handleGroupNameChange = (event) => {
+    setGroupName(event.target.value); // Update state with the value from the TextField
   };
 
   const handleNumOfParticipantsChange = (event) => {
@@ -67,9 +74,47 @@ export default function SignGroupPage() {
     setmaxAge(event.target.value);
   };
 
+  const handleRoadType = (event) => {
+    if (event.target.value == "רגיל") {
+      setRoadTypeUi("רגיל");
+      setRoadType("R");
+    } else {
+      //if the user want accessibale road
+      setRoadTypeUi("נגיש");
+      setRoadType("A");
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // Handle form submission logic here
+    const groupData = {
+      groupName: groupName, // Assuming `groupName` is a state variable you've managed.
+      numOfParticipants: numOfParticipants,
+      minAge: minAge,
+      maxAge: maxAge,
+      roadType: roadType,
+      photo: "",
+    };
+    console.log(groupData);
+    const apiUrl = "https://localhost:7052/api/Group";
+
+    fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(groupData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        // Handle success here, perhaps navigating to another page or showing a success message.
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        // Handle errors here, perhaps showing an error message to the user.
+      });
   };
 
   return (
@@ -89,6 +134,8 @@ export default function SignGroupPage() {
                   fullWidth
                   required
                   style={{ textAlign: "center" }}
+                  value={groupName}
+                  onChange={handleGroupNameChange}
                 />
               </Col>
               <Col xs={3} className="d-flex align-items-center">
@@ -161,16 +208,18 @@ export default function SignGroupPage() {
               <Col xs={9}>
                 <Select
                   fullWidth
+                  value={roadTypeUi}
+                  onChange={handleRoadType}
                   label="roadType"
                   variant="standard"
-                  defaultValue="type"
                   required
+                  renderValue={(value) => value || "בחר סוג מסלול"}
                 >
-                  <MenuItem value="type" disabled>
+                  <MenuItem value="" disabled>
                     בחר סוג מסלול
                   </MenuItem>
-                  <MenuItem value="regular">רגיל</MenuItem>
-                  <MenuItem value="accessible">נגיש</MenuItem>
+                  <MenuItem value="רגיל">רגיל</MenuItem>
+                  <MenuItem value="נגיש">נגיש</MenuItem>
                 </Select>
               </Col>
               <Col xs={3} className="d-flex align-items-center">
@@ -218,7 +267,7 @@ export default function SignGroupPage() {
                   renderValue={(value) => value || "גיל מקסימלי"}
                 >
                   <MenuItem value="" disabled>
-                    גיל מקסימלי{" "}
+                    גיל מקסימלי
                   </MenuItem>
                   {Array.from({ length: 100 }, (_, i) => (
                     <MenuItem key={i + 1} value={i + 1}>

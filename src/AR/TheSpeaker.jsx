@@ -68,7 +68,7 @@ const TheSpeakerComp = () => {
             console.log("Activities fetch result: ", activities);
             // Filter activities to find the one with activity code 3
             const activity = activities.find(
-              (activity) => activity.activitycode === 7
+              (activity) => activity.activitycode === 3
             );
             if (activity) {
               console.log("Activity with code 3:", activity);
