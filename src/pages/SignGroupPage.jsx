@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col } from "react-bootstrap";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
+
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
@@ -51,6 +54,8 @@ export default function SignGroupPage() {
   const [roadTypeUi, setRoadTypeUi] = useState("בחר סוג מסלול");
   const [roadType, setRoadType] = useState("");
 
+  const navigate = useNavigate();
+
   const handleInfoClick = () => {
     setShowInfo(!showInfo);
   };
@@ -89,32 +94,35 @@ export default function SignGroupPage() {
     event.preventDefault();
     // Handle form submission logic here
     const groupData = {
-      groupName: groupName, // Assuming `groupName` is a state variable you've managed.
+      groupName: groupName,
       numOfParticipants: numOfParticipants,
       minAge: minAge,
       maxAge: maxAge,
       roadType: roadType,
-      photo: "",
+      photo: "", //its empty string untill the user will enter photo in the flag register page component
     };
     console.log(groupData);
-    const apiUrl = "https://localhost:7052/api/Group";
+    navigate("/flagRegister", { state: { groupData } });
 
-    fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(groupData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        // Handle success here, perhaps navigating to another page or showing a success message.
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        // Handle errors here, perhaps showing an error message to the user.
-      });
+    //this is post that work but we dont use it because the post will be from flagRegister:
+    // const apiUrl = "https://localhost:7052/api/Group";
+
+    // fetch(apiUrl, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(groupData),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log("Success:", data);
+    //     // Handle success here, perhaps navigating to another page or showing a success message.
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //     // Handle errors here, perhaps showing an error message to the user.
+    //   });
   };
 
   return (

@@ -31,7 +31,7 @@ function App() {
 
             <Route path="/Trivia" element={<TriviaPage />} />
             <Route path="/PlayMap" element={<MapGame />} />
-            <Route path="/Flag" element={<Flag familyImg={familyPhoto} />} />
+            {/* <Route path="/Flag" element={<Flag familyImg={familyPhoto} />} /> */}
             <Route
               path="/BonusStation"
               element={

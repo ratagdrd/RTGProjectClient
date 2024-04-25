@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Webcam from "react-webcam";
+
+import { useNavigate, useLocation } from "react-router-dom";
 
 import "@fontsource/roboto";
 import "./../css/Flag.css";
@@ -29,6 +31,8 @@ const FlagRegisterComp = () => {
   const [image, setImage] = useState(null);
   const [emoji, setEmoji] = useState("");
   const [usingCamera, setUsingCamera] = useState(false);
+  const [groupData, setGroupData] = useState({});
+
   const webcamRef = React.useRef(null);
 
   const emojis = ["😀", "🐨", "🐶", "🦛", "👨‍👩‍👧‍👦"];
@@ -42,6 +46,20 @@ const FlagRegisterComp = () => {
 
   const txtToHeader = "יצירת דגל קבוצה";
   const txtToBtn = "שמור דגל";
+
+  const location = useLocation();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.state && location.state.groupData) {
+      setGroupData(location.state.groupData);
+      console.log(
+        "Group data set from location state:",
+        location.state.groupData
+      );
+    }
+  }, [location.state]);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -76,12 +94,44 @@ const FlagRegisterComp = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const defaultEmoji = "😄";
-    //if the user dont choose emoji or photo he gets the default one
-    if (!emoji && !image) {
-      setEmoji(defaultEmoji);
+    // const defaultEmoji = "😄";
+    // // //if the user dont choose emoji or photo he gets the default one
+    // // if (!emoji && !image) {
+    // //   setEmoji(defaultEmoji);
+    // // }
+
+    let photoData = image; // Prioritize the image first
+    if (!photoData) {
+      // If the user dont choose image, we check for emoji
+      photoData = emoji || "😄"; // we use the emoji if available, otherwise we use the default emoji
     }
-    console.log("Selected Image or Emoji:", image || emoji || "😄");
+    console.log(typeof groupData);
+    console.log("this is the group data", groupData);
+    const updateGroupData = { ...groupData, photo: photoData };
+    console.log("update dada:", updateGroupData);
+
+    const apiUrl = "https://localhost:7052/api/Group";
+
+    fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updateGroupData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        // Handle success here, perhaps navigating to another page or showing a success message.
+        navigate("/BonusStation");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("error");
+        // Handle errors here, perhaps showing an error message to the user.
+      });
+
+    // console.log("Selected Image or Emoji:", image || emoji || "😄");
   };
 
   return (
@@ -184,6 +234,7 @@ const FlagRegisterComp = () => {
               </div>
             </div>
           </form>
+
           <div className="footer-style">
             <FooterGraphic />
           </div>
