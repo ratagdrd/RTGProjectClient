@@ -54,37 +54,36 @@ export default function WordGamePage2() {
                 }
             );
         // Fetch from Activity Data table
-        fetch("https://localhost:7052/api/Activity", {
+        fetch("https://localhost:7052/api/Activity/2", {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json; charset=UTF-8',
             })
         })
-            .then(res => res.json())
-            .then(
-                (activities) => {
-                    console.log("Activities fetch result: ", activities);
-                    // Filter activities to find the one with activity code 2
-                    const activity = activities.find(activity => activity.activitycode === 2);
-                    if (activity) {
-                        console.log("Activity with code 2:", activity);
-                        const instructions = activity && activity.instruction ? activity.instruction : '';
-                        console.log(instructions);
-                        setInstructions(instructions); // Set instructions state based on the fetched data
-
-                        // Handle nullable 'rate' field
-                        const rate = activity.rate !== null ? activity.rate : 0; // Assuming default value is 0
-                        console.log("Rate:", rate);
-                        // Process the result as needed
-                    } else {
-                        console.log("Activity with code 2 not found.");
-                    }
-                    // Process the result as needed
-                },
-                (error) => {
-                    console.log("Error fetching activity data:", error);
+        .then(res => {
+            console.log('res=', res);
+            console.log('res.status', res.status);
+            console.log('res.ok', res.ok);
+            return res.json()
+        })
+        .then(
+            (activity) => {
+                console.log("Activity fetch result: ", activity);
+                if (activity) {
+                    console.log("Activity with code 2:", activity);
+                    const instructions = activity.instruction || "";
+                    console.log("Instructions:", instructions);
+                    setInstructions(instructions); 
+        
+                } else {
+                    console.log("Activity with code 2 not found.");
                 }
-            );
+                // Process the result as needed
+            },
+            (error) => {
+                console.log("Error fetching word data:", error);
+            }
+        );
     };
 
 
