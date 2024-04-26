@@ -142,66 +142,68 @@ const FlagRegisterComp = () => {
             <Row className="mb-3">
               <Header textToHeader={txtToHeader}></Header>
             </Row>
-            <Row className="mb-3 ">
-              <Col xs={9} className="d-flex align-items-center">
-                <Select
-                  fullWidth
-                  value={emoji}
-                  onChange={handleEmojiSelect}
-                  label="Emoji"
-                  variant="standard"
-                  displayEmpty
-                  renderValue={(selected) => selected || "בחר אימוג'י"}
-                >
-                  <MenuItem value="" disabled>
-                    בחר אימוג'י
-                  </MenuItem>
-                  {emojis.map((emojiValue, index) => (
-                    <MenuItem key={index} value={emojiValue}>
-                      {emojiValue}
+            <div style={{marginLeft:50}}>
+              <Row className="mb-3 " style={{ marginTop: "50px" }}>
+                <Col xs={9} className="d-flex align-items-center">
+                  <Select
+                    fullWidth
+                    value={emoji}
+                    onChange={handleEmojiSelect}
+                    label="Emoji"
+                    variant="standard"
+                    displayEmpty
+                    renderValue={(selected) => selected || "בחר אימוג'י"}
+                  >
+                    <MenuItem value="" disabled>
+                      בחר אימוג'י
                     </MenuItem>
-                  ))}
-                </Select>
-              </Col>
-              <Col xs={3} className="d-flex align-items-center">
-                <AddReactionOutlinedIcon />
-              </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col xs={9}>
-                <input
-                  className="font-input"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                />
-                <hr />
-              </Col>
-              <Col xs={3} className=" d-flex align-items-center">
-                <AddAPhotoOutlinedIcon />
-              </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col xs={9}>
-                <input
-                  className="font-input"
-                  type="button"
-                  style={{
-                    color: "black",
-                    fontFamily: "Rubik",
-                    fontSize: "16px",
-                    backgroundColor: "transparent",
-                    border: "none",
-                  }}
-                  value={usingCamera ? "סגור תמונה" : "צלם תמונה"}
-                  onClick={handleStartCamera}
-                />
-                <hr />
-              </Col>
-              <Col xs={3} className=" d-flex align-items-center">
-                <CameraAltOutlinedIcon />
-              </Col>
-            </Row>
+                    {emojis.map((emojiValue, index) => (
+                      <MenuItem key={index} value={emojiValue}>
+                        {emojiValue}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </Col>
+                <Col xs={3} className="d-flex align-items-center">
+                  <AddReactionOutlinedIcon />
+                </Col>
+              </Row>
+              <Row className="mb-3">
+                <Col xs={9}>
+                  <input
+                    className="font-input"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                  />
+                  <hr />
+                </Col>
+                <Col xs={3} className=" d-flex align-items-center">
+                  <AddAPhotoOutlinedIcon />
+                </Col>
+              </Row>
+              <Row className="mb-3">
+                <Col xs={9}>
+                  <input
+                    className="font-input"
+                    type="button"
+                    style={{
+                      color: "black",
+                      fontFamily: "Rubik",
+                      fontSize: "16px",
+                      backgroundColor: "transparent",
+                      border: "none",
+                    }}
+                    value={usingCamera ? "סגור תמונה" : "צלם תמונה"}
+                    onClick={handleStartCamera}
+                  />
+                  <hr />
+                </Col>
+                <Col xs={3} className=" d-flex align-items-center">
+                  <CameraAltOutlinedIcon />
+                </Col>
+              </Row>
+            </div>
             {usingCamera && (
               <div>
                 <Webcam
@@ -229,13 +231,13 @@ const FlagRegisterComp = () => {
                   {emoji && <span className="family-icon">{emoji}</span>}
                 </div>
               )}
-              <div className="button-style">
+              <div className="button-style" style={{ marginTop: "100px" }}>
                 <MainButton textToBtn={txtToBtn} />
               </div>
             </div>
           </form>
 
-          <div className="footer-style">
+          <div className="footer-style" >
             <FooterGraphic />
           </div>
         </ThemeProvider>
