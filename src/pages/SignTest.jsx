@@ -92,39 +92,36 @@ export default function SignTest() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission logic here
+    
     const groupData = {
       groupName: groupName,
       numOfParticipants: numOfParticipants,
       minAge: minAge,
       maxAge: maxAge,
       roadType: roadType,
-      photo: "", //its empty string untill the user will enter photo in the flag register page component
+      photo: "", // its empty string until the user enters a photo in the flag register page component
     };
-    console.log(groupData);
-    navigate("/flagRegister", { state: { groupData } });
-
-    //this is post that work but we dont use it because the post will be from flagRegister:
-    // const apiUrl = "https://localhost:7052/api/Group";
-
-    // fetch(apiUrl, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(groupData),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("Success:", data);
-    //     // Handle success here, perhaps navigating to another page or showing a success message.
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //     // Handle errors here, perhaps showing an error message to the user.
-    //   });
+  
+    console.log("before fetch",groupData);
+    fetch("https://localhost:7052/api/Group/postTest", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(groupData),
+    })
+    .then(response => response.json())
+    .then(data => {
+      const groupCode = data;
+      console.log("Inserted groupCode:", groupCode);
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
+  
+    // navigate("/flagRegister", { state: { groupData } });
   };
-
+  
   return (
     <>
       <CacheProvider value={cacheRtl}>
