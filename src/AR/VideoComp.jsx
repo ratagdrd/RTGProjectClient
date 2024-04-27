@@ -62,39 +62,47 @@ const VideoComp = () => {
     });
   }, []);
 
+  useEffect(() => {
+    onLoad();
+}, []);
+
+const onLoad = () => {
+  // Fetch from Activity Data table
+  fetch("https://localhost:7052/api/Activity/7", {
+    method: 'GET',
+    headers: new Headers({
+      'Content-Type': 'application/json; charset=UTF-8',
+    })
+  })
+    .then(res => {
+      console.log('res=', res);
+      console.log('res.status', res.status);
+      console.log('res.ok', res.ok);
+      return res.json()
+    })
+    .then(
+      (activity) => {
+        console.log("Activity fetch result: ", activity);
+        if (activity) {
+          console.log("Activity with code 7:", activity);
+          const instructions = activity.instruction || "";
+          console.log("Instructions:", instructions);
+          setInstructions(instructions);
+
+        } else {
+          console.log("Activity with code 7 not found.");
+        }
+        // Process the result as needed
+      },
+      (error) => {
+        console.log("Error fetching activity data:", error);
+      }
+    );
+}
+
   const initAR = useCallback(async () => {
 
-    // Fetch from Activity Data table
-    fetch("https://localhost:7052/api/Activity/7", {
-      method: 'GET',
-      headers: new Headers({
-        'Content-Type': 'application/json; charset=UTF-8',
-      })
-    })
-      .then(res => {
-        console.log('res=', res);
-        console.log('res.status', res.status);
-        console.log('res.ok', res.ok);
-        return res.json()
-      })
-      .then(
-        (activity) => {
-          console.log("Activity fetch result: ", activity);
-          if (activity) {
-            console.log("Activity with code 7:", activity);
-            const instructions = activity.instruction || "";
-            console.log("Instructions:", instructions);
-            setInstructions(instructions);
-
-          } else {
-            console.log("Activity with code 7 not found.");
-          }
-          // Process the result as needed
-        },
-        (error) => {
-          console.log("Error fetching activity data:", error);
-        }
-      );
+    
 
     mindarThreeRef.current = new MindARThree({
       container: containerRef.current,

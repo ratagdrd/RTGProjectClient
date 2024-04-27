@@ -81,7 +81,7 @@ export default function WordGamePage2() {
                 // Process the result as needed
             },
             (error) => {
-                console.log("Error fetching word data:", error);
+                console.log("Error fetching Activity data:", error);
             }
         );
     };
