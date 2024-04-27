@@ -1,5 +1,4 @@
 import React from "react";
-
 import "./../css/GeneralPages.css";
 
 
@@ -13,6 +12,7 @@ import LiveHelpOutlinedIcon from '@mui/icons-material/LiveHelpOutlined';
 export default function wordGamePage1() {
   const txtToBtn = "התחל";
   const txtToHeader = "ברוכים הבאים לאמפי תיאטרון ";
+
 
   return (
     <div className="inner-container">
@@ -28,12 +28,12 @@ export default function wordGamePage1() {
       <p>שומעים: עולים במדרגות עד למעלה.</p>
       <h5>איך משחקים?</h5>
       <p>
-        נציג מהמקריאים אומר בקול את המילה הכתובה על המסך (שימו לב- המטרה שהמנחשים ישמעו את המילה גם בלי
+        נציג מהמקריאים אומר בקול את המילה הכתובה על המסך (שימו לב- המטרה שהשומעים ישמעו את המילה גם בלי
         שתצעקו!). קבוצת השומעים תשלח נציג לבמה שיאמר את המילה ששמעו. בכל שלב החליפו נציגים.
       </p>
       <p>*טיפ למקריאים- נסו להקשות על קבוצת השומעים בכך שבכל שלב החלישו את הקול.</p>
     </div>
-      <div><MainButton textToBtn={txtToBtn} /></div>
+      <div><MainButton textToBtn={txtToBtn} navigateTo={"/WordGame"}/></div>
       <div><FooterGraphic /></div>
     </div>
   );
