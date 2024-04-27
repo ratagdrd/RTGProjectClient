@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import "./../css/Games.css";
-import pic1 from "../images/HordusPort.jpg";
 import { useNavigate } from "react-router-dom";
-
+import ImgTrivia1 from "../images/ImgTrivia1.jpg";
+import ImgTrivia2 from "../images/ImgTrivia2.jpg";
+import ImgTrivia3 from "../images/ImgTrivia3.jpg";
+import ImgTrivia4 from "../images/ImgTrivia4.jpg";
+import ImgTrivia5 from "../images/ImgTrivia5.jpg";
+import ImgTrivia6 from "../images/ImgTrivia6.jpg";
+import ImgTrivia7 from "../images/ImgTrivia7.jpg";
+import ImgTrivia8 from "../images/ImgTrivia8.jpg";
+import ImgTrivia9 from "../images/ImgTrivia9.jpg";
 
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import { IconButton } from "@mui/material";
@@ -24,6 +31,19 @@ export default function TriviaPage() {
   const [currentQues, setCurrentQues] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [darkenBackground, setDarkenBackground] = useState(false);
+  
+  const triviaImages = [
+    ImgTrivia1,
+    ImgTrivia2,
+     ImgTrivia3,
+     ImgTrivia4,
+     ImgTrivia5,
+     ImgTrivia6,
+     ImgTrivia7,
+     ImgTrivia8,
+     ImgTrivia9
+  ];
+
 
   //TODO להוסיף רנדום בתשובות וניקוד
 
@@ -145,7 +165,7 @@ export default function TriviaPage() {
 
       <div className="question-container">
         <div className="question-text">{question}</div>
-        <img src={pic1} alt="Trivia" className="trivia-image" />
+        <img src={triviaImages[currentQues]} alt="Trivia" className="trivia-image" />
       </div>
       <br />
       <div className="answers-container">
