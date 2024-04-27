@@ -72,6 +72,7 @@ const onLoad = () => {
     method: 'GET',
     headers: new Headers({
       'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json; charset=UTF-8',
     })
   })
     .then(res => {

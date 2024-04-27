@@ -116,6 +116,7 @@ const FlagRegisterComp = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'Accept': 'application/json; charset=UTF-8',
       },
       body: JSON.stringify(updateGroupData),
     })

@@ -31,6 +31,7 @@ export default function TriviaPage() {
   const [currentQues, setCurrentQues] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [darkenBackground, setDarkenBackground] = useState(false);
+  const groupCode = sessionStorage.getItem('groupCode');
   
   const triviaImages = [
     ImgTrivia1,
@@ -45,7 +46,6 @@ export default function TriviaPage() {
   ];
 
 
-  //TODO להוסיף רנדום בתשובות וניקוד
 
   useEffect(() => {
     onLoad();
@@ -57,6 +57,7 @@ export default function TriviaPage() {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset=UTF-8',
       })
     })
       .then(res => {
@@ -87,6 +88,36 @@ export default function TriviaPage() {
     if (currentQues > 8) {
       // יהיו 10 שאלות, צריך לעבוד מעבר לעמוד אחר ולהחליף ל9 וגם לעשות פוסט לניקוד
       setGameOver(true);
+
+       // Update group points
+       fetch(`https://localhost:7052/api/Group/${groupCode}/${totalPoints}`, {
+        method: 'PUT',
+        headers: new Headers({
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept': 'application/json; charset=UTF-8',
+        }),
+        body: JSON.stringify({
+            TotalPoints: totalPoints
+        })
+    })
+        .then(res => {
+            console.log('res=', res);
+            console.log('res.status', res.status);
+            console.log('res.ok', res.ok);
+            return res.json();
+        })
+        .then(data => {
+            console.log("Group points fetch result: ", data);
+            if (data) {
+                console.log("Group points:", data.totalPoints);
+                setTotalPoints(data.totalPoints);
+            } else {
+                console.log("Group points not found.");
+            }
+        })
+        .catch(error => {
+            console.log("Error fetching Group points:", error);
+        });
       return;
     }
     setQuestion(data[currentQues]["question"]);
@@ -126,7 +157,8 @@ export default function TriviaPage() {
     setPopupMessage(message);
 
     // Increment points if correct answer
-    if (index == correctAns) {
+    console.log(index,(correctAns-1));
+    if (index == (correctAns-1)) {
       setTotalPoints(prevTotalPoints => prevTotalPoints + points);
       console.log("points:" + totalPoints);
     }
