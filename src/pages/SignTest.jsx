@@ -114,6 +114,7 @@ export default function SignTest() {
     .then(data => {
       const groupCode = data;
       console.log("Inserted groupCode:", groupCode);
+      sessionStorage.setItem('groupCode', groupCode);
     })
     .catch(error => {
       console.error("Error:", error);
