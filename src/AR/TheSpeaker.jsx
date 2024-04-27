@@ -59,32 +59,32 @@ const TheSpeakerComp = () => {
       fetch("https://localhost:7052/api/Activity/3", {
         method: 'GET',
         headers: new Headers({
-            'Content-Type': 'application/json; charset=UTF-8',
+          'Content-Type': 'application/json; charset=UTF-8',
         })
-    })
-    .then(res => {
-        console.log('res=', res);
-        console.log('res.status', res.status);
-        console.log('res.ok', res.ok);
-        return res.json()
-    })
-    .then(
-        (activity) => {
+      })
+        .then(res => {
+          console.log('res=', res);
+          console.log('res.status', res.status);
+          console.log('res.ok', res.ok);
+          return res.json()
+        })
+        .then(
+          (activity) => {
             console.log("Activity fetch result: ", activity);
             if (activity) {
-                console.log("Activity with code 3:", activity);
-                const instructions = activity.instruction || "";
-                console.log("Instructions:", instructions);
-                setInstructions(instructions); 
-    
+              console.log("Activity with code 3:", activity);
+              const instructions = activity.instruction || "";
+              console.log("Instructions:", instructions);
+              setInstructions(instructions);
+
             } else {
-                console.log("Activity with code 3 not found.");
+              console.log("Activity with code 3 not found.");
             }
             // Process the result as needed
-        },
-        (error) => {
-            console.log("Error fetching word data:", error);
-        }
+          },
+          (error) => {
+            console.log("Error fetching activity data:", error);
+          }
         );
 
       mindarThree = new MindARThree({

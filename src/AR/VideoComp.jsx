@@ -5,6 +5,17 @@ import * as THREE from "three";
 import "../css/Video.css";
 import FooterGraphic from "../FuncComp/FooterGraphic";
 
+import {
+  Button,
+  Typography,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
+
 const VideoComp = () => {
   const containerRef = useRef(null);
   const rendererCommonRef = useRef(null);
@@ -13,6 +24,8 @@ const VideoComp = () => {
   const [buttonVisible, setButtonVisible] = useState(true);
 
   const navigate = useNavigate();
+  const [showInfo, setShowInfo] = useState(false);
+  const [Instructions, setInstructions] = useState("");
 
   const cleanupResources = useCallback(() => {
     if (rendererCommonRef.current) {
@@ -50,6 +63,39 @@ const VideoComp = () => {
   }, []);
 
   const initAR = useCallback(async () => {
+
+    // Fetch from Activity Data table
+    fetch("https://localhost:7052/api/Activity/7", {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type': 'application/json; charset=UTF-8',
+      })
+    })
+      .then(res => {
+        console.log('res=', res);
+        console.log('res.status', res.status);
+        console.log('res.ok', res.ok);
+        return res.json()
+      })
+      .then(
+        (activity) => {
+          console.log("Activity fetch result: ", activity);
+          if (activity) {
+            console.log("Activity with code 7:", activity);
+            const instructions = activity.instruction || "";
+            console.log("Instructions:", instructions);
+            setInstructions(instructions);
+
+          } else {
+            console.log("Activity with code 7 not found.");
+          }
+          // Process the result as needed
+        },
+        (error) => {
+          console.log("Error fetching activity data:", error);
+        }
+      );
+
     mindarThreeRef.current = new MindARThree({
       container: containerRef.current,
       imageTargetSrc: "/target/herod-palace.mind",
@@ -87,8 +133,55 @@ const VideoComp = () => {
     return () => cleanupResources(); // Cleanup resources when component unmounts
   }, []);
 
+  const handleInfoClick = () => {
+    setShowInfo(!showInfo);
+  };
+  const handleInfoClose = () => {
+    setShowInfo(false);
+  };
+
   return (
     <>
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          position: "fixed",
+          top: 30,
+          right: 150,
+          zIndex: 10,
+        }}
+      >
+        <IconButton onClick={handleInfoClick}>
+          <InfoIcon />
+        </IconButton>
+        <Dialog open={showInfo} onClose={handleInfoClose}>
+          <DialogTitle
+            className="instructions"
+            style={{ direction: "rtl", padding: "10px 14px" }}
+          >
+            {" "}
+            הוראות
+          </DialogTitle>
+          <DialogContent
+            style={{
+              direction: "rtl",
+              width: "350px",
+              padding: "0px 14px 10px",
+            }}
+          >
+            <Typography className="instructions"> {Instructions} </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={handleInfoClose}
+              style={{ direction: "rtl", color: "#004a3a" }}
+            >
+              סגור
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
       <div
         ref={containerRef}
         style={{
