@@ -19,6 +19,7 @@ import PortComp from "./AR/Port";
 import AmfiComp from "./AR/Amfi";
 import ImagePost from "./pages/imagePost";
 import FlagRegisterComp from "./pages/FlagRegister";
+import SignTest from "./pages/SignTest";
 function App() {
   return (
     <>
@@ -26,6 +27,7 @@ function App() {
         <div className="app-container">
           <Routes>
             <Route path="/" element={<WelcomPage />} />
+            <Route path="/signTest" element={<SignTest />} />
             <Route path="/register" element={<SignGroupPage />} />
             <Route path="/image" element={<ImagePost />} />
 
