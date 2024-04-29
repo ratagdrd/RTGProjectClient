@@ -41,3 +41,7 @@
   max-height: 80%; /* Maximum height to keep within the flag */
   font-size: 150px;
 }
+
+.button-style{
+  margin-top: 20px;
+}
