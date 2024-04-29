@@ -117,7 +117,7 @@ const FlagRegisterComp = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json; charset=UTF-8",
+        "Accept": "application/json; charset=UTF-8",
       },
       body: JSON.stringify(updateGroupData),
     })
@@ -237,7 +237,7 @@ const FlagRegisterComp = () => {
                   {emoji && <span className="family-icon">{emoji}</span>}
                 </div>
               )}
-              <div className="button-style" style={{ marginTop: "100px" }}>
+              <div className="button-style">
                 <MainButton textToBtn={txtToBtn} />
               </div>
             </div>

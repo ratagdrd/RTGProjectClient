@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "./../css/Games.css";
-import { useEffect } from 'react';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import { Button, Typography, IconButton, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
@@ -19,6 +18,8 @@ export default function WordGamePage2() {
     const [gameOver, setGameOver] = useState(false);
     const groupCode = sessionStorage.getItem('groupCode');
     const percentage = (quesNum / 5) * 100;
+    console.log(quesNum);
+    console.log(percentage);
     console.log(groupCode);
 
 
@@ -200,7 +201,7 @@ export default function WordGamePage2() {
                 </div>
             </div>
 
-            <div className="progress-bar-container">
+            <div className="progress-bar-container">{console.log(percentage)}
                 <div className="progress-bar" style={{ width: `${percentage}%` }}>  </div>
             </div>
 

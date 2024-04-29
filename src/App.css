@@ -52,41 +52,38 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around; /* This will space your main elements evenly */
-  height: 100vh;
-  padding: 20px; /* Add padding around the app container */
-  border-radius: 20px;
-  width: 404px;
-}
-.welcome-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
-  background-color: #f4f4f9;
+  min-height: 100vh;
+  padding: 20px;
+  border-radius: 20px;
+  width: 390px; /* Set a specific width */
+  max-width: 100%; /* Allow responsiveness for larger screens */
+  margin: 0 auto; /* Center horizontally */
 }
+
 .header {
-  font-size: 2rem; /* Adjust to match the size in the image */
-  color: #004a3a; /* Replace with the exact color from the image */
+  font-size: 2rem;
+  color: #004a3a;
   text-align: center;
 }
+
 .main-button {
-  display: block; /* Ensures it fills the container width */
-  width: 80%; /* Button width relative to its container */
+  display: block;
+  width: 80%;
   padding: 12px;
-  margin: 20px auto; /* Center the button horizontally */
-  background-color: #004a3a; /* Light salmon background */
+  margin: 20px auto;
+  background-color: #004a3a;
   color: white;
   font-size: 18px;
   border: none;
-  border-radius: 50px; /* Rounded edges */
+  border-radius: 50px;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
 .footer-graphic img {
-  text-align: center; /* Center the logo horizontally */
-  padding: 10px 0; /* Padding top and bottom */
-  width: 200px; /* Control size of the logo */
-  height: auto; /* Maintain aspect ratio */
+  display: block;
+  margin: 20px auto;
+  width: 200px;
+  height: auto;
 }
