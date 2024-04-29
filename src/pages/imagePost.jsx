@@ -20,12 +20,15 @@ function ImagePost() {
 
   const txtToHeader = "ניסיון העלאת תמונה";
   const txtToBtn = "המשך";
-const groupCode=1;
+  const groupCode=1;
+
   const [selectedImage, setSelectedImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
     setSelectedImage(file);
+    setImageUrl(URL.createObjectURL(file)); // Generate URL for uploaded image to be shown
   };
 
   const handleSubmit = (event) => {
@@ -70,6 +73,13 @@ const groupCode=1;
                 <input type="file" accept="image/*" onChange={handleFileSelect} id="upload-file" />
               </Col>
             </Row>
+            {imageUrl && ( // Display the uploaded image if imageUrl is not null
+              <Row className="mb-3">
+                <Col>
+                  <img src={imageUrl} alt="Uploaded Image" style={{ width: "100px", height: "100px", objectFit: "cover" }} />
+                </Col>
+              </Row>
+            )}
             <Grid item style={{ marginTop: "40%" }}>
               <MainButton textToBtn={txtToBtn}></MainButton>
             </Grid>
