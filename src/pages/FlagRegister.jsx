@@ -105,26 +105,31 @@ const FlagRegisterComp = () => {
       // If the user dont choose image, we check for emoji
       photoData = emoji || "😄"; // we use the emoji if available, otherwise we use the default emoji
     }
+
     console.log(typeof groupData);
     console.log("this is the group data", groupData);
     const updateGroupData = { ...groupData, photo: photoData };
     console.log("update dada:", updateGroupData);
 
-    const apiUrl = "https://localhost:7052/api/Group";
+    const apiUrl = "https://localhost:7052/api/Group/postTest";
 
     fetch(apiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        'Accept': 'application/json; charset=UTF-8',
+        Accept: "application/json; charset=UTF-8",
       },
       body: JSON.stringify(updateGroupData),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
-        // Handle success here, perhaps navigating to another page or showing a success message.
-        navigate("/BonusStation");
+        const groupCode = data;
+        console.log("Inserted groupCode:", groupCode);
+        sessionStorage.setItem("groupCode", groupCode);
+
+        //navigate to the add points page
+        navigate("/bonusStation", { state: { source: "register" } });
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -143,7 +148,7 @@ const FlagRegisterComp = () => {
             <Row className="mb-3">
               <Header textToHeader={txtToHeader}></Header>
             </Row>
-            <div style={{marginLeft:50}}>
+            <div style={{ marginLeft: 50 }}>
               <Row className="mb-3 " style={{ marginTop: "50px" }}>
                 <Col xs={9} className="d-flex align-items-center">
                   <Select
@@ -238,7 +243,7 @@ const FlagRegisterComp = () => {
             </div>
           </form>
 
-          <div className="footer-style" >
+          <div className="footer-style">
             <FooterGraphic />
           </div>
         </ThemeProvider>
