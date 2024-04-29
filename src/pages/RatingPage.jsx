@@ -55,6 +55,7 @@ export default function RatingPage() {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
+                'Accept': 'application/json; charset=UTF-8',
             },
             body: JSON.stringify({ rate: newRate }),
         })

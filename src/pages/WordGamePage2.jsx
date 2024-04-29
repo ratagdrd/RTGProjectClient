@@ -17,8 +17,9 @@ export default function WordGamePage2() {
     const [showInfo, setShowInfo] = useState(false);
     const [Instructions, setInstructions] = useState("");
     const [gameOver, setGameOver] = useState(false);
-
+    const groupCode = sessionStorage.getItem('groupCode');
     const percentage = (quesNum / 5) * 100;
+    console.log(groupCode);
 
 
     useEffect(() => {
@@ -31,6 +32,7 @@ export default function WordGamePage2() {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json; charset=UTF-8',
+                'Accept': 'application/json; charset=UTF-8',
             })
         })
             .then(res => {
@@ -53,37 +55,39 @@ export default function WordGamePage2() {
                     console.log("Error fetching word data:", error);
                 }
             );
+
         // Fetch from Activity Data table
         fetch("https://localhost:7052/api/Activity/2", {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json; charset=UTF-8',
+                'Accept': 'application/json; charset=UTF-8',
             })
         })
-        .then(res => {
-            console.log('res=', res);
-            console.log('res.status', res.status);
-            console.log('res.ok', res.ok);
-            return res.json()
-        })
-        .then(
-            (activity) => {
-                console.log("Activity fetch result: ", activity);
-                if (activity) {
-                    console.log("Activity with code 2:", activity);
-                    const instructions = activity.instruction || "";
-                    console.log("Instructions:", instructions);
-                    setInstructions(instructions); 
-        
-                } else {
-                    console.log("Activity with code 2 not found.");
+            .then(res => {
+                console.log('res=', res);
+                console.log('res.status', res.status);
+                console.log('res.ok', res.ok);
+                return res.json()
+            })
+            .then(
+                (activity) => {
+                    console.log("Activity fetch result: ", activity);
+                    if (activity) {
+                        console.log("Activity with code 2:", activity);
+                        const instructions = activity.instruction || "";
+                        console.log("Instructions:", instructions);
+                        setInstructions(instructions);
+
+                    } else {
+                        console.log("Activity with code 2 not found.");
+                    }
+                },
+                (error) => {
+                    console.log("Error fetching Activity data:", error);
                 }
-                // Process the result as needed
-            },
-            (error) => {
-                console.log("Error fetching Activity data:", error);
-            }
-        );
+            );
+
     };
 
 
@@ -93,6 +97,36 @@ export default function WordGamePage2() {
             setGameOver(true);
             console.log(quesNum);
             setCurrentQues(quesNum);
+
+            // Update group points
+            fetch(`https://localhost:7052/api/Group/${groupCode}/${totalPoints}`, {
+                method: 'PUT',
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    'Accept': 'application/json; charset=UTF-8',
+                }),
+                body: JSON.stringify({
+                    TotalPoints: totalPoints
+                })
+            })
+                .then(res => {
+                    console.log('res=', res);
+                    console.log('res.status', res.status);
+                    console.log('res.ok', res.ok);
+                    return res.json();
+                })
+                .then(data => {
+                    console.log("Group points fetch result: ", data);
+                    if (data) {
+                        console.log("Group points:", data.totalPoints);
+                        setTotalPoints(data.totalPoints);
+                    } else {
+                        console.log("Group points not found.");
+                    }
+                })
+                .catch(error => {
+                    console.log("Error fetching Group points:", error);
+                });
             return;
         }
         console.log(currentQues);

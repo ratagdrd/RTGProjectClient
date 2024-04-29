@@ -107,6 +107,7 @@ export default function SignTest() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'Accept': 'application/json; charset=UTF-8',
       },
       body: JSON.stringify(groupData),
     })
@@ -114,6 +115,7 @@ export default function SignTest() {
     .then(data => {
       const groupCode = data;
       console.log("Inserted groupCode:", groupCode);
+      sessionStorage.setItem('groupCode', groupCode);
     })
     .catch(error => {
       console.error("Error:", error);
