@@ -37,8 +37,6 @@ function ImagePost() {
 
   const handleEmojiSelect = (e) => {
     setSelectedEmoji(e.target.value);
-    const emojiIndex = emojis.indexOf(e.target.value); 
-    console.log(emojiIndex);
     setSelectedImage(null); // Reset selected image when an emoji is selected
     setImageUrl(null);
   };
@@ -55,13 +53,14 @@ function ImagePost() {
 
     const formData = new FormData();
 
-    if(selectedImage){
+    if (selectedImage) {
       formData.append('files', selectedImage);
+    } else {
+      // Add logic to handle emoji selection
+      const emojiIndex = emojis.indexOf(selectedEmoji);
+      const emojiImagePath = `/images/emoji${emojiIndex}.png`; 
+      formData.append('files', emojiImagePath);
     }
-    else{
-      formData.append('files', selectedEmoji);
-    }
-
     fetch(apiUrl, {
       method: 'POST',
       body: formData
