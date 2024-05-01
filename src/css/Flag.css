@@ -5,23 +5,27 @@
 }
 .footer-style {
   position: relative;
-  top: 60px;
+  top: 30px;
+  margin-top: 50px;
 }
 .flag-container {
   position: absolute;
   top: 53%;
+  left: 15%;
   width: 90vw; /* Set to a percentage of the viewport width for responsiveness */
   max-width: 400px; /* Maximum width of the flag */
   height: calc(90vw * 0.666); /* Height is set to maintain the aspect ratio */
   max-height: 300px; /* Maximum height of the flag */
   margin: auto; /* Center the flag container */
   margin-bottom: 200px; /* Space below the flag */
+  margin: 0 auto;
 }
 
 .flag-image {
   width: 100%;
   height: 100%;
   display: block; /* Ensure the image is block-level to fit the container */
+  margin: 0 auto;
 }
 
 .family-image {
@@ -44,4 +48,5 @@
 
 .button-style{
   margin-top: 20px;
+  margin-bottom: 120px;
 }
