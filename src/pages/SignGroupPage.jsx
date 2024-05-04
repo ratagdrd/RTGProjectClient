@@ -53,7 +53,6 @@ export default function SignGroupPage() {
   const [maxAge, setmaxAge] = useState("");
   const [roadTypeUi, setRoadTypeUi] = useState("בחר סוג מסלול");
   const [roadType, setRoadType] = useState("");
-
   const navigate = useNavigate();
 
   const handleInfoClick = () => {
@@ -90,7 +89,13 @@ export default function SignGroupPage() {
     }
   };
 
+  const handletotalPoints = () => {
+    const totalStartPoints = Math.abs(maxAge - minAge) * 10;
+    return totalStartPoints;
+  };
+
   const handleSubmit = (event) => {
+    const startPoints = handletotalPoints();
     event.preventDefault();
     // Handle form submission logic here
     const groupData = {
@@ -100,6 +105,7 @@ export default function SignGroupPage() {
       maxAge: maxAge,
       roadType: roadType,
       photo: "", //its empty string untill the user will enter photo in the flag register page component
+      totalPoints: startPoints,
     };
     console.log(groupData);
     navigate("/flagRegister", { state: { groupData } });

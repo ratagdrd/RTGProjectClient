@@ -95,7 +95,7 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
         שנים 
       `);
 
-        setPointsContent(`זכיתם ב ${ageDifference * 10} נקודות`);
+        setPointsContent(`זכיתם ב ${totalPoints} נקודות`);
 
         setTxtToBtn("המשך");
         break;
