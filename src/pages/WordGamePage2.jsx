@@ -29,6 +29,7 @@ export default function WordGamePage2() {
   const [showInfo, setShowInfo] = useState(false);
   const [Instructions, setInstructions] = useState("");
   const [gameOver, setGameOver] = useState(false);
+  const [showExitModal, setShowExitModal] = useState(false);
   const groupCode = sessionStorage.getItem("groupCode");
   const percentage = (quesNum / 5) * 100;
   const navigate = useNavigate();
@@ -193,6 +194,19 @@ export default function WordGamePage2() {
     //need to use the points
   };
 
+  const handleNextClick = () => {
+    console.log("Next button clicked");
+    setShowExitModal(true);
+  };
+
+  const handleExitYes = () => {
+    navigate("/AllGamesPage"); // Navigate to AllGamesPage
+  };
+
+  const handleExitNo = () => {
+    setShowExitModal(false); // Close exit modal
+  };
+
   return (
     <>
       <div className="container">
@@ -231,6 +245,7 @@ export default function WordGamePage2() {
           <IconButton
             className="next-button-container"
             style={{ color: "#004a3a" }}
+            onClick={handleNextClick}
           >
             {" "}
             <ArrowForwardIosOutlinedIcon />{" "}
@@ -268,14 +283,14 @@ export default function WordGamePage2() {
       </div>
 
       {gameOver && (
-        <div className="game-over-popup">
+        <div className="popup">
           <div>
-            <h4 className="game-over-header">התחנה הסתיימה</h4>
-            <p className="game-over-p">קצת מידע על המילים:</p>
+            <h4 className="popup-header">התחנה הסתיימה</h4>
+            <p className="popup-p">קצת מידע על המילים:</p>
             {data.map((item, index) => (
               <div key={index}>
                 {console.log(item.answer1)}
-                <p className="game-over-p">
+                <p className="popup-p">
                   {" "}
                   {item.question}: {item.answer1}
                 </p>
@@ -283,6 +298,19 @@ export default function WordGamePage2() {
             ))}
           </div>
           <button onClick={handleFinish}>המשך </button>
+        </div>
+      )}
+      {/* Exit Popup */}
+      {showExitModal && (
+        <div className="popup">
+          <div className="exit-popup">
+            <h4 className="popup-header">האם אתם בטוחים שברצונכם לצאת מהמשחק?</h4>
+            <p>שימו לב❣ במידה ויצאתם באמצע הניקוד שצברתם עד כה לא יישמר</p>
+            <div className="exit-buttons">
+              <button onClick={handleExitYes}>חזרה למפה</button>
+              <button onClick={handleExitNo}>המשך במשחק</button>
+            </div>
+          </div>
         </div>
       )}
       <FooterGraphic />

@@ -134,7 +134,7 @@
 
 /* pop up window at the end of each game */
 
-.game-over-popup {
+.popup {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -152,7 +152,7 @@
   filter: none;
 }
 
-.game-over-popup button {
+.popup button {
   margin-top: 10px;
   padding: 10px 20px;
   background-color: #004a3a;
@@ -164,17 +164,17 @@
   transition: background-color 0.3s ease;
 }
 
-.game-over-popup button:hover {
+.popup button:hover {
   background-color: #003529;
 }
 
-.game-over-p {
+.popup-p {
   margin-bottom: 3px;
   font-weight: 100 !important;
   text-align: right;
 }
 
-.game-over-header{
+.popup-header{
   margin: 10px 0px;
   color: #004a3a;
   text-align: center;
@@ -189,6 +189,17 @@
 .bold-text {
   font-weight: bold;
 }
+
+.exit-popup button {
+  margin-top: 10px; /* Add margin to the top */
+  margin-right: 10px; /* Add margin to the right */
+  padding: 10px 20px;
+}
+
+.exit-buttons{
+  font-size: 15px;
+}
+
 
 
 

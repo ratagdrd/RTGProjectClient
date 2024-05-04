@@ -36,6 +36,7 @@ export default function TriviaPage() {
   const [currentQues, setCurrentQues] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [darkenBackground, setDarkenBackground] = useState(false);
+  const [showExitModal, setShowExitModal] = useState(false);
   const groupCode = sessionStorage.getItem("groupCode");
   const navigate = useNavigate();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -192,6 +193,20 @@ export default function TriviaPage() {
     navigate("/BonusStation", { state: { source: "tsuk" } });
     //need to use the points
   };
+
+  const handleNextClick = () => {
+    console.log("Next button clicked");
+    setShowExitModal(true);
+  };
+
+  const handleExitYes = () => {
+    navigate("/AllGamesPage"); // Navigate to AllGamesPage
+  };
+
+  const handleExitNo = () => {
+    setShowExitModal(false); // Close exit modal
+  };
+
   return (
     <div>
       <div
@@ -203,6 +218,7 @@ export default function TriviaPage() {
           <IconButton
             className="next-button-container"
             style={{ color: "#004a3a" }}
+            onClick={handleNextClick}
           >
             {" "}
             <ArrowForwardIosOutlinedIcon />{" "}
@@ -241,11 +257,24 @@ export default function TriviaPage() {
         <FooterGraphic />
       </div>
       {gameOver && (
-        <div className="game-over-popup" style={{ fontWeight: "100" }}>
+        <div className="popup" style={{ fontWeight: "100" }}>
           <div>
-            <h4 className="game-over-header">התחנה הסתיימה</h4>
+            <h4 className="popup-header">התחנה הסתיימה</h4>
           </div>
           <button onClick={handleFinish}>המשך </button>
+        </div>
+      )}
+       {/* Exit Popup */}
+       {showExitModal && (
+        <div className="popup">
+          <div className="exit-popup">
+            <h4 className="popup-header">האם אתם בטוחים שברצונכם לצאת מהמשחק?</h4>
+            <p>שימו לב❣ במידה ויצאתם באמצע הניקוד שצברתם עד כה לא יישמר</p>
+            <div className="exit-buttons">
+              <button onClick={handleExitYes}>חזרה למפה</button>
+              <button onClick={handleExitNo}>המשך במשחק</button>
+            </div>
+          </div>
         </div>
       )}
     </div>

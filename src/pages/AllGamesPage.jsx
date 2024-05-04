@@ -7,7 +7,7 @@ import Header from "../FuncComp/Header";
 
 export default function AllGamesPage() {
   return (
-    <>
+    <><div className="container" style={{height:"100vh", marginTop:"10%"}}>
       <Header textToHeader={"משחקים"} />
       <MainButton textToBtn={"משחק המילים"} navigateTo={"/WordGameInst"} />
       <MainButton textToBtn={"טריוויה"} navigateTo={"/Trivia"} />
@@ -22,7 +22,8 @@ export default function AllGamesPage() {
       <Header textToHeader={"דירוג"} />
       <MainButton textToBtn={"דירוג התחנות"} navigateTo={"/Rating"} />
 
-      <FooterGraphic />
+      {/* <FooterGraphic /> */}
+      </div>
     </>
   );
 }
