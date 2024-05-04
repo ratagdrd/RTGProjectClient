@@ -15,6 +15,7 @@ import "./../css/BonusStation.css";
 export default function BonusStation({ familyImg, MaxAgediffrence }) {
   const [groupData, setGroupData] = useState(null);
   const [ageDifference, setAgeDifference] = useState(0);
+  const [totalPoints, setTotalPoints] = useState(0);
   const [txtToMainContent, setTxtToMainContent] = useState("");
   const [pointsContent, setPointsContent] = useState("");
   const [txtToBtn, setTxtToBtn] = useState("");
@@ -63,6 +64,7 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
               const diff = Math.abs(data.maxAge - data.minAge); //in abs value for consider if the user made mistake and inster min age bigger the max age
               setAgeDifference(diff);
             }
+            setTotalPoints(data.totalPoints);
           })
           .catch((error) => {
             console.error("Error fetching group details:", error);
@@ -100,14 +102,18 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
 
       case "amfi":
         setTxtToMainContent("השלמתם את אתגר האמפי");
-        setPointsContent(`זכיתם ב ${ageDifference * 10} נקודות`); //need to change base on from where i get the points
+        setPointsContent(`צברתם עד כה ${totalPoints} נקודות`);
         setTxtToBtn("המשך");
-
+        break;
+      case "tsuk":
+        setTxtToMainContent("השלמתם את אתגר הצוק");
+        setPointsContent(`צברתם עד כה ${totalPoints} נקודות`);
+        setTxtToBtn("המשך");
         break;
       default:
         break;
     }
-  }, [source, ageDifference]); // Dependency array to ensure effect runs only when source changes
+  }, [source, ageDifference, totalPoints]); // Dependency array to ensure effect runs only when source changes
 
   //check if the user insert photo or emoji to the family photo
   const isImageUrl = (url) => {

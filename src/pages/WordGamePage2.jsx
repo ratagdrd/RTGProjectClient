@@ -185,7 +185,7 @@ export default function WordGamePage2() {
 
   const handleFinish = () => {
     setGameOver(false);
-    navigate("/AllGamesPage");
+    navigate("/BonusStation", { state: { source: "amfi" } });
     //need to use the points
   };
 

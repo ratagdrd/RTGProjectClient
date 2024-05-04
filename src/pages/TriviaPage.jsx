@@ -187,7 +187,7 @@ export default function TriviaPage() {
 
   const handleFinish = () => {
     setGameOver(false);
-    navigate("/AllGamesPage");
+    navigate("/BonusStation", { state: { source: "tsuk" } });
     //need to use the points
   };
   return (
