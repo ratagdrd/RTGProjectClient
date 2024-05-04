@@ -95,12 +95,14 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
 
         setPointsContent(`זכיתם ב ${ageDifference * 10} נקודות`);
 
-        setTxtToBtn("התחל במשחק");
+        setTxtToBtn("המשך");
         break;
 
       case "amfi":
         setTxtToMainContent("השלמתם את אתגר האמפי");
-        setPointsContent(`זכיתם ב ${ageDifference * 10} נקודות`);
+        setPointsContent(`זכיתם ב ${ageDifference * 10} נקודות`); //need to change base on from where i get the points
+        setTxtToBtn("המשך");
+
         break;
       default:
         break;
@@ -146,10 +148,14 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
               <div className="family-emoji">{groupData.photo}</div>
             )}
           </div>
-          <MainButton textToBtn={txtToBtn} />
+          <MainButton textToBtn={txtToBtn} navigateTo={"/AllGamesPage"} />
         </>
       )}
-      {!groupData && <h2>...טוען את פרטי הקבוצה</h2>}
+      {!groupData && (
+        <div>
+          <h2>...טוען את פרטי הקבוצה</h2>
+        </div>
+      )}
       <FooterGraphic />
     </div>
   );
