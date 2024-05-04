@@ -32,6 +32,7 @@ export default function WordGamePage2() {
   const groupCode = sessionStorage.getItem("groupCode");
   const percentage = (quesNum / 5) * 100;
   const navigate = useNavigate();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   console.log(quesNum);
   console.log(percentage);
@@ -153,6 +154,8 @@ export default function WordGamePage2() {
   const handleAnswerClick = (event) => {
     const index = event.target.dataset.index;
     console.log(index);
+
+    setIsButtonDisabled(true);
     const message =
       index == 1
         ? " כל הכבוד! זכיתם ב" + points + " נקודות "
@@ -173,6 +176,7 @@ export default function WordGamePage2() {
         setCurrentQues((prevCurrentQues) => prevCurrentQues + 1);
       }
       console.log(currentQues);
+      setIsButtonDisabled(false);
     }, 3000);
   };
 
@@ -248,6 +252,7 @@ export default function WordGamePage2() {
           className="buttons-game correct-ans"
           data-index="1"
           onClick={handleAnswerClick}
+          disabled={isButtonDisabled}
         >
           מילה נכונה
         </button>
@@ -255,6 +260,7 @@ export default function WordGamePage2() {
           className="buttons-game wrong-ans"
           data-index="0"
           onClick={handleAnswerClick}
+          disabled={isButtonDisabled}
         >
           {" "}
           טעות

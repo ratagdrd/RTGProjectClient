@@ -38,6 +38,7 @@ export default function TriviaPage() {
   const [darkenBackground, setDarkenBackground] = useState(false);
   const groupCode = sessionStorage.getItem("groupCode");
   const navigate = useNavigate();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const triviaImages = [
     ImgTrivia1,
@@ -151,6 +152,7 @@ export default function TriviaPage() {
     console.log(selectedAnswer);
     console.log("correct");
     console.log(correctAns);
+    setIsButtonDisabled(true);
 
     const buttons = document.querySelectorAll(".buttons-game");
     buttons.forEach((button, i) => {
@@ -175,7 +177,7 @@ export default function TriviaPage() {
     setTimeout(() => {
       setPopupMessage(null);
       setCurrentQues((prevCurrentQues) => prevCurrentQues + 1);
-
+      setIsButtonDisabled(false); // Re-enable the buttons for the next question
       console.log(currentQues);
       buttons.forEach((button, i) => {
         if (i !== correctAns - 1) {
@@ -229,6 +231,7 @@ export default function TriviaPage() {
               key={index}
               className={`buttons-game correct-ans`}
               onClick={() => handleAnswerClick(index)}
+              disabled={isButtonDisabled}
             >
               {answer}
             </button>
