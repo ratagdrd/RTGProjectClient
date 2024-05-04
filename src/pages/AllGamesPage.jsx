@@ -18,6 +18,9 @@ export default function AllGamesPage() {
       <MainButton textToBtn={"שחזור נמל"} navigateTo={"/port"} />
       <MainButton textToBtn={"צפייה באמפי ממבט עילי"} navigateTo={"/amfi"} />
       <MainButton textToBtn={"שחזור ארמון הורדוס"} navigateTo={"/Video"} />
+      <hr />
+      <Header textToHeader={"דירוג"} />
+      <MainButton textToBtn={"דירוג התחנות"} navigateTo={"/Rating"} />
 
       <FooterGraphic />
     </>
