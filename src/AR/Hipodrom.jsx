@@ -48,7 +48,7 @@ const HipodromComp = () => {
   const [Instructions, setInstructions] = useState("");
 
   const handleFinish = () => {
-    navigate("/");
+    navigate("/AllGamesPage");
   };
 
   useEffect(() => {
@@ -56,19 +56,18 @@ const HipodromComp = () => {
     let rendererCommon;
 
     async function initAR() {
-
       fetch("https://localhost:7052/api/Activity/4", {
-        method: 'GET',
+        method: "GET",
         headers: new Headers({
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Accept': 'application/json; charset=UTF-8',
-        })
+          "Content-Type": "application/json; charset=UTF-8",
+          Accept: "application/json; charset=UTF-8",
+        }),
       })
-        .then(res => {
-          console.log('res=', res);
-          console.log('res.status', res.status);
-          console.log('res.ok', res.ok);
-          return res.json()
+        .then((res) => {
+          console.log("res=", res);
+          console.log("res.status", res.status);
+          console.log("res.ok", res.ok);
+          return res.json();
         })
         .then(
           (activity) => {
@@ -78,7 +77,6 @@ const HipodromComp = () => {
               const instructions = activity.instruction || "";
               console.log("Instructions:", instructions);
               setInstructions(instructions);
-
             } else {
               console.log("Activity with code 4 not found.");
             }
@@ -130,7 +128,6 @@ const HipodromComp = () => {
     };
   }, []);
 
-  
   const handleInfoClick = () => {
     setShowInfo(!showInfo);
   };

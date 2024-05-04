@@ -48,27 +48,26 @@ const PortComp = () => {
   const [Instructions, setInstructions] = useState("");
 
   const handleFinish = () => {
-    navigate("/");
+    navigate("/AllGamesPage");
   };
   useEffect(() => {
     let mindarThree;
     let rendererCommon;
 
     async function initAR() {
-
-       // Fetch from Activity Data table
-       fetch("https://localhost:7052/api/Activity/5", {
-        method: 'GET',
+      // Fetch from Activity Data table
+      fetch("https://localhost:7052/api/Activity/5", {
+        method: "GET",
         headers: new Headers({
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Accept': 'application/json; charset=UTF-8',
-        })
+          "Content-Type": "application/json; charset=UTF-8",
+          Accept: "application/json; charset=UTF-8",
+        }),
       })
-        .then(res => {
-          console.log('res=', res);
-          console.log('res.status', res.status);
-          console.log('res.ok', res.ok);
-          return res.json()
+        .then((res) => {
+          console.log("res=", res);
+          console.log("res.status", res.status);
+          console.log("res.ok", res.ok);
+          return res.json();
         })
         .then(
           (activity) => {
@@ -78,7 +77,6 @@ const PortComp = () => {
               const instructions = activity.instruction || "";
               console.log("Instructions:", instructions);
               setInstructions(instructions);
-
             } else {
               console.log("Activity with code 5 not found.");
             }
@@ -144,7 +142,7 @@ const PortComp = () => {
 
   return (
     <>
-    <div
+      <div
         style={{
           width: "100%",
           height: "100%",

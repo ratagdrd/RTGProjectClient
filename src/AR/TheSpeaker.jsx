@@ -48,7 +48,12 @@ const TheSpeakerComp = () => {
   const [Instructions, setInstructions] = useState("");
 
   const handleFinish = () => {
-    navigate("/");
+    navigate("/AllGamesPage");
+
+    //if the cleaning dont work use this as last way out because reload did clean
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 10);
   };
   useEffect(() => {
     let mindarThree;
@@ -57,17 +62,17 @@ const TheSpeakerComp = () => {
     async function initAR() {
       // Fetch from Activity Data table
       fetch("https://localhost:7052/api/Activity/3", {
-        method: 'GET',
+        method: "GET",
         headers: new Headers({
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Accept': 'application/json; charset=UTF-8',
-        })
+          "Content-Type": "application/json; charset=UTF-8",
+          Accept: "application/json; charset=UTF-8",
+        }),
       })
-        .then(res => {
-          console.log('res=', res);
-          console.log('res.status', res.status);
-          console.log('res.ok', res.ok);
-          return res.json()
+        .then((res) => {
+          console.log("res=", res);
+          console.log("res.status", res.status);
+          console.log("res.ok", res.ok);
+          return res.json();
         })
         .then(
           (activity) => {
@@ -77,7 +82,6 @@ const TheSpeakerComp = () => {
               const instructions = activity.instruction || "";
               console.log("Instructions:", instructions);
               setInstructions(instructions);
-
             } else {
               console.log("Activity with code 3 not found.");
             }

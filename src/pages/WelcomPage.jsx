@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Header from "../FuncComp/Header";
 import MainContent from "../FuncComp/MainContent";
 import MainButton from "../FuncComp/MainButton";
 import FooterGraphic from "../FuncComp/FooterGraphic";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 
 import "./../css/Games.css";
 import "./../css/GeneralPages.css";
@@ -16,20 +16,19 @@ export default function WelcomPage() {
     onLoad();
   }, []);
 
-
   const onLoad = () => {
-    fetch('https://localhost:7052/api/Site/1', {
-      method: 'GET',
+    fetch("https://localhost:7052/api/Site/1", {
+      method: "GET",
       headers: new Headers({
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json; charset=UTF-8',
-      })
+        "Content-Type": "application/json; charset=UTF-8",
+        Accept: "application/json; charset=UTF-8",
+      }),
     })
-      .then(res => {
-        console.log('res=', res);
-        console.log('res.status', res.status);
-        console.log('res.ok', res.ok);
-        return res.json()
+      .then((res) => {
+        console.log("res=", res);
+        console.log("res.status", res.status);
+        console.log("res.ok", res.ok);
+        return res.json();
       })
       .then(
         (site) => {
@@ -40,7 +39,7 @@ export default function WelcomPage() {
           console.log("Error fetching word data:", error);
         }
       );
-  }
+  };
   const txtToBtn = "יצירת קבוצה";
   const txtTomainContent = "!צרו קבוצה והתחילו לשחק";
   const txtToHeader = "ברוכים הבאים לאתר קיסריה";
@@ -55,31 +54,47 @@ export default function WelcomPage() {
 
   return (
     <div>
-      <div className="welcome-header"><Header textToHeader={txtToHeader} /></div>
-      <div className="welcome-content" ><MainContent textToMainContent={txtTomainContent} /></div>
-      <div className="welcome-buttons"><MainButton textToBtn={txtToBtn} navigateTo={"/register"} />
-        <MainButton textToBtn={"התחל טריוויה"} navigateTo={"/Trivia"} /></div>
-      <Button variant="text" className="welcome-site" onClick={handleShowDetails}>לחץ לצפייה בפרטי האתר</Button>
+      <div className="welcome-header">
+        <Header textToHeader={txtToHeader} />
+      </div>
+      <div className="welcome-content">
+        <MainContent textToMainContent={txtTomainContent} />
+      </div>
+      <div className="welcome-buttons">
+        <MainButton textToBtn={txtToBtn} navigateTo={"/register"} />
+      </div>
+      <Button
+        variant="text"
+        className="welcome-site"
+        onClick={handleShowDetails}
+      >
+        לחץ לצפייה בפרטי האתר
+      </Button>
       <FooterGraphic />
       {showDetails && (
         <div className="game-over-popup">
           <div>
-            <h4 className='game-over-header'>פרטי האתר</h4>
-            <p className='game-over-p'>
-              <span className="bold-text">שם האתר:</span> {siteDetails?.siteName}
+            <h4 className="game-over-header">פרטי האתר</h4>
+            <p className="game-over-p">
+              <span className="bold-text">שם האתר:</span>{" "}
+              {siteDetails?.siteName}
             </p>
-            <p className='game-over-p'>
-              <span className="bold-text">תיאור:</span> {siteDetails?.sDescription}
+            <p className="game-over-p">
+              <span className="bold-text">תיאור:</span>{" "}
+              {siteDetails?.sDescription}
             </p>
-            <p className='game-over-p'>
+            <p className="game-over-p">
               <span className="bold-text">טלפון:</span> {siteDetails?.phoneNo}
             </p>
-            <p className='game-over-p'>
-              <span className="bold-text">שעות פתיחה:</span> {siteDetails?.openingHours}
+            <p className="game-over-p">
+              <span className="bold-text">שעות פתיחה:</span>{" "}
+              {siteDetails?.openingHours}
             </p>
-            <p className='game-over-p'>
+            <p className="game-over-p">
               <span className="bold-text">אתר אינטרנט:</span>{" "}
-              <a href={siteDetails?.webSite} target="_blank">{siteDetails?.webSite}</a>
+              <a href={siteDetails?.webSite} target="_blank">
+                {siteDetails?.webSite}
+              </a>
             </p>
           </div>
 

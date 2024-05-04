@@ -20,6 +20,7 @@ import AmfiComp from "./AR/Amfi";
 import ImagePost from "./pages/imagePost";
 import FlagRegisterComp from "./pages/FlagRegister";
 import SignTest from "./pages/SignTest";
+import AllGamesPage from "./pages/AllGamesPage";
 function App() {
   return (
     <>
@@ -49,6 +50,7 @@ function App() {
             <Route path="/amfi" element={<AmfiComp />} />
             <Route path="/Video" element={<VideoComp />} />
             <Route path="/flagRegister" element={<FlagRegisterComp />} />
+            <Route path="/AllGamesPage" element={<AllGamesPage />} />
           </Routes>
         </div>
       </Router>

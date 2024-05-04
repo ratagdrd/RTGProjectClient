@@ -48,23 +48,20 @@ h5 {
 }
 
 /* welcomePage */
-.welcome-content{
+.welcome-content {
   margin-bottom: 20px;
   margin-top: 100px;
   color: #004a3a;
   font-size: 20px;
-} 
+}
 
-.welcome-buttons{
+.welcome-buttons {
   margin-bottom: 150px;
 }
 
-.welcome-site{
+.welcome-site {
   font-family: "Rubik", sans-serif !important;
   color: #004a3a !important;
   font-size: 16px !important;
   font-weight: 100 !important;
 }
-
-
-
