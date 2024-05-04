@@ -52,7 +52,7 @@ const TheSpeakerComp = () => {
     //if the cleaning dont work use this as last way out because reload did clean
     // setTimeout(() => {
     //   window.location.reload();
-    // }, 10);
+    // }, 30);
   };
   useEffect(() => {
     let mindarThree;
