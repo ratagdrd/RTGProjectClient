@@ -1,6 +1,9 @@
-import React, { useState } from "react";
-import "./../css/Games.css";
+import React, { useState, useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
+
+import "./../css/Games.css";
+
 import ImgTrivia1 from "../images/ImgTrivia1.jpg";
 import ImgTrivia2 from "../images/ImgTrivia2.jpg";
 import ImgTrivia3 from "../images/ImgTrivia3.jpg";
@@ -12,10 +15,12 @@ import ImgTrivia8 from "../images/ImgTrivia8.jpg";
 import ImgTrivia9 from "../images/ImgTrivia9.jpg";
 
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
+
 import { IconButton } from "@mui/material";
-import FooterGraphic from "../FuncComp/FooterGraphic";
-import { useEffect } from "react";
+
 import { IndeterminateCheckBox } from "@mui/icons-material";
+
+import FooterGraphic from "../FuncComp/FooterGraphic";
 
 export default function TriviaPage() {
   const [data, setData] = useState(null);
@@ -32,6 +37,7 @@ export default function TriviaPage() {
   const [gameOver, setGameOver] = useState(false);
   const [darkenBackground, setDarkenBackground] = useState(false);
   const groupCode = sessionStorage.getItem("groupCode");
+  const navigate = useNavigate();
 
   const triviaImages = [
     ImgTrivia1,
@@ -179,6 +185,11 @@ export default function TriviaPage() {
     }, 3000);
   };
 
+  const handleFinish = () => {
+    setGameOver(false);
+    navigate("/AllGamesPage");
+    //need to use the points
+  };
   return (
     <div>
       <div
@@ -231,7 +242,7 @@ export default function TriviaPage() {
           <div>
             <h4 className="game-over-header">התחנה הסתיימה</h4>
           </div>
-          <button onClick={() => setGameOver(false)}>המשך </button>
+          <button onClick={handleFinish}>המשך </button>
         </div>
       )}
     </div>
