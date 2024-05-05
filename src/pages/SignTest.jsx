@@ -121,7 +121,7 @@ export default function SignTest() {
       console.error("Error:", error);
     });
   
-    // navigate("/flagRegister", { state: { groupData } });
+    navigate("/flagRegisterPage");
   };
   
   return (
