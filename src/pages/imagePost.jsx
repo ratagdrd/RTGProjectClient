@@ -21,11 +21,10 @@ function ImagePost() {
   const txtToHeader = "ניסיון העלאת תמונה או אימוגי";
   const txtToBtn = "המשך";
   const groupCode=1;
-  const emojis = ["😀", "🐨", "🐶", "🦛", "👨‍👩‍👧‍👦"];
+  const emojis = ["😀", "🐨", "🐶", "🐼", "👨‍👩‍👧‍👦","😎"];
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedEmoji, setSelectedEmoji] = useState('');
-
   const [imageUrl, setImageUrl] = useState(null);
 
   const handleFileSelect = (e) => {
@@ -37,8 +36,10 @@ function ImagePost() {
 
   const handleEmojiSelect = (e) => {
     setSelectedEmoji(e.target.value);
+    console.log(selectedEmoji);
     setSelectedImage(null); // Reset selected image when an emoji is selected
     setImageUrl(null);
+   
   };
 
   const handleSubmit = (event) => {
@@ -48,21 +49,21 @@ function ImagePost() {
       console.error('No image or emoji selected.');
       return;
     }
+     const apiUrl = selectedImage ?
+    `https://localhost:7052/api/Group/Upload?groupCode=${groupCode}` :
+    `https://localhost:7052/api/Group/putEmoji?groupCode=${groupCode}&emoji=${selectedEmoji}`;
 
-    const apiUrl = 'https://localhost:7052/api/Group/Upload?groupCode='+groupCode;
-
+    console.log(apiUrl);
     const formData = new FormData();
 
     if (selectedImage) {
       formData.append('files', selectedImage);
     } else {
-      // Add logic to handle emoji selection
-      const emojiIndex = emojis.indexOf(selectedEmoji);
-      const emojiImagePath = `/images/emoji${emojiIndex}.png`; 
-      formData.append('files', emojiImagePath);
+      formData.append('files',  selectedEmoji || "😄");
     }
+
     fetch(apiUrl, {
-      method: 'POST',
+      method: 'PUT',
       body: formData
     })
     .then(res => res.json())
