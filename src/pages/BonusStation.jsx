@@ -47,7 +47,14 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
 
       if (groupCode) {
         fetch(
-          `https://localhost:7052/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`
+          `https://localhost:7052/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`,
+          {
+            method: "GET",
+            headers: new Headers({
+              "Content-Type": "application/json; charset=UTF-8",
+              Accept: "application/json; charset=UTF-8",
+            }),
+          }
         )
           .then((response) => {
             if (!response.ok) {
