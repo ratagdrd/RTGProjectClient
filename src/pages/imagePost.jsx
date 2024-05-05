@@ -53,9 +53,8 @@ function ImagePost() {
     `https://localhost:7052/api/Group/Upload?groupCode=${groupCode}` :
     `https://localhost:7052/api/Group/putEmoji?groupCode=${groupCode}&emoji=${selectedEmoji}`;
 
-    console.log(apiUrl);
+    
     const formData = new FormData();
-
     if (selectedImage) {
       formData.append('files', selectedImage);
     } else {
