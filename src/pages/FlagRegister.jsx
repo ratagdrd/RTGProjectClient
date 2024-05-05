@@ -27,7 +27,7 @@ import Header from "../FuncComp/Header";
 import MainButton from "../FuncComp/MainButton";
 import FooterGraphic from "../FuncComp/FooterGraphic";
 
-const FlagRegisterComp = () => {
+const FlagRegisterComp =() => {
   const [image, setImage] = useState(null);
   const [emoji, setEmoji] = useState("");
   const [usingCamera, setUsingCamera] = useState(false);
