@@ -63,7 +63,7 @@ export default function WordGamePage2() {
           setData(result);
           fillWord(result);
           const pointsFromDatabase = result[currentQues]["noOfPoints"];
-          setTotalPoints(pointsFromDatabase);
+          //   setTotalPoints(pointsFromDatabase);
           setPoints(pointsFromDatabase);
           // Process the result as needed
         },
@@ -304,7 +304,9 @@ export default function WordGamePage2() {
       {showExitModal && (
         <div className="popup">
           <div className="exit-popup">
-            <h4 className="popup-header">האם אתם בטוחים שברצונכם לצאת מהמשחק?</h4>
+            <h4 className="popup-header">
+              האם אתם בטוחים שברצונכם לצאת מהמשחק?
+            </h4>
             <p>שימו לב❣ במידה ויצאתם באמצע הניקוד שצברתם עד כה לא יישמר</p>
             <div className="exit-buttons">
               <button onClick={handleExitYes}>חזרה למפה</button>

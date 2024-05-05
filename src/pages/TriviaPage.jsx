@@ -77,7 +77,7 @@ export default function TriviaPage() {
           setData(result);
           fillTrivia(result);
           const pointsFromDatabase = result[currentQues]["noOfPoints"];
-          setTotalPoints(pointsFromDatabase);
+          // setTotalPoints(pointsFromDatabase);
           setPoints(pointsFromDatabase);
           // Process the result as needed
         },
@@ -264,11 +264,13 @@ export default function TriviaPage() {
           <button onClick={handleFinish}>המשך </button>
         </div>
       )}
-       {/* Exit Popup */}
-       {showExitModal && (
+      {/* Exit Popup */}
+      {showExitModal && (
         <div className="popup">
           <div className="exit-popup">
-            <h4 className="popup-header">האם אתם בטוחים שברצונכם לצאת מהמשחק?</h4>
+            <h4 className="popup-header">
+              האם אתם בטוחים שברצונכם לצאת מהמשחק?
+            </h4>
             <p>שימו לב❣ במידה ויצאתם באמצע הניקוד שצברתם עד כה לא יישמר</p>
             <div className="exit-buttons">
               <button onClick={handleExitYes}>חזרה למפה</button>
