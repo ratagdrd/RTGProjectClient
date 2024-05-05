@@ -47,6 +47,22 @@ h5 {
   justify-content: space-between;
 }
 
+.ranking-btn {
+  display: block;
+  width: 80%;
+  padding: 12px;
+  margin: 20px auto;
+  background-color: #004a3a;
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.ranking-finish {
+  margin: 20px auto;
+}
 /* welcomePage */
 .welcome-content {
   margin-bottom: 20px;
