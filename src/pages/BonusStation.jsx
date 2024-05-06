@@ -14,6 +14,8 @@ import "./../css/BonusStation.css";
 
 export default function BonusStation({ familyImg, MaxAgediffrence }) {
   const [groupData, setGroupData] = useState(null);
+  const [photoUrl, setPhotoUrl] = useState(null);
+
   const [ageDifference, setAgeDifference] = useState(0);
   const [totalPoints, setTotalPoints] = useState(0);
   const [txtToMainContent, setTxtToMainContent] = useState("");
@@ -32,6 +34,9 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
     "#FDFFAE",
   ];
   const [showConfetti, setShowConfetti] = useState(true);
+
+  const groupCode = sessionStorage.getItem("groupCode");
+
   // const txtToHeader = `!כל הכבוד משפחת ${groupData.groupName}`;
   //   let txtTomainContent = `הגעתם בהרכב מאוד מגוון.
   //   הפרש הגילאים בין האדם המבוגר ביותר לצעיר ביותר הינו
@@ -43,8 +48,6 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
 
   useEffect(() => {
     function fetchGroupDetails() {
-      const groupCode = sessionStorage.getItem("groupCode");
-
       if (groupCode) {
         fetch(
           `https://localhost:7052/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`,
@@ -65,8 +68,9 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
           .then((data) => {
             console.log("Group Details:", data);
             setGroupData(data);
-
-            //calculate the maximun age diffrence
+            if (data.photo) {
+              setPhotoUrl(data.photo); // Assuming `data.photo` contains the URL or path directly
+            } //calculate the maximun age diffrence
             if (data.minAge && data.maxAge) {
               const diff = Math.abs(data.maxAge - data.minAge); //in abs value for consider if the user made mistake and inster min age bigger the max age
               setAgeDifference(diff);
@@ -91,6 +95,30 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
 
     return () => clearTimeout(timer);
   }, []);
+
+  //for fetch image url if exist
+  useEffect(() => {
+    if (photoUrl && !isImageUrl(photoUrl)) {
+      fetch(`https://localhost:7052/api/Group/getPhoto/${groupCode}`, {
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json; charset=UTF-8",
+          Accept: "text/plain",
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) throw new Error("Network response was not ok");
+          return response.text();
+        })
+        .then((data) => {
+          console.log("Photo URL:", data);
+          setPhotoUrl(data);
+        })
+        .catch((error) =>
+          console.error("Error fetching photo from server:", error)
+        );
+    }
+  }, [photoUrl]);
 
   //handle the source we get from game or from the register
   useEffect(() => {
@@ -124,11 +152,9 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
 
   //check if the user insert photo or emoji to the family photo
   const isImageUrl = (url) => {
-    // Checks if the URL is likely an image URL by looking for image file extensions or a base64 data URI pattern
-    return (
-      /\.(jpeg|jpg|gif|png|svg)$/.test(url) ||
-      /^data:image\/[a-zA-Z]+;base64,/.test(url)
-    );
+    // Checks if the URL is likely an image URL by looking for image file extensions
+    console.log(url);
+    return /\.(jpeg|jpg|gif|png|svg)$/.test(url);
   };
 
   return (
@@ -152,11 +178,7 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
               </div>
             )}
             {isImageUrl(groupData.photo) ? (
-              <img
-                src={groupData.photo}
-                alt="familyPhoto"
-                className="family-image"
-              />
+              <img src={photoUrl} alt="familyPhoto" className="family-image" />
             ) : (
               <div className="family-emoji">{groupData.photo}</div>
             )}
