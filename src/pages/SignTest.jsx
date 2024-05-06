@@ -90,9 +90,16 @@ export default function SignTest() {
     }
   };
 
+  const handletotalPoints = () => {
+    const totalStartPoints = Math.abs(maxAge - minAge) * 10;
+    return totalStartPoints;
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+
+    const startPoints = handletotalPoints();
+
     const groupData = {
       groupName: groupName,
       numOfParticipants: numOfParticipants,
@@ -100,30 +107,30 @@ export default function SignTest() {
       maxAge: maxAge,
       roadType: roadType,
       photo: "", // its empty string until the user enters a photo in the flag register page component
+      totalPoints: startPoints,
     };
-  
-    console.log("before fetch",groupData);
+
+    console.log("before fetch", groupData);
     fetch("https://localhost:7052/api/Group/postTest", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        'Accept': 'application/json; charset=UTF-8',
+        Accept: "application/json; charset=UTF-8",
       },
       body: JSON.stringify(groupData),
     })
-    .then(response => response.json())
-    .then(data => {
-      const groupCode = data;
-      console.log("Inserted groupCode:", groupCode);
-      sessionStorage.setItem('groupCode', groupCode);
-    })
-    .catch(error => {
-      console.error("Error:", error);
-    });
-  
-    navigate("/flagRegisterPage");
+      .then((response) => response.json())
+      .then((data) => {
+        const groupCode = data;
+        console.log("Inserted groupCode:", groupCode);
+        sessionStorage.setItem("groupCode", groupCode);
+        navigate("/flagRegisterPage");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
-  
+
   return (
     <>
       <CacheProvider value={cacheRtl}>
