@@ -53,9 +53,23 @@ function FlagRegisterPage() {
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
-    setSelectedImage(file);
-    setSelectedEmoji(""); // Reset selected emoji when an image is selected
-    setImageUrl(URL.createObjectURL(file)); // Generate URL for uploaded image to be shown
+
+    if (file) {
+      const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+      const uniqueFileName = `${timestamp}-${file.name}`;
+
+      // Create a new File object with the unique name
+      const fileWithNewName = new File([file], uniqueFileName, {
+        type: file.type,
+      });
+
+      setSelectedImage(fileWithNewName);
+      setSelectedEmoji("");
+      setImageUrl(URL.createObjectURL(file)); // Create a URL for preview
+
+      // You might want to keep track of the unique name for later use (e.g., when uploading)
+      console.log("Unique filename:", uniqueFileName);
+    }
   };
 
   const handleEmojiSelect = (e) => {
@@ -73,10 +87,19 @@ function FlagRegisterPage() {
 
   const capturePhoto = () => {
     const imageSrc = webcamRef.current.getScreenshot();
-    setSelectedImage(imageSrc);
-    setImageUrl(imageSrc);
-    setSelectedEmoji("");
-    setUsingCamera(false);
+    const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+    const fileName = `webcam-photo-${timestamp}.jpg`;
+    fetch(imageSrc)
+      .then((res) => res.blob()) //convert the photo from base64 to blob so are server will know to handle the file
+      .then((blob) => {
+        const file = new File([blob], fileName, {
+          type: "image/jpeg",
+        });
+        setSelectedImage(file); // Now 'file' is a File object similar to what you get from an <input type="file">
+        setImageUrl(imageSrc);
+        setSelectedEmoji("");
+        setUsingCamera(false);
+      });
   };
 
   const handleSubmit = (event) => {
