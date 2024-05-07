@@ -302,8 +302,7 @@ export default function WordGamePage2() {
       )}
       {/* Exit Popup */}
       {showExitModal && (
-        <div className="popup">
-          <div className="exit-popup">
+          <div className="popup exit-popup exit-popup-word">
             <h4 className="popup-header">
               האם אתם בטוחים שברצונכם לצאת מהמשחק?
             </h4>
@@ -313,7 +312,6 @@ export default function WordGamePage2() {
               <button onClick={handleExitNo}>המשך במשחק</button>
             </div>
           </div>
-        </div>
       )}
       <FooterGraphic />
     </>

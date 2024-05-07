@@ -69,7 +69,10 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
             console.log("Group Details:", data);
             setGroupData(data);
             if (data.photo) {
-              setPhotoUrl(data.photo); // Assuming `data.photo` contains the URL or path directly
+              console.log(data);
+              console.log(data.photo);
+
+              // setPhotoUrl(data.photo); // Assuming `data.photo` contains the URL or path directly
             } //calculate the maximun age diffrence
             if (data.minAge && data.maxAge) {
               const diff = Math.abs(data.maxAge - data.minAge); //in abs value for consider if the user made mistake and inster min age bigger the max age
@@ -80,7 +83,32 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
           .catch((error) => {
             console.error("Error fetching group details:", error);
           });
-      } else {
+
+          fetch(`https://localhost:7052/api/Group/getPhoto/${groupCode}`, {
+            method: "GET",
+            headers: new Headers({
+              "Content-Type": "application/json; charset=UTF-8",
+              Accept: "application/json; charset=UTF-8",
+            }),
+          })
+          .then((res) => {
+            console.log(res);
+            return res.text();
+          })
+          .then(
+            (result) => {
+              console.log("fetch result: ", result);
+              setPhotoUrl(result);
+              console.log(photoUrl);
+              console.log(`https://localhost:7052${photoUrl}`);
+              console.log(`https://localhost:7052${result}`);           
+            },
+            (error) => {
+              console.log("Error fetching  data:", error);
+            }
+          );
+        }
+       else {
         console.log("No group code found in session storage.");
       }
     }
@@ -97,28 +125,31 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
   }, []);
 
   //for fetch image url if exist
-  useEffect(() => {
-    if (photoUrl && !isImageUrl(photoUrl)) {
-      fetch(`https://localhost:7052/api/Group/getPhoto/${groupCode}`, {
-        method: "GET",
-        headers: new Headers({
-          "Content-Type": "application/json; charset=UTF-8",
-          Accept: "text/plain",
-        }),
-      })
-        .then((response) => {
-          if (!response.ok) throw new Error("Network response was not ok");
-          return response.text();
-        })
-        .then((data) => {
-          console.log("Photo URL:", data);
-          setPhotoUrl(data);
-        })
-        .catch((error) =>
-          console.error("Error fetching photo from server:", error)
-        );
-    }
-  }, [photoUrl]);
+  // useEffect(() => {
+  //   if (photoUrl && !isImageUrl(photoUrl)) {
+  //     fetch(`https://localhost:7052/api/Group/getPhoto/${groupCode}`, {
+  //       method: "GET",
+  //       headers: new Headers({
+  //         "Content-Type": "application/json; charset=UTF-8",
+  //         Accept: "text/plain",
+  //       }),
+  //     })
+  //       .then((response) => {
+  //         if (!response.ok) throw new Error("Network response was not ok");
+  //         console.log(response);
+  //         return response.text();
+          
+  //       })
+  //       .then((data) => {
+  //         console.log("Photo URL:", data);
+  //         setPhotoUrl(`http://localhost:7052${data}`);
+  //         console.log(photoUrl);
+  //       })
+  //       .catch((error) =>
+  //         console.error("Error fetching photo from server:", error)
+  //       );
+  //   }
+  // }, [photoUrl]);
 
   //handle the source we get from game or from the register
   useEffect(() => {
@@ -151,11 +182,11 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
   }, [source, ageDifference, totalPoints]); // Dependency array to ensure effect runs only when source changes
 
   //check if the user insert photo or emoji to the family photo
-  const isImageUrl = (url) => {
-    // Checks if the URL is likely an image URL by looking for image file extensions
-    console.log(url);
-    return /\.(jpeg|jpg|gif|png|svg)$/.test(url);
-  };
+  // const isImageUrl = (url) => {
+  //   // Checks if the URL is likely an image URL by looking for image file extensions
+  //   console.log(url);
+  //   return /\.(jpeg|jpg|gif|png|svg)$/.test(url);
+  // };
 
   return (
     <div className="bonus-container">
@@ -177,11 +208,12 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
                 />
               </div>
             )}
-            {isImageUrl(groupData.photo) ? (
+             <img src={`https://localhost:7052${photoUrl}`} alt="familyPhoto" className="family-image" />
+            {/* {isImageUrl(groupData.photo) ? (
               <img src={photoUrl} alt="familyPhoto" className="family-image" />
             ) : (
               <div className="family-emoji">{groupData.photo}</div>
-            )}
+            )} */}
           </div>
           <MainButton textToBtn={txtToBtn} navigateTo={"/AllGamesPage"} />
         </>

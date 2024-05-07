@@ -257,7 +257,7 @@ export default function TriviaPage() {
         <FooterGraphic />
       </div>
       {gameOver && (
-        <div className="popup" style={{ fontWeight: "100" }}>
+        <div className="popup popup-trivia" style={{ fontWeight: "100" }}>
           <div>
             <h4 className="popup-header">התחנה הסתיימה</h4>
           </div>
@@ -265,9 +265,8 @@ export default function TriviaPage() {
         </div>
       )}
       {/* Exit Popup */}
-      {showExitModal && (
-        <div className="popup">
-          <div className="exit-popup">
+      {showExitModal && ( 
+          <div className="popup exit-popup">
             <h4 className="popup-header">
               האם אתם בטוחים שברצונכם לצאת מהמשחק?
             </h4>
@@ -277,7 +276,6 @@ export default function TriviaPage() {
               <button onClick={handleExitNo}>המשך במשחק</button>
             </div>
           </div>
-        </div>
       )}
     </div>
   );

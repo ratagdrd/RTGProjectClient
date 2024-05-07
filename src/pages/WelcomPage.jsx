@@ -72,25 +72,25 @@ export default function WelcomPage() {
       </Button>
       <FooterGraphic />
       {showDetails && (
-        <div className="game-over-popup">
+        <div className="popup">
           <div>
-            <h4 className="game-over-header">פרטי האתר</h4>
-            <p className="game-over-p">
+            <h4 className="popup-header">פרטי האתר</h4>
+            <p className="popup-p">
               <span className="bold-text">שם האתר:</span>{" "}
               {siteDetails?.siteName}
             </p>
-            <p className="game-over-p">
+            <p className="popup-p">
               <span className="bold-text">תיאור:</span>{" "}
               {siteDetails?.sDescription}
             </p>
-            <p className="game-over-p">
+            <p className="popup-p">
               <span className="bold-text">טלפון:</span> {siteDetails?.phoneNo}
             </p>
-            <p className="game-over-p">
+            <p className="popup-p">
               <span className="bold-text">שעות פתיחה:</span>{" "}
               {siteDetails?.openingHours}
             </p>
-            <p className="game-over-p">
+            <p className="popup-p">
               <span className="bold-text">אתר אינטרנט:</span>{" "}
               <a href={siteDetails?.webSite} target="_blank">
                 {siteDetails?.webSite}
