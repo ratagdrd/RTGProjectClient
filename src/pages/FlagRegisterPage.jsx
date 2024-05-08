@@ -104,20 +104,34 @@ function FlagRegisterPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    //will use it in the case the user dont choose any emoji or photo
+    const defaultEmoji = "😄";
 
-    if (!selectedImage && !selectedEmoji) {
-      console.error("No image or emoji selected.");
-      return;
-    }
-    const apiUrl = selectedImage
-      ? `https://localhost:7052/api/Group/Upload?groupCode=${groupCode}`
-      : `https://localhost:7052/api/Group/putEmoji?groupCode=${groupCode}&emoji=${selectedEmoji}`;
+    // if (!selectedImage && !selectedEmoji) {
+    //   console.error("No image or emoji selected. so will use the defualt one");
+    //   setSelectedEmoji(defaultEmoji);
+    // // }
+    // const apiUrl = selectedImage
+    //   ? `https://localhost:7052/api/Group/Upload?groupCode=${groupCode}`
+    //   : `https://localhost:7052/api/Group/putEmoji?groupCode=${groupCode}&emoji=${selectedEmoji}`;
 
-    const formData = new FormData();
+    // const formData = new FormData();
+    // if (selectedImage) {
+    //   formData.append("files", selectedImage);
+    // } else {
+    //   formData.append("files", selectedEmoji);
+    // }
+
+    let apiUrl;
+    let formData = new FormData();
+
     if (selectedImage) {
+      apiUrl = `https://localhost:7052/api/Group/Upload?groupCode=${groupCode}`;
       formData.append("files", selectedImage);
     } else {
-      formData.append("files", selectedEmoji || "😄");
+      const emojiToSend = selectedEmoji || defaultEmoji;
+      apiUrl = `https://localhost:7052/api/Group/putEmoji?groupCode=${groupCode}&emoji=${emojiToSend}`;
+      formData.append("files", emojiToSend);
     }
 
     fetch(apiUrl, {
