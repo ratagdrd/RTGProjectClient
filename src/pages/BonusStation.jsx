@@ -215,7 +215,7 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
               <div className="family-emoji">{groupData.photo}</div>
             )} */}
           </div>
-          <MainButton textToBtn={txtToBtn} navigateTo={"/AllGamesPage"} />
+          <MainButton textToBtn={txtToBtn} navigateTo={"/AllGamesPage"}/>
         </>
       )}
       {!groupData && (

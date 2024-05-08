@@ -18,7 +18,7 @@ import InfoIcon from "@mui/icons-material/Info";
 
 import FooterGraphic from "../FuncComp/FooterGraphic";
 
-export default function WordGamePage2() {
+export default function WordGamePage() {
   const [data, setData] = useState(null);
   const [word, setWord] = useState("");
   const [popupMessage, setPopupMessage] = useState(null);
@@ -208,18 +208,14 @@ export default function WordGamePage2() {
   };
 
   return (
-    <>
-      <div className="container">
+    <div className="wordGame container">
         {popupMessage && <div className="popup-message">{popupMessage}</div>}
         <div className="quesProgress-container">
           <IconButton onClick={handleInfoClick}>
             <InfoIcon />
           </IconButton>
-          <Dialog open={showInfo} onClose={handleInfoClose}>
-            <DialogTitle
-              className="instructions"
-              style={{ direction: "rtl", padding: "10px 14px" }}
-            >
+          <Dialog open={showInfo} onClose={handleInfoClose} className="instructions">
+            <DialogTitle style={{ direction: "rtl", padding: "10px 14px" }}>
               {" "}
               הוראות
             </DialogTitle>
@@ -230,7 +226,7 @@ export default function WordGamePage2() {
                 padding: "0px 14px 10px",
               }}
             >
-              <Typography className="instructions"> {Instructions} </Typography>
+              <Typography> {Instructions} </Typography>
             </DialogContent>
             <DialogActions>
               <Button
@@ -251,7 +247,7 @@ export default function WordGamePage2() {
             <ArrowForwardIosOutlinedIcon />{" "}
           </IconButton>
         </div>
-      </div>
+      
 
       <div className="progress-bar-container">
         {console.log(percentage)}
@@ -302,7 +298,7 @@ export default function WordGamePage2() {
       )}
       {/* Exit Popup */}
       {showExitModal && (
-          <div className="popup exit-popup exit-popup-word">
+          <div className="popup exit-popup">
             <h4 className="popup-header">
               האם אתם בטוחים שברצונכם לצאת מהמשחק?
             </h4>
@@ -314,6 +310,6 @@ export default function WordGamePage2() {
           </div>
       )}
       <FooterGraphic />
-    </>
+    </div>
   );
 }

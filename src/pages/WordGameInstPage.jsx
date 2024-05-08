@@ -9,7 +9,7 @@ import Header from "../FuncComp/Header";
 import LiveHelpOutlinedIcon from '@mui/icons-material/LiveHelpOutlined';
 
 
-export default function wordGamePage1() {
+export default function wordGameInstPage() {
   const txtToBtn = "התחל";
   const txtToHeader = "ברוכים הבאים לאמפי תיאטרון ";
 

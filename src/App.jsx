@@ -9,8 +9,8 @@ import MapGame from "./FuncComp/MapGame";
 import Flag from "./pages/Flag";
 import familyPhoto from "./images/familyPhoto.jpeg";
 import BonusStation from "./pages/BonusStation";
-import WordGamePage1 from "./pages/WordGamePage1";
-import WordGamePage2 from "./pages/WordGamePage2";
+import WordGameInstPage from "./pages/WordGameInstPage";
+import WordGamePage from "./pages/WordGamePage";
 import RatingPage from "./pages/RatingPage";
 import TheSpeakerComp from "./AR/TheSpeaker";
 import HipodromComp from "./AR/Hipodrom";
@@ -44,8 +44,8 @@ function App() {
                 <BonusStation familyImg={familyPhoto} MaxAgediffrence="50" />
               }
             />
-            <Route path="/WordGameInst" element={<WordGamePage1 />} />
-            <Route path="/WordGame" element={<WordGamePage2 />} />
+            <Route path="/WordGameInst" element={<WordGameInstPage />} />
+            <Route path="/WordGame" element={<WordGamePage />} />
             <Route path="/Rating" element={<RatingPage />} />
             <Route path="/theSpeaker" element={<TheSpeakerComp />} />
             <Route path="/hipodrom" element={<HipodromComp />} />

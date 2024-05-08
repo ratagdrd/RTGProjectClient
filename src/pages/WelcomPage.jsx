@@ -68,7 +68,7 @@ export default function WelcomPage() {
         className="welcome-site"
         onClick={handleShowDetails}
       >
-        לחץ לצפייה בפרטי האתר
+        לחצו לצפייה בפרטי האתר
       </Button>
       <FooterGraphic />
       {showDetails && (

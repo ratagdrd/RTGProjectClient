@@ -74,6 +74,7 @@
 
 .question-container {
   width: 100%;
+  max-height: 20%;
 }
 
 .question-text {
@@ -89,6 +90,8 @@
 .trivia-image {
   width: 90%;
   border-radius: 10px;
+  height: 70%;
+  object-fit: cover; /* This property ensures the image maintains its aspect ratio */
 }
 
 .answers-container {
@@ -96,11 +99,12 @@
   flex-direction: column;
   width: 100%;
   direction: rtl;
+  margin-top: 20px;
 }
 
 .buttons-game{
-  /*background-color: #004a3a;
-  border: 1px solid #004a3a;*/
+  /* background-color: #004a3a; */
+  border: 1px solid #004a3a !important;
   color: aliceblue;
   border-radius: 10px;
   padding: 15px;
@@ -129,6 +133,7 @@
 
 .wrong-ans{
   background-color: #CE6548;
+  border: 1px solid #CE6548 !important;
 }
 
 
@@ -136,13 +141,13 @@
 
 .popup {
   position: fixed;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: rgb(254, 255, 255);
   border: 2px solid #ccc;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 1);
   z-index: 9999;
   text-align: center;
   direction: rtl;
@@ -194,10 +199,6 @@
 }
 
 
-.darken-background {
-  filter: brightness(50%); /* Adjust brightness to darken the background */
-}
-
 .bold-text {
   font-weight: bold;
 }
@@ -212,6 +213,34 @@
   font-size: 15px;
 }
 
+.trivia > .exit-popup{
+  left:45%;
+  top:35%;
+  box-shadow: 0 8px 500px rgba(0, 0, 0, 1);
+}
+
+.wordGame > .exit-popup{
+  left:40%;
+  top:30%;
+  box-shadow: 0 8px 500px rgba(0, 0, 0, 1);
+}
+
+.wordGame > .popup{
+  left:40%;
+  top:35%;
+  width:59%;
+}
+
+.instructions {
+  position: fixed;
+  top:  -150px !important;
+  left:  -50px !important;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center; 
+  align-items: center ; 
+}
 
 
 

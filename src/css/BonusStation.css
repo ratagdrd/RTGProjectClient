@@ -2,7 +2,7 @@
 
 .bonus-container {
   font-family: "Rubik", sans-serif;
-  margin-top: 30px;
+  margin-top: 10%;
 }
 
 .bonus-content {
@@ -17,7 +17,7 @@
   height: calc(90vw * 0.666); /* Height is set to maintain the aspect ratio */
   max-height: 300px;
   margin: auto;
-  margin-bottom: 120px;
+  margin-bottom: 50px;
 }
 
 .family-image {
