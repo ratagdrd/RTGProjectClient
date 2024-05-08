@@ -68,12 +68,13 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
           .then((data) => {
             console.log("Group Details:", data);
             setGroupData(data);
-            if (data.photo) {
-              console.log(data);
-              console.log(data.photo);
+            // if (data.photo) {
+            //   console.log(data);
+            //   console.log(data.photo);
 
-              // setPhotoUrl(data.photo); // Assuming `data.photo` contains the URL or path directly
-            } //calculate the maximun age diffrence
+            //   // setPhotoUrl(data.photo); // Assuming `data.photo` contains the URL or path directly
+            // }
+            //calculate the maximun age diffrence
             if (data.minAge && data.maxAge) {
               const diff = Math.abs(data.maxAge - data.minAge); //in abs value for consider if the user made mistake and inster min age bigger the max age
               setAgeDifference(diff);
@@ -84,31 +85,29 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
             console.error("Error fetching group details:", error);
           });
 
-          fetch(`https://localhost:7052/api/Group/getPhoto/${groupCode}`, {
-            method: "GET",
-            headers: new Headers({
-              "Content-Type": "application/json; charset=UTF-8",
-              Accept: "application/json; charset=UTF-8",
-            }),
-          })
-          .then((res) => {
-            console.log(res);
-            return res.text();
-          })
-          .then(
-            (result) => {
-              console.log("fetch result: ", result);
-              setPhotoUrl(result);
-              console.log(photoUrl);
-              console.log(`https://localhost:7052${photoUrl}`);
-              console.log(`https://localhost:7052${result}`);           
-            },
-            (error) => {
-              console.log("Error fetching  data:", error);
-            }
-          );
-        }
-       else {
+        // fetch(`https://localhost:7052/api/Group/getPhoto/${groupCode}`, {
+        //   method: "GET",
+        //   headers: new Headers({
+        //     "Content-Type": "application/json; charset=UTF-8",
+        //     Accept: "application/json; charset=UTF-8",
+        //   }),
+        // })
+        //   .then((res) => {
+        //     console.log(res);
+        //     return res.text();
+        //   })
+        //   .then(
+        //     (result) => {
+        //       console.log("fetch result: ", result);
+        //       setPhotoUrl(result);
+        //       console.log(`https://localhost:7052${photoUrl}`);
+        //       console.log(`https://localhost:7052${result}`);
+        //     },
+        //     (error) => {
+        //       console.log("Error fetching  data:", error);
+        //     }
+        //   );
+      } else {
         console.log("No group code found in session storage.");
       }
     }
@@ -138,7 +137,7 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
   //         if (!response.ok) throw new Error("Network response was not ok");
   //         console.log(response);
   //         return response.text();
-          
+
   //       })
   //       .then((data) => {
   //         console.log("Photo URL:", data);
@@ -181,12 +180,12 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
     }
   }, [source, ageDifference, totalPoints]); // Dependency array to ensure effect runs only when source changes
 
-  //check if the user insert photo or emoji to the family photo
-  // const isImageUrl = (url) => {
-  //   // Checks if the URL is likely an image URL by looking for image file extensions
-  //   console.log(url);
-  //   return /\.(jpeg|jpg|gif|png|svg)$/.test(url);
-  // };
+  // check if the user insert photo or emoji to the family photo
+  const isImageUrl = (photoName) => {
+    // Checks if the URL is likely an image URL by looking for image file extensions
+    console.log(photoName);
+    return /\.(jpeg|jpg|gif|png|svg)$/.test(photoName);
+  };
 
   return (
     <div className="bonus-container">
@@ -208,14 +207,29 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
                 />
               </div>
             )}
-             <img src={`https://localhost:7052${photoUrl}`} alt="familyPhoto" className="family-image" />
+            {isImageUrl(groupData.photo) ? (
+              <img
+                src={`https://localhost:7052/Images/${groupData.photo}`}
+                alt="familyPhoto"
+                className="family-image"
+              />
+            ) : (
+              <div className="family-emoji">{groupData.photo}</div>
+            )}
+
+            {/* <img
+              src={`https://localhost:7052${photoUrl}`}
+              alt="familyPhoto"
+              className="family-image"
+            /> */}
+
             {/* {isImageUrl(groupData.photo) ? (
               <img src={photoUrl} alt="familyPhoto" className="family-image" />
             ) : (
               <div className="family-emoji">{groupData.photo}</div>
             )} */}
           </div>
-          <MainButton textToBtn={txtToBtn} navigateTo={"/AllGamesPage"}/>
+          <MainButton textToBtn={txtToBtn} navigateTo={"/AllGamesPage"} />
         </>
       )}
       {!groupData && (
