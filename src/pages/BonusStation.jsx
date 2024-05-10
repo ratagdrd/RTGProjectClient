@@ -191,7 +191,7 @@ export default function BonusStation({ familyImg, MaxAgediffrence }) {
     <div className="bonus-container">
       {groupData && (
         <>
-          <Header textToHeader={` כל הכבוד משפחת ${groupData.groupName}`} />
+          <Header textToHeader={` כל הכבוד  ${groupData.groupName}`} />
           <div className="bonus-content">
             <MainContent textToMainContent={txtToMainContent} />
             <div className="points-content">

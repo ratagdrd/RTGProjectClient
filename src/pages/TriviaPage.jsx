@@ -86,9 +86,8 @@ export default function TriviaPage() {
       );
   };
 
-  const fillTrivia = (data) => {
-    if (currentQues > 8) {
-      // יהיו 10 שאלות, צריך לעבוד מעבר לעמוד אחר ולהחליף ל9 וגם לעשות פוסט לניקוד
+  const fillTrivia = (queArr) => {
+    if (currentQues > queArr.length - 1) {
       setGameOver(true);
 
       // Update group points
@@ -122,25 +121,25 @@ export default function TriviaPage() {
         });
       return;
     }
-    setQuestion(data[currentQues]["question"]);
+    setQuestion(queArr[currentQues]["question"]);
     setAnsList([
-      data[currentQues]["answer1"],
-      data[currentQues]["answer2"],
-      data[currentQues]["answer3"],
-      data[currentQues]["answer4"],
+      queArr[currentQues]["answer1"],
+      queArr[currentQues]["answer2"],
+      queArr[currentQues]["answer3"],
+      queArr[currentQues]["answer4"],
     ]);
-    setCorrectAns(data[currentQues]["correctedAnswer"]);
-    setQuesNum(data[currentQues]["questionNo"]);
+    setCorrectAns(queArr[currentQues]["correctedAnswer"]);
+    setQuesNum(queArr[currentQues]["questionNo"]);
   };
   useEffect(() => {
     if (currentQues !== 0) {
       fillTrivia(data);
     }
   }, [currentQues]);
+  // data?.length accesses the length of the data array, ensuring that if data is null or undefined, 
+  // the expression returns undefined instead of causing an error.
+  const percentage = (quesNum / data?.length) * 100;
 
-  const percentage = (quesNum / 9) * 100;
-
-  
   const handleAnswerClick = (index) => {
     setSelectedAnswer(index);
     console.log("selected");
@@ -206,7 +205,7 @@ export default function TriviaPage() {
       <div className="trivia-game">
         {popupMessage && <div className="popup-message">{popupMessage}</div>}
         <div className="quesProgress-container">
-          <div className="quesProgress">Q{quesNum}/9</div>
+          <div className="quesProgress">Q{quesNum}/{data?.length}</div>
           <IconButton
             className="next-button-container"
             style={{ color: "#004a3a" }}

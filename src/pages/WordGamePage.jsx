@@ -106,7 +106,7 @@ export default function WordGamePage() {
 
   const fillWord = (data) => {
     console.log("current before the if " + currentQues);
-    if (currentQues == 5) {
+    if (currentQues == data?.length) {
       setGameOver(true);
       console.log(quesNum);
       setCurrentQues(quesNum);
@@ -169,10 +169,12 @@ export default function WordGamePage() {
       console.log("points:" + totalPoints);
     }
 
-    // Hide the message after 3 seconds
+    // Hides the message after 3 seconds
     setTimeout(() => {
       setPopupMessage(null);
-      if (currentQues < 5) {
+      // data?.length accesses the length of the data array, ensuring that if data is null or undefined, 
+      // the expression returns undefined instead of causing an error.
+      if (currentQues < data?.length) {
         console.log("current on the if " + currentQues);
         setCurrentQues((prevCurrentQues) => prevCurrentQues + 1);
       }
@@ -237,7 +239,7 @@ export default function WordGamePage() {
               </Button>
             </DialogActions>
           </Dialog>
-          <div className="quesProgress">Q{quesNum}/5</div>
+          <div className="quesProgress">Q{quesNum}/{data?.length}</div>
           <IconButton
             className="next-button-container"
             style={{ color: "#004a3a" }}
