@@ -13,20 +13,15 @@ import ImgTrivia6 from "../images/ImgTrivia6.jpg";
 import ImgTrivia7 from "../images/ImgTrivia7.jpg";
 import ImgTrivia8 from "../images/ImgTrivia8.jpg";
 import ImgTrivia9 from "../images/ImgTrivia9.jpg";
-
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
-
 import { IconButton } from "@mui/material";
-
-import { IndeterminateCheckBox } from "@mui/icons-material";
-
 import FooterGraphic from "../FuncComp/FooterGraphic";
+
 
 export default function TriviaPage() {
   const [data, setData] = useState(null);
   const [question, setQuestion] = useState("");
   const [ansList, setAnsList] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [correctAns, setCorrectAns] = useState(0);
   const [quesNum, setQuesNum] = useState(0);
   const [totalPoints, setTotalPoints] = useState(0);
@@ -39,6 +34,16 @@ export default function TriviaPage() {
   const groupCode = sessionStorage.getItem("groupCode");
   const navigate = useNavigate();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+
+  const apiUrlQuestion = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
+  `https://localhost:7052/api/QuestionForActivity/1` :
+  `https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/QuestionForActivity/1`;
+
+const apiUrlPoints = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
+  `https://localhost:7052/api/Group/${groupCode}/${totalPoints}` :
+  `https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/Group/${groupCode}/${totalPoints}`;
+
 
   const triviaImages = [
     ImgTrivia1,
@@ -57,7 +62,7 @@ export default function TriviaPage() {
   }, []);
 
   const onLoad = () => {
-    fetch("https://localhost:7052/api/QuestionForActivity/1", {
+    fetch(apiUrlQuestion, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json; charset=UTF-8",
@@ -91,7 +96,7 @@ export default function TriviaPage() {
       setGameOver(true);
 
       // Update group points
-      fetch(`https://localhost:7052/api/Group/${groupCode}/${totalPoints}`, {
+      fetch(apiUrlPoints, {
         method: "PUT",
         headers: new Headers({
           "Content-Type": "application/json; charset=UTF-8",

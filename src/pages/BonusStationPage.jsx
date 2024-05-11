@@ -15,13 +15,11 @@ import "./../css/BonusStation.css";
 export default function BonusStationPage() {
   const [groupData, setGroupData] = useState(null);
   // const [photoUrl, setPhotoUrl] = useState(null);
-
   const [ageDifference, setAgeDifference] = useState(0);
   const [totalPoints, setTotalPoints] = useState(0);
   const [txtToMainContent, setTxtToMainContent] = useState("");
   const [pointsContent, setPointsContent] = useState("");
   const [txtToBtn, setTxtToBtn] = useState("");
-
   const location = useLocation();
   const { source } = location.state || { source: null }; // Default to null if source is not provided
 
@@ -35,8 +33,7 @@ export default function BonusStationPage() {
   ];
   const [showConfetti, setShowConfetti] = useState(true);
 
-  const groupCode = sessionStorage.getItem("groupCode");
-
+ 
   // const txtToHeader = `!כל הכבוד משפחת ${groupData.groupName}`;
   //   let txtTomainContent = `הגעתם בהרכב מאוד מגוון.
   //   הפרש הגילאים בין האדם המבוגר ביותר לצעיר ביותר הינו
@@ -45,12 +42,15 @@ export default function BonusStationPage() {
   // `;
 
   // const bonusContent = `זכיתם ב ${ageDifference * 10} נקודות`;
+  const groupCode = sessionStorage.getItem("groupCode");
+  const apiUrl= location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
+    `https://localhost:7052/api/Group/GetGroupByGroupCode?groupCode=${groupCode}` :
+    `https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`;
 
   useEffect(() => {
     function fetchGroupDetails() {
       if (groupCode) {
-        fetch(
-          `https://localhost:7052/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`,
+        fetch(apiUrl,
           {
             method: "GET",
             headers: new Headers({

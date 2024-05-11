@@ -7,6 +7,9 @@ import Button from "@mui/material/Button";
 
 import "./../css/Games.css";
 import "./../css/GeneralPages.css";
+const apiUrl = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
+`https://localhost:7052/api/Site/1` :
+`https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/Site/1`;
 
 export default function WelcomPage() {
   const [siteDetails, setSiteDetails] = useState(null);
@@ -17,7 +20,7 @@ export default function WelcomPage() {
   }, []);
 
   const onLoad = () => {
-    fetch("https://localhost:7052/api/Site/1", {
+    fetch(apiUrl, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json; charset=UTF-8",

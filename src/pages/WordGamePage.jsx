@@ -18,6 +18,16 @@ import InfoIcon from "@mui/icons-material/Info";
 
 import FooterGraphic from "../FuncComp/FooterGraphic";
 
+const apiUrlWords = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
+`https://localhost:7052/api/QuestionForActivity/2` :
+`https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/QuestionForActivity/2`;
+
+
+const apiUrlActivity = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
+`https://localhost:7052/api/Activity/2` :
+`https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/Activity/2`;
+
+
 export default function WordGamePage() {
   const [data, setData] = useState(null);
   const [word, setWord] = useState("");
@@ -35,6 +45,11 @@ export default function WordGamePage() {
   const navigate = useNavigate();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
+  
+const apiUrlPoints = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
+`https://localhost:7052/api/Group/${groupCode}/${totalPoints}` :
+`https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/Activity/2`;
+
   console.log(quesNum);
   console.log(percentage);
   console.log(groupCode);
@@ -43,8 +58,9 @@ export default function WordGamePage() {
     onLoad();
   }, []);
 
+  
   const onLoad = () => {
-    fetch("https://localhost:7052/api/QuestionForActivity/2", {
+    fetch(apiUrlWords, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json; charset=UTF-8",
@@ -73,7 +89,7 @@ export default function WordGamePage() {
       );
 
     // Fetch from Activity Data table
-    fetch("https://localhost:7052/api/Activity/2", {
+    fetch(apiUrlActivity, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json; charset=UTF-8",
@@ -112,7 +128,7 @@ export default function WordGamePage() {
       setCurrentQues(quesNum);
 
       // Update group points
-      fetch(`https://localhost:7052/api/Group/${groupCode}/${totalPoints}`, {
+      fetch(apiUrlPoints, {
         method: "PUT",
         headers: new Headers({
           "Content-Type": "application/json; charset=UTF-8",
