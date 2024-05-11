@@ -33,7 +33,6 @@ export default function BonusStationPage() {
   ];
   const [showConfetti, setShowConfetti] = useState(true);
 
- 
   // const txtToHeader = `!כל הכבוד משפחת ${groupData.groupName}`;
   //   let txtTomainContent = `הגעתם בהרכב מאוד מגוון.
   //   הפרש הגילאים בין האדם המבוגר ביותר לצעיר ביותר הינו
@@ -43,22 +42,22 @@ export default function BonusStationPage() {
 
   // const bonusContent = `זכיתם ב ${ageDifference * 10} נקודות`;
   const groupCode = sessionStorage.getItem("groupCode");
-  const apiUrl= location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
-    `https://localhost:7052/api/Group/GetGroupByGroupCode?groupCode=${groupCode}` :
-    `https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`;
+  const apiUrl =
+    window.location.hostname === "localhost" ||
+    location.hostname === "127.0.0.1"
+      ? `https://localhost:7052/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`
+      : `https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`;
 
   useEffect(() => {
     function fetchGroupDetails() {
       if (groupCode) {
-        fetch(apiUrl,
-          {
-            method: "GET",
-            headers: new Headers({
-              "Content-Type": "application/json; charset=UTF-8",
-              Accept: "application/json; charset=UTF-8",
-            }),
-          }
-        )
+        fetch(apiUrl, {
+          method: "GET",
+          headers: new Headers({
+            "Content-Type": "application/json; charset=UTF-8",
+            Accept: "application/json; charset=UTF-8",
+          }),
+        })
           .then((response) => {
             if (!response.ok) {
               throw new Error("Network response was not ok " + response.status);
@@ -211,10 +210,10 @@ export default function BonusStationPage() {
               <img
                 src={`https://localhost:7052/Images/${groupData.photo}`}
                 alt="familyPhoto"
-                className="family-image"
+                className="family-image-bonus"
               />
             ) : (
-              <div className="family-emoji">{groupData.photo}</div>
+              <div className="family-emoji-bonus">{groupData.photo}</div>
             )}
 
             {/* <img
