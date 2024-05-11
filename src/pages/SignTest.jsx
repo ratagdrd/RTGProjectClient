@@ -111,7 +111,7 @@ export default function SignTest() {
     };
 
     console.log("before fetch", groupData);
-    fetch("https://localhost:7052/api/Group/postTest", {
+    fetch("https://localhost:7052/api/Group", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
