@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 
 import MainButton from "../FuncComp/MainButton";
 import FooterGraphic from "../FuncComp/FooterGraphic";
-import GlitterSky from "../FuncComp/GlitterSky";
+
 import Header from "../FuncComp/Header";
 import MainContent from "../FuncComp/MainContent";
 
@@ -12,9 +12,9 @@ import ConfettiExplosion from "react-confetti-explosion";
 
 import "./../css/BonusStation.css";
 
-export default function BonusStation({ familyImg, MaxAgediffrence }) {
+export default function BonusStationPage() {
   const [groupData, setGroupData] = useState(null);
-  const [photoUrl, setPhotoUrl] = useState(null);
+  // const [photoUrl, setPhotoUrl] = useState(null);
 
   const [ageDifference, setAgeDifference] = useState(0);
   const [totalPoints, setTotalPoints] = useState(0);

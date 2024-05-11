@@ -3,12 +3,9 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import WelcomPage from "./pages/WelcomPage";
-import SignGroupPage from "./pages/SignGroupPage";
 import TriviaPage from "./pages/TriviaPage";
 import MapGame from "./FuncComp/MapGame";
-import Flag from "./pages/Flag";
-import familyPhoto from "./images/familyPhoto.jpeg";
-import BonusStation from "./pages/BonusStation";
+import BonusStationPage from "./pages/BonusStationPage";
 import WordGameInstPage from "./pages/WordGameInstPage";
 import WordGamePage from "./pages/WordGamePage";
 import RatingPage from "./pages/RatingPage";
@@ -17,11 +14,11 @@ import HipodromComp from "./AR/Hipodrom";
 import VideoComp from "./AR/VideoComp";
 import PortComp from "./AR/Port";
 import AmfiComp from "./AR/Amfi";
-import ImagePost from "./pages/imagePost";
-import FlagRegisterComp from "./pages/FlagRegister";
-import SignTest from "./pages/SignTest";
+import SignGroupPage from "./pages/SignGroupPage";
 import AllGamesPage from "./pages/AllGamesPage";
 import FlagRegisterPage from "./pages/FlagRegisterPage";
+
+
 function App() {
   return (
     <>
@@ -30,20 +27,10 @@ function App() {
           <Routes>
             <Route path="/" element={<WelcomPage />} />
 
-            <Route path="/signTest" element={<SignTest />} />
-            <Route path="/register" element={<SignGroupPage />} />
-
-            <Route path="/image" element={<ImagePost />} />
-
+            <Route path="/signGroup" element={<SignGroupPage />} />
             <Route path="/Trivia" element={<TriviaPage />} />
             <Route path="/PlayMap" element={<MapGame />} />
-            {/* <Route path="/Flag" element={<Flag familyImg={familyPhoto} />} /> */}
-            <Route
-              path="/BonusStation"
-              element={
-                <BonusStation familyImg={familyPhoto} MaxAgediffrence="50" />
-              }
-            />
+            <Route path="/BonusStation" element={ <BonusStationPage />} />
             <Route path="/WordGameInst" element={<WordGameInstPage />} />
             <Route path="/WordGame" element={<WordGamePage />} />
             <Route path="/Rating" element={<RatingPage />} />
@@ -52,10 +39,7 @@ function App() {
             <Route path="/port" element={<PortComp />} />
             <Route path="/amfi" element={<AmfiComp />} />
             <Route path="/Video" element={<VideoComp />} />
-
-            <Route path="/flagRegisterPage" element={<FlagRegisterPage />} />
-            <Route path="/flagRegister" element={<FlagRegisterComp />} />
-
+            <Route path="/flagRegister" element={<FlagRegisterPage />} />
             <Route path="/AllGamesPage" element={<AllGamesPage />} />
           </Routes>
         </div>

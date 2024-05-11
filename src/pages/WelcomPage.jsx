@@ -61,7 +61,7 @@ export default function WelcomPage() {
         <MainContent textToMainContent={txtTomainContent} />
       </div>
       <div className="welcome-buttons">
-        <MainButton textToBtn={txtToBtn} navigateTo={"/signTest"} />
+        <MainButton textToBtn={txtToBtn} navigateTo={"/signGroup"} />
       </div>
       <Button
         variant="text"

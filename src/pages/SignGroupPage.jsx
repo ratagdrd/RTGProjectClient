@@ -35,7 +35,12 @@ import Header from "../FuncComp/Header";
 import MainButton from "../FuncComp/MainButton";
 import FooterGraphic from "../FuncComp/FooterGraphic";
 
-export default function SignGroupPage() {
+const apiUrl = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
+            `https://localhost:7052/api/Group` :
+            `https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/Group`;
+
+
+export default function SignTest() {
   const theme = createTheme({ direction: "rtl" });
 
   const cacheRtl = createCache({
@@ -53,6 +58,7 @@ export default function SignGroupPage() {
   const [maxAge, setmaxAge] = useState("");
   const [roadTypeUi, setRoadTypeUi] = useState("בחר סוג מסלול");
   const [roadType, setRoadType] = useState("");
+
   const navigate = useNavigate();
 
   const handleInfoClick = () => {
@@ -95,40 +101,39 @@ export default function SignGroupPage() {
   };
 
   const handleSubmit = (event) => {
-    const startPoints = handletotalPoints();
     event.preventDefault();
-    // Handle form submission logic here
+
+    const startPoints = handletotalPoints();
+
     const groupData = {
       groupName: groupName,
       numOfParticipants: numOfParticipants,
       minAge: minAge,
       maxAge: maxAge,
       roadType: roadType,
-      photo: "", //its empty string untill the user will enter photo in the flag register page component
+      photo: "", // its empty string until the user enters a photo in the flag register page component
       totalPoints: startPoints,
     };
-    console.log(groupData);
-    navigate("/flagRegister", { state: { groupData } });
 
-    //this is post that work but we dont use it because the post will be from flagRegister:
-    // const apiUrl = "https://localhost:7052/api/Group";
-
-    // fetch(apiUrl, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(groupData),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("Success:", data);
-    //     // Handle success here, perhaps navigating to another page or showing a success message.
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //     // Handle errors here, perhaps showing an error message to the user.
-    //   });
+    console.log("before fetch", groupData);
+    fetch( apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(groupData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const groupCode = data;
+        console.log("Inserted groupCode:", groupCode);
+        sessionStorage.setItem("groupCode", groupCode);
+        navigate("/flagRegister");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
