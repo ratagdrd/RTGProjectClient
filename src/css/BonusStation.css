@@ -20,7 +20,7 @@
   margin-bottom: 50px;
 }
 
-.family-image {
+.family-image-bonus {
   position: absolute;
   top: 13%;
   left: 10%;
@@ -29,7 +29,7 @@
   max-height: 80%;
 }
 
-.family-emoji {
+.family-emoji-bonus {
   position: absolute;
   top: 13%;
   left: 10%;
