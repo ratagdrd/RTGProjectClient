@@ -81,7 +81,6 @@ const apiUrlPoints = location.hostname === "localhost" || location.hostname === 
           const pointsFromDatabase = result[currentQues]["noOfPoints"];
           //   setTotalPoints(pointsFromDatabase);
           setPoints(pointsFromDatabase);
-          // Process the result as needed
         },
         (error) => {
           console.log("Error fetching word data:", error);
@@ -209,7 +208,6 @@ const apiUrlPoints = location.hostname === "localhost" || location.hostname === 
   const handleFinish = () => {
     setGameOver(false);
     navigate("/BonusStation", { state: { source: "amfi" } });
-    //need to use the points
   };
 
   const handleNextClick = () => {

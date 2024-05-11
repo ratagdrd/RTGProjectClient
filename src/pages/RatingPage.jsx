@@ -36,8 +36,8 @@ export default function RatingPage() {
       .then(
         (activities) => {
           console.log("Activities fetch result: ", activities);
-          setActivities(activities); // Set activities state based on the fetched data
-          setRatings(new Array(activities.length).fill(0)); // Initialize ratings array based on number of activities
+          setActivities(activities); 
+          setRatings(new Array(activities.length).fill(0)); 
         },
         (error) => {
           console.log("Error fetching activity data:", error);
@@ -51,8 +51,6 @@ export default function RatingPage() {
     setRatings(newRatings);
     console.log(newRatings);
 
-    // Update rating in the database
-    // updateRatingInDatabase(activities[index].activitycode, value);
   };
 
   const submitRatings = () => {

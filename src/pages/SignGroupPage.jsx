@@ -69,7 +69,7 @@ export default function SignTest() {
   };
 
   const handleGroupNameChange = (event) => {
-    setGroupName(event.target.value); // Update state with the value from the TextField
+    setGroupName(event.target.value); 
   };
 
   const handleNumOfParticipantsChange = (event) => {

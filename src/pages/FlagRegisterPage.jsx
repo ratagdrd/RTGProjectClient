@@ -67,7 +67,6 @@ function FlagRegisterPage() {
       setSelectedEmoji("");
       setImageUrl(URL.createObjectURL(file)); // Create a URL for preview
 
-      // You might want to keep track of the unique name for later use (e.g., when uploading)
       console.log("Unique filename:", uniqueFileName);
     }
   };
@@ -95,7 +94,7 @@ function FlagRegisterPage() {
         const file = new File([blob], fileName, {
           type: "image/jpeg",
         });
-        setSelectedImage(file); // Now 'file' is a File object similar to what you get from an <input type="file">
+        setSelectedImage(file); 
         setImageUrl(imageSrc);
         setSelectedEmoji("");
         setUsingCamera(false);
@@ -147,7 +146,6 @@ function FlagRegisterPage() {
       .then(
         (result) => {
           console.log("Image uploaded successfully:", result);
-          // Do something with the response
           navigate("/bonusStation", { state: { source: "register" } });
         },
         (error) => {

@@ -1,8 +1,6 @@
 import React from "react";
 
 import MainButton from "../FuncComp/MainButton";
-import FooterGraphic from "../FuncComp/FooterGraphic";
-import MainContent from "../FuncComp/MainContent";
 import Header from "../FuncComp/Header";
 
 export default function AllGamesPage() {
