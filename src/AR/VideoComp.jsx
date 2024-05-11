@@ -162,7 +162,6 @@ const VideoComp = () => {
         </IconButton>
         <Dialog open={showInfo} onClose={handleInfoClose}>
           <DialogTitle
-            className="instructions"
             style={{ direction: "rtl", padding: "10px 14px" }}
           >
             {" "}
@@ -175,7 +174,7 @@ const VideoComp = () => {
               padding: "0px 14px 10px",
             }}
           >
-            <Typography className="instructions"> {Instructions} </Typography>
+            <Typography> {Instructions} </Typography>
           </DialogContent>
           <DialogActions>
             <Button
