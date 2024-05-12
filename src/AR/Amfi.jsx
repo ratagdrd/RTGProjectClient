@@ -81,7 +81,6 @@ const AmfiComp = () => {
             } else {
               console.log("Activity with code 6 not found.");
             }
-            // Process the result as needed
           },
           (error) => {
             console.log("Error fetching activity data:", error);
@@ -100,18 +99,18 @@ const AmfiComp = () => {
       scene.add(light);
       console.log("light", light);
       // Use the loadTexture function to load the image as a texture
-      const texture = await loadTexture("/target/amfi.jpg"); // Ensure this is correctly pathed
+      const texture = await loadTexture("/target/amfi.jpg");
       console.log("texture", texture);
 
-      const geometry = new THREE.PlaneGeometry(1, 0.55); // Adjust size as needed, consider aspect ratio
+      const geometry = new THREE.PlaneGeometry(1, 0.55);
       console.log("geometry", geometry);
 
       const material = new THREE.MeshBasicMaterial({ map: texture });
       console.log("material", material);
 
       const plane = new THREE.Mesh(geometry, material);
-      plane.rotation.x = -Math.PI / 16; // Adjust rotation as needed
-      plane.position.set(0, 0, 0); // Adjust position as needed
+      plane.rotation.x = -Math.PI / 16;
+      plane.position.set(0, 0, 0);
       console.log("plane", plane);
 
       const anchor = mindarThree.addAnchor(0);
@@ -123,14 +122,14 @@ const AmfiComp = () => {
         rendererCommon.render(scene, camera);
       });
 
-      setButtonVisible(true); // Optionally hide the button after AR is initialized
+      setButtonVisible(true); // hide the button after AR is initialized
     }
 
     initAR();
 
     return () => {
       rendererCommon?.setAnimationLoop(null); // This stops the animation loop when component unmounts
-      mindarThree.stop(); // Ensure you properly stop and dispose of resources to prevent memory leaks
+      mindarThree.stop(); // stop and dispose of resources to prevent memory leaks
     };
   }, []);
 

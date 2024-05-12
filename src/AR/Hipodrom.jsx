@@ -81,7 +81,6 @@ const HipodromComp = () => {
             } else {
               console.log("Activity with code 4 not found.");
             }
-            // Process the result as needed
           },
           (error) => {
             console.log("Error fetching word data:", error);
@@ -99,15 +98,15 @@ const HipodromComp = () => {
       const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
       scene.add(light);
       // Use the loadTexture function to load the image as a texture
-      const texture = await loadTexture("/target/remake-hipodrom.jpg"); // Ensure this is correctly pathed
+      const texture = await loadTexture("/target/remake-hipodrom.jpg");
 
-      const geometry = new THREE.PlaneGeometry(1, 1); // Adjust size as needed, consider aspect ratio
+      const geometry = new THREE.PlaneGeometry(1, 1);
 
       const material = new THREE.MeshBasicMaterial({ map: texture });
 
       const plane = new THREE.Mesh(geometry, material);
-      plane.rotation.x = -Math.PI / 16; // Adjust rotation as needed
-      plane.position.set(0, 0, 0); // Adjust position as needed
+      plane.rotation.x = -Math.PI / 16;
+      plane.position.set(0, 0, 0);
 
       const anchor = mindarThree.addAnchor(0);
       anchor.group.add(plane);
@@ -118,14 +117,14 @@ const HipodromComp = () => {
         rendererCommon.render(scene, camera);
       });
 
-      setButtonVisible(true); // Optionally hide the button after AR is initialized
+      setButtonVisible(true); //  hide the button after AR is initialized
     }
 
     initAR();
 
     return () => {
       rendererCommon.setAnimationLoop(null); // This stops the animation loop when component unmounts
-      mindarThree.stop(); // Ensure you properly stop and dispose of resources to prevent memory leaks
+      mindarThree.stop(); // stop and dispose of resources to prevent memory leaks
     };
   }, []);
 

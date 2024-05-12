@@ -96,7 +96,6 @@ const VideoComp = () => {
           } else {
             console.log("Activity with code 7 not found.");
           }
-          // Process the result as needed
         },
         (error) => {
           console.log("Error fetching activity data:", error);
@@ -135,7 +134,7 @@ const VideoComp = () => {
       rendererCommonRef.current.render(scene, camera);
     });
 
-    setButtonVisible(false); // Optionally hide the button after AR is initialized
+    setButtonVisible(false); // hide the button after AR is initialized
   }, [loadVideo]);
 
   useEffect(() => {
