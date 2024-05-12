@@ -56,7 +56,8 @@ const HipodromComp = () => {
     let rendererCommon;
 
     async function initAR() {
-      fetch("https://localhost:7052/api/Activity/4", {
+      //https://localhost:7052/api/Activity/4
+      fetch("https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/4", {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json; charset=UTF-8",
@@ -151,9 +152,7 @@ const HipodromComp = () => {
           <InfoIcon />
         </IconButton>
         <Dialog open={showInfo} onClose={handleInfoClose}>
-          <DialogTitle
-            style={{ direction: "rtl", padding: "10px 14px" }}
-          >
+          <DialogTitle style={{ direction: "rtl", padding: "10px 14px" }}>
             {" "}
             הוראות
           </DialogTitle>

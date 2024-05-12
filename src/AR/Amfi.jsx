@@ -56,7 +56,8 @@ const AmfiComp = () => {
 
     async function initAR() {
       // Fetch from Activity Data table
-      fetch("https://localhost:7052/api/Activity/6", {
+      //https://localhost:7052/api/Activity/6
+      fetch("https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/6", {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json; charset=UTF-8",
@@ -156,9 +157,7 @@ const AmfiComp = () => {
           <InfoIcon />
         </IconButton>
         <Dialog open={showInfo} onClose={handleInfoClose}>
-          <DialogTitle
-            style={{ direction: "rtl", padding: "10px 14px" }}
-          >
+          <DialogTitle style={{ direction: "rtl", padding: "10px 14px" }}>
             {" "}
             הוראות
           </DialogTitle>

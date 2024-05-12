@@ -17,7 +17,6 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 import { IconButton } from "@mui/material";
 import FooterGraphic from "../FuncComp/FooterGraphic";
 
-
 export default function TriviaPage() {
   const [data, setData] = useState(null);
   const [question, setQuestion] = useState("");
@@ -35,15 +34,16 @@ export default function TriviaPage() {
   const navigate = useNavigate();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
+  const apiUrlQuestion = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/QuestionForActivity/1`;
+  // const apiUrlQuestion = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
+  // `https://localhost:7052/api/QuestionForActivity/1` :
+  // `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/QuestionForActivity/1`;
 
-  const apiUrlQuestion = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
-  `https://localhost:7052/api/QuestionForActivity/1` :
-  `https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/QuestionForActivity/1`;
+  const apiUrlPoints = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/${groupCode}/${totalPoints}`;
 
-const apiUrlPoints = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
-  `https://localhost:7052/api/Group/${groupCode}/${totalPoints}` :
-  `https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/Group/${groupCode}/${totalPoints}`;
-
+  // location.hostname === "localhost" || location.hostname === "127.0.0.1"
+  //   ? `https://localhost:7052/api/Group/${groupCode}/${totalPoints}`
+  //   : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/${groupCode}/${totalPoints}`;
 
   const triviaImages = [
     ImgTrivia1,
@@ -140,7 +140,7 @@ const apiUrlPoints = location.hostname === "localhost" || location.hostname === 
       fillTrivia(data);
     }
   }, [currentQues]);
-  // data?.length accesses the length of the data array, ensuring that if data is null or undefined, 
+  // data?.length accesses the length of the data array, ensuring that if data is null or undefined,
   // the expression returns undefined instead of causing an error.
   const percentage = (quesNum / data?.length) * 100;
 
@@ -208,7 +208,9 @@ const apiUrlPoints = location.hostname === "localhost" || location.hostname === 
       <div className="trivia-game">
         {popupMessage && <div className="popup-message">{popupMessage}</div>}
         <div className="quesProgress-container">
-          <div className="quesProgress">Q{quesNum}/{data?.length}</div>
+          <div className="quesProgress">
+            Q{quesNum}/{data?.length}
+          </div>
           <IconButton
             className="next-button-container"
             style={{ color: "#004a3a" }}
@@ -261,9 +263,7 @@ const apiUrlPoints = location.hostname === "localhost" || location.hostname === 
       {/* Exit Popup */}
       {showExitModal && (
         <div className="popup exit-popup">
-          <h4 className="popup-header">
-            האם אתם בטוחים שברצונכם לצאת מהמשחק?
-          </h4>
+          <h4 className="popup-header">האם אתם בטוחים שברצונכם לצאת מהמשחק?</h4>
           <p>שימו לב❣ במידה ויצאתם באמצע הניקוד שצברתם עד כה לא יישמר</p>
           <div className="exit-buttons">
             <button onClick={handleExitYes}>חזרה למפה</button>

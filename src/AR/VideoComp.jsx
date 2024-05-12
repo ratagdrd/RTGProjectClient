@@ -68,13 +68,17 @@ const VideoComp = () => {
 
   const onLoad = () => {
     // Fetch from Activity Data table
-    fetch("https://localhost:7052/api/Activity/7", {
-      method: "GET",
-      headers: new Headers({
-        "Content-Type": "application/json; charset=UTF-8",
-        Accept: "application/json; charset=UTF-8",
-      }),
-    })
+    //localhost:7052/api/Activity/7
+    https: fetch(
+      "https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/7",
+      {
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json; charset=UTF-8",
+          Accept: "application/json; charset=UTF-8",
+        }),
+      }
+    )
       .then((res) => {
         console.log("res=", res);
         console.log("res.status", res.status);
@@ -161,9 +165,7 @@ const VideoComp = () => {
           <InfoIcon />
         </IconButton>
         <Dialog open={showInfo} onClose={handleInfoClose}>
-          <DialogTitle
-            style={{ direction: "rtl", padding: "10px 14px" }}
-          >
+          <DialogTitle style={{ direction: "rtl", padding: "10px 14px" }}>
             {" "}
             הוראות
           </DialogTitle>

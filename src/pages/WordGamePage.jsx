@@ -18,15 +18,16 @@ import InfoIcon from "@mui/icons-material/Info";
 
 import FooterGraphic from "../FuncComp/FooterGraphic";
 
-const apiUrlWords = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
-`https://localhost:7052/api/QuestionForActivity/2` :
-`https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/QuestionForActivity/2`;
+const apiUrlWords = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/QuestionForActivity/2`;
+// const apiUrlWords = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
+// `https://localhost:7052/api/QuestionForActivity/2` :
+// `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/QuestionForActivity/2`;
 
-
-const apiUrlActivity = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
-`https://localhost:7052/api/Activity/2` :
-`https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/Activity/2`;
-
+const apiUrlActivity = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/2`;
+// const apiUrlActivity =
+//   location.hostname === "localhost" || location.hostname === "127.0.0.1"
+//     ? `https://localhost:7052/api/Activity/2`
+//     : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/2`;
 
 export default function WordGamePage() {
   const [data, setData] = useState(null);
@@ -45,10 +46,11 @@ export default function WordGamePage() {
   const navigate = useNavigate();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  
-const apiUrlPoints = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
-`https://localhost:7052/api/Group/${groupCode}/${totalPoints}` :
-`https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/Activity/2`;
+  const apiUrlPoints = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/${groupCode}/${totalPoints}`;
+  // const apiUrlPoints =
+  //   location.hostname === "localhost" || location.hostname === "127.0.0.1"
+  //     ? `https://localhost:7052/api/Group/${groupCode}/${totalPoints}`
+  //     : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/${groupCode}/${totalPoints}`;
 
   console.log(quesNum);
   console.log(percentage);
@@ -58,7 +60,6 @@ const apiUrlPoints = location.hostname === "localhost" || location.hostname === 
     onLoad();
   }, []);
 
-  
   const onLoad = () => {
     fetch(apiUrlWords, {
       method: "GET",
@@ -187,7 +188,7 @@ const apiUrlPoints = location.hostname === "localhost" || location.hostname === 
     // Hides the message after 3 seconds
     setTimeout(() => {
       setPopupMessage(null);
-      // data?.length accesses the length of the data array, ensuring that if data is null or undefined, 
+      // data?.length accesses the length of the data array, ensuring that if data is null or undefined,
       // the expression returns undefined instead of causing an error.
       if (currentQues < data?.length) {
         console.log("current on the if " + currentQues);
@@ -225,45 +226,50 @@ const apiUrlPoints = location.hostname === "localhost" || location.hostname === 
 
   return (
     <div className="wordGame container">
-        {popupMessage && <div className="popup-message">{popupMessage}</div>}
-        <div className="quesProgress-container">
-          <IconButton onClick={handleInfoClick}>
-            <InfoIcon />
-          </IconButton>
-          <Dialog open={showInfo} onClose={handleInfoClose} className="instructions">
-            <DialogTitle style={{ direction: "rtl", padding: "10px 14px" }}>
-              {" "}
-              הוראות
-            </DialogTitle>
-            <DialogContent
-              style={{
-                direction: "rtl",
-                width: "350px",
-                padding: "0px 14px 10px",
-              }}
-            >
-              <Typography> {Instructions} </Typography>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                onClick={handleInfoClose}
-                style={{ direction: "rtl", color: "#004a3a" }}
-              >
-                סגור
-              </Button>
-            </DialogActions>
-          </Dialog>
-          <div className="quesProgress">Q{quesNum}/{data?.length}</div>
-          <IconButton
-            className="next-button-container"
-            style={{ color: "#004a3a" }}
-            onClick={handleNextClick}
-          >
+      {popupMessage && <div className="popup-message">{popupMessage}</div>}
+      <div className="quesProgress-container">
+        <IconButton onClick={handleInfoClick}>
+          <InfoIcon />
+        </IconButton>
+        <Dialog
+          open={showInfo}
+          onClose={handleInfoClose}
+          className="instructions"
+        >
+          <DialogTitle style={{ direction: "rtl", padding: "10px 14px" }}>
             {" "}
-            <ArrowForwardIosOutlinedIcon />{" "}
-          </IconButton>
+            הוראות
+          </DialogTitle>
+          <DialogContent
+            style={{
+              direction: "rtl",
+              width: "350px",
+              padding: "0px 14px 10px",
+            }}
+          >
+            <Typography> {Instructions} </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={handleInfoClose}
+              style={{ direction: "rtl", color: "#004a3a" }}
+            >
+              סגור
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <div className="quesProgress">
+          Q{quesNum}/{data?.length}
         </div>
-      
+        <IconButton
+          className="next-button-container"
+          style={{ color: "#004a3a" }}
+          onClick={handleNextClick}
+        >
+          {" "}
+          <ArrowForwardIosOutlinedIcon />{" "}
+        </IconButton>
+      </div>
 
       <div className="progress-bar-container">
         {console.log(percentage)}
@@ -314,16 +320,14 @@ const apiUrlPoints = location.hostname === "localhost" || location.hostname === 
       )}
       {/* Exit Popup */}
       {showExitModal && (
-          <div className="popup exit-popup">
-            <h4 className="popup-header">
-              האם אתם בטוחים שברצונכם לצאת מהמשחק?
-            </h4>
-            <p>שימו לב❣ במידה ויצאתם באמצע הניקוד שצברתם עד כה לא יישמר</p>
-            <div className="exit-buttons">
-              <button onClick={handleExitYes}>חזרה למפה</button>
-              <button onClick={handleExitNo}>המשך במשחק</button>
-            </div>
+        <div className="popup exit-popup">
+          <h4 className="popup-header">האם אתם בטוחים שברצונכם לצאת מהמשחק?</h4>
+          <p>שימו לב❣ במידה ויצאתם באמצע הניקוד שצברתם עד כה לא יישמר</p>
+          <div className="exit-buttons">
+            <button onClick={handleExitYes}>חזרה למפה</button>
+            <button onClick={handleExitNo}>המשך במשחק</button>
           </div>
+        </div>
       )}
       <FooterGraphic />
     </div>

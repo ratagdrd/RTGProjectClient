@@ -7,10 +7,10 @@ import Rating from "@mui/material/Rating";
 import Header from "../FuncComp/Header";
 import FooterGraphic from "../FuncComp/FooterGraphic";
 
-const apiUrlActivity = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
-  `https://localhost:7052/api/Activity` :
-  `https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/Activity`;
-
+const apiUrlActivity = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity`;
+// const apiUrlActivity = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
+//   `https://localhost:7052/api/Activity` :
+//   `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity`;
 
 export default function RatingPage() {
   const txtToHeader = "דעתכם חשובה לנו! ";
@@ -18,7 +18,6 @@ export default function RatingPage() {
   const [activities, setActivities] = useState([]);
   const [ratings, setRatings] = useState([]);
   const [submitted, setSubmitted] = useState(false);
-  
 
   useEffect(() => {
     onLoad();
@@ -36,8 +35,8 @@ export default function RatingPage() {
       .then(
         (activities) => {
           console.log("Activities fetch result: ", activities);
-          setActivities(activities); 
-          setRatings(new Array(activities.length).fill(0)); 
+          setActivities(activities);
+          setRatings(new Array(activities.length).fill(0));
         },
         (error) => {
           console.log("Error fetching activity data:", error);
@@ -50,7 +49,6 @@ export default function RatingPage() {
     newRatings[index] = value;
     setRatings(newRatings);
     console.log(newRatings);
-
   };
 
   const submitRatings = () => {
@@ -64,9 +62,11 @@ export default function RatingPage() {
   };
 
   const updateRatingInDatabase = (activitycode, newRate) => {
-    const apiUrlRate = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
-  `https://localhost:7052/api/Activity/${activitycode}/${newRate}` :
-  `https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/Activity/${activitycode}/${newRate}`;
+    const apiUrlRate = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/${activitycode}/${newRate}`;
+    // const apiUrlRate =
+    //   location.hostname === "localhost" || location.hostname === "127.0.0.1"
+    //     ? `https://localhost:7052/api/Activity/${activitycode}/${newRate}`
+    //     : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/${activitycode}/${newRate}`;
 
     fetch(apiUrlRate, {
       method: "PUT",
@@ -116,7 +116,9 @@ export default function RatingPage() {
             דרג את התחנות
           </button>
         )}
-        {submitted && <h5 className="ranking-finish">תודה! נתראה בפעם הבאה!</h5>}
+        {submitted && (
+          <h5 className="ranking-finish">תודה! נתראה בפעם הבאה!</h5>
+        )}
       </div>
       <div>
         <FooterGraphic />

@@ -42,11 +42,13 @@ export default function BonusStationPage() {
 
   // const bonusContent = `זכיתם ב ${ageDifference * 10} נקודות`;
   const groupCode = sessionStorage.getItem("groupCode");
-  const apiUrl =
-    window.location.hostname === "localhost" ||
-    location.hostname === "127.0.0.1"
-      ? `https://localhost:7052/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`
-      : `https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`;
+  const apiUrl = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`;
+
+  // const apiUrl =
+  //   window.location.hostname === "localhost" ||
+  //   location.hostname === "127.0.0.1"
+  //     ? `https://localhost:7052/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`
+  //     : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`;
 
   useEffect(() => {
     function fetchGroupDetails() {
@@ -208,7 +210,8 @@ export default function BonusStationPage() {
             )}
             {isImageUrl(groupData.photo) ? (
               <img
-                src={`https://localhost:7052/Images/${groupData.photo}`}
+                // src={`https://localhost:7052/Images/${groupData.photo}`}
+                src={`https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/${groupData.photo}`}
                 alt="familyPhoto"
                 className="family-image-bonus"
               />
