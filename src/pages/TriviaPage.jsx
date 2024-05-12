@@ -3,16 +3,35 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./../css/Games.css";
+const ImgTrivia1 =
+  "https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/trivia/ImgTrivia1.jpg";
+const ImgTrivia2 =
+  "https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/trivia/ImgTrivia2.jpg";
+const ImgTrivia3 =
+  "https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/trivia/ImgTrivia3.jpg";
+const ImgTrivia4 =
+  "https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/trivia/ImgTrivia4.jpg";
+const ImgTrivia5 =
+  "https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/trivia/ImgTrivia5.jpg";
+const ImgTrivia6 =
+  "https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/trivia/ImgTrivia6.jpg";
+const ImgTrivia7 =
+  "https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/trivia/ImgTrivia7.jpg";
+const ImgTrivia8 =
+  "https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/trivia/ImgTrivia8.jpg";
+const ImgTrivia9 =
+  "https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/trivia/ImgTrivia9.jpg";
 
-import ImgTrivia1 from "../images/ImgTrivia1.jpg";
-import ImgTrivia2 from "../images/ImgTrivia2.jpg";
-import ImgTrivia3 from "../images/ImgTrivia3.jpg";
-import ImgTrivia4 from "../images/ImgTrivia4.jpg";
-import ImgTrivia5 from "../images/ImgTrivia5.jpg";
-import ImgTrivia6 from "../images/ImgTrivia6.jpg";
-import ImgTrivia7 from "../images/ImgTrivia7.jpg";
-import ImgTrivia8 from "../images/ImgTrivia8.jpg";
-import ImgTrivia9 from "../images/ImgTrivia9.jpg";
+// import ImgTrivia1 from "../images/ImgTrivia1.jpg";
+// import ImgTrivia2 from "../images/ImgTrivia2.jpg";
+// import ImgTrivia3 from "../images/ImgTrivia3.jpg";
+// import ImgTrivia4 from "../images/ImgTrivia4.jpg";
+// import ImgTrivia5 from "../images/ImgTrivia5.jpg";
+// import ImgTrivia6 from "../images/ImgTrivia6.jpg";
+// import ImgTrivia7 from "../images/ImgTrivia7.jpg";
+// import ImgTrivia8 from "../images/ImgTrivia8.jpg";
+// import ImgTrivia9 from "../images/ImgTrivia9.jpg";
+
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import { IconButton } from "@mui/material";
 import FooterGraphic from "../FuncComp/FooterGraphic";
