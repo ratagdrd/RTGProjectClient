@@ -149,7 +149,9 @@ function FlagRegisterPage() {
       .then(
         (result) => {
           console.log("Image uploaded successfully:", result);
-          navigate("/bonusStation", { state: { source: "register" } });
+          navigate("/cgroup60/test2/tar3/bonusStation", {
+            state: { source: "register" },
+          });
         },
         (error) => {
           console.error("Error uploading image:", error);

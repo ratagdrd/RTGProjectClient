@@ -129,7 +129,7 @@ export default function SignTest() {
         const groupCode = data;
         console.log("Inserted groupCode:", groupCode);
         sessionStorage.setItem("groupCode", groupCode);
-        navigate("/flagRegister");
+        navigate("/cgroup60/test2/tar3/flagRegister");
       })
       .catch((error) => {
         console.error("Error:", error);

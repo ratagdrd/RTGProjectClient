@@ -48,7 +48,7 @@ const HipodromComp = () => {
   const [Instructions, setInstructions] = useState("");
 
   const handleFinish = () => {
-    navigate("/AllGamesPage");
+    navigate("/cgroup60/test2/tar3/AllGamesPage");
   };
 
   useEffect(() => {

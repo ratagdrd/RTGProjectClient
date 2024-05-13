@@ -47,7 +47,7 @@ const VideoComp = () => {
 
   const handleFinish = () => {
     cleanupResources();
-    navigate("/AllGamesPage");
+    navigate("/cgroup60/test2/tar3/AllGamesPage");
   };
 
   const loadVideo = useCallback((path) => {

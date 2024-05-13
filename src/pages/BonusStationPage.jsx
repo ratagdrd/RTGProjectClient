@@ -231,7 +231,10 @@ export default function BonusStationPage() {
               <div className="family-emoji">{groupData.photo}</div>
             )} */}
           </div>
-          <MainButton textToBtn={txtToBtn} navigateTo={"/AllGamesPage"} />
+          <MainButton
+            textToBtn={txtToBtn}
+            navigateTo={"/cgroup60/test2/tar3/AllGamesPage"}
+          />
         </>
       )}
       {!groupData && (

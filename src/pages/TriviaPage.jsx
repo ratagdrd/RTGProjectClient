@@ -206,7 +206,9 @@ export default function TriviaPage() {
 
   const handleFinish = () => {
     setGameOver(false);
-    navigate("/BonusStation", { state: { source: "tsuk" } });
+    navigate("/cgroup60/test2/tar3/BonusStation", {
+      state: { source: "tsuk" },
+    });
   };
 
   const handleNextClick = () => {
@@ -215,7 +217,7 @@ export default function TriviaPage() {
   };
 
   const handleExitYes = () => {
-    navigate("/AllGamesPage"); // Navigate to AllGamesPage
+    navigate("/cgroup60/test2/tar3/AllGamesPage"); // Navigate to AllGamesPage
   };
 
   const handleExitNo = () => {

@@ -208,7 +208,9 @@ export default function WordGamePage() {
 
   const handleFinish = () => {
     setGameOver(false);
-    navigate("/BonusStation", { state: { source: "amfi" } });
+    navigate("/cgroup60/test2/tar3/BonusStation", {
+      state: { source: "amfi" },
+    });
   };
 
   const handleNextClick = () => {
@@ -217,7 +219,7 @@ export default function WordGamePage() {
   };
 
   const handleExitYes = () => {
-    navigate("/AllGamesPage"); // Navigate to AllGamesPage
+    navigate("/cgroup60/test2/tar3/AllGamesPage"); // Navigate to AllGamesPage
   };
 
   const handleExitNo = () => {
