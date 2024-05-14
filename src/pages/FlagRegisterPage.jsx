@@ -15,7 +15,7 @@ import Webcam from "react-webcam";
 
 import "@fontsource/roboto";
 import "./../css/Flag.css";
-import flag from "../images/flag.png";
+// import flag from "../images/flag.png";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -50,6 +50,8 @@ function FlagRegisterPage() {
   const groupCode = sessionStorage.getItem("groupCode");
   const webcamRef = React.useRef(null);
   const emojis = ["😀", "🐨", "🐶", "🐼", "👨‍👩‍👧‍👦", "😎"];
+  const flag =
+    "https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/flag/flag.png";
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
