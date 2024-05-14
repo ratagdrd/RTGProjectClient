@@ -106,7 +106,7 @@ const VideoComp = () => {
   const initAR = useCallback(async () => {
     mindarThreeRef.current = new MindARThree({
       container: containerRef.current,
-      imageTargetSrc: "/target/herod-palace.mind",
+      imageTargetSrc: "/cgroup60/test2/tar3/target/herod-palace.mind",
     });
 
     const { scene, camera } = mindarThreeRef.current;
@@ -115,7 +115,9 @@ const VideoComp = () => {
     const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
     scene.add(light);
 
-    const video = await loadVideo("/target/herod-palace.mp4");
+    const video = await loadVideo(
+      "/cgroup60/test2/tar3/target/herod-palace.mp4"
+    );
     const texture = new THREE.VideoTexture(video);
 
     const geometry = new THREE.PlaneGeometry(1, 204 / 480);

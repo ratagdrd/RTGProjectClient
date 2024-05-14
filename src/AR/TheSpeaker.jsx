@@ -40,6 +40,7 @@ const loadTexture = (path) => {
   });
 };
 
+// const target = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/speaker.mind`;
 const TheSpeakerComp = () => {
   const containerRef = useRef(null);
   const [buttonVisible, setButtonVisible] = useState(false);
@@ -97,7 +98,7 @@ const TheSpeakerComp = () => {
       mindarThree = new MindARThree({
         container: containerRef.current,
         // /cgroup60/test2/tar3/target/speaker.mind
-        imageTargetSrc: "/target/speaker.mind",
+        imageTargetSrc: "/cgroup60/test2/tar3/target/speaker.mind",
       });
       console.log("mind", mindarThree);
       const { scene, camera } = mindarThree;
@@ -108,7 +109,9 @@ const TheSpeakerComp = () => {
       console.log("light", light);
       // Use the loadTexture function to load the image as a texture
       // /cgroup60/test2/tar3/target/the-speaker.jpg
-      const texture = await loadTexture("/target/the-speaker.jpg");
+      const texture = await loadTexture(
+        "/cgroup60/test2/tar3/target/the-speaker.jpg"
+      );
       console.log("texture", texture);
 
       const geometry = new THREE.PlaneGeometry(1, 0.55);

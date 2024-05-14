@@ -24,10 +24,6 @@ function App() {
       <Router>
         <div className="app-container">
           <Routes>
-            {/* start page for dev enviroment */}
-            <Route path="/" element={<WelcomPage />} />
-
-            {/* start page for prod enviroment */}
             <Route path="/cgroup60/test2/tar3/" element={<WelcomPage />} />
 
             <Route

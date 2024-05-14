@@ -92,7 +92,7 @@ const PortComp = () => {
 
       mindarThree = new MindARThree({
         container: containerRef.current,
-        imageTargetSrc: "/target/sky-look.mind",
+        imageTargetSrc: "/cgroup60/test2/tar3/target/sky-look.mind",
       });
       console.log("mind", mindarThree);
       const { scene, camera } = mindarThree;
@@ -102,7 +102,7 @@ const PortComp = () => {
       scene.add(light);
       console.log("light", light);
       // Use the loadTexture function to load the image as a texture
-      const texture = await loadTexture("/target/port.jpg");
+      const texture = await loadTexture("/cgroup60/test2/tar3/target/port.jpg");
       console.log("texture", texture);
 
       const geometry = new THREE.PlaneGeometry(1, 0.55);

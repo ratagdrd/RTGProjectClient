@@ -89,7 +89,7 @@ const HipodromComp = () => {
 
       mindarThree = new MindARThree({
         container: containerRef.current,
-        imageTargetSrc: "/target/hipodrom.mind",
+        imageTargetSrc: "/cgroup60/test2/tar3/target/hipodrom.mind",
       });
       console.log("mind", mindarThree);
       const { scene, camera } = mindarThree;
@@ -98,7 +98,9 @@ const HipodromComp = () => {
       const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
       scene.add(light);
       // Use the loadTexture function to load the image as a texture
-      const texture = await loadTexture("/target/remake-hipodrom.jpg");
+      const texture = await loadTexture(
+        "/cgroup60/test2/tar3/target/remake-hipodrom.jpg"
+      );
 
       const geometry = new THREE.PlaneGeometry(1, 1);
 
