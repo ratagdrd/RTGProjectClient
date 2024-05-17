@@ -35,10 +35,11 @@ import Header from "../FuncComp/Header";
 import MainButton from "../FuncComp/MainButton";
 import FooterGraphic from "../FuncComp/FooterGraphic";
 
-const apiUrl = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group`;
-// const apiUrl = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
-//             `https://localhost:7052/api/Group` :
-//             `https://proj.ruppin.ac.il/cgroup60/test2/tar4/api/Group`;
+// const apiUrl = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group`;
+const apiUrl =
+  location.hostname === "localhost" || location.hostname === "127.0.0.1"
+    ? `https://localhost:7052/api/Group`
+    : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group`;
 
 export default function SignTest() {
   const theme = createTheme({ direction: "rtl" });

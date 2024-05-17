@@ -57,7 +57,14 @@ const AmfiComp = () => {
     async function initAR() {
       // Fetch from Activity Data table
       //https://localhost:7052/api/Activity/6
-      fetch("https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/6", {
+      // https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/6
+      const apiUrl =
+        window.location.hostname === "localhost" ||
+        location.hostname === "127.0.0.1"
+          ? `https://localhost:7052/api/Activity/6`
+          : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/6`;
+
+      fetch(apiUrl, {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json; charset=UTF-8",
