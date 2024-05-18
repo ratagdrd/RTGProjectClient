@@ -56,8 +56,8 @@
   height: 100vh;
   padding: 20px;
   border-radius: 20px;
-  width: 390px; /* Set a specific width */
-  max-width: 100%; /* Allow responsiveness for larger screens */
+  width: 390px;
+  max-width: 100%;
   margin: 0 auto; /* Center horizontally */
 }
 

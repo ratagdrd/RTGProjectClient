@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import Map, { NavigationControl } from "react-map-gl";
-// import ".././css/MapGame";
-// let [currentPlace, setCurrentPlace] = useState();
 
 export default function MapGame() {
   return (

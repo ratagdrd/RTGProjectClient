@@ -40,7 +40,6 @@ const loadTexture = (path) => {
   });
 };
 
-// const target = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/speaker.mind`;
 const TheSpeakerComp = () => {
   const containerRef = useRef(null);
   const [buttonVisible, setButtonVisible] = useState(false);
@@ -50,7 +49,7 @@ const TheSpeakerComp = () => {
 
   const handleFinish = () => {
     navigate("/cgroup60/test2/tar3/AllGamesPage");
-    //if the cleaning dont work use this as last way out because reload did clean
+    //if the cleaning dont work we use this as last way out because reload did clean
     // setTimeout(() => {
     //   window.location.reload();
     // }, 30);
@@ -101,7 +100,6 @@ const TheSpeakerComp = () => {
 
       mindarThree = new MindARThree({
         container: containerRef.current,
-        // /cgroup60/test2/tar3/target/speaker.mind
         imageTargetSrc: "/cgroup60/test2/tar3/target/speaker.mind",
       });
       console.log("mind", mindarThree);
@@ -112,7 +110,6 @@ const TheSpeakerComp = () => {
       scene.add(light);
       console.log("light", light);
       // Use the loadTexture function to load the image as a texture
-      // /cgroup60/test2/tar3/target/the-speaker.jpg
       const texture = await loadTexture(
         "/cgroup60/test2/tar3/target/the-speaker.jpg"
       );

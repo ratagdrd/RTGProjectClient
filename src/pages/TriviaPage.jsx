@@ -22,16 +22,6 @@ const ImgTrivia8 =
 const ImgTrivia9 =
   "https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/trivia/ImgTrivia9.jpg";
 
-// import ImgTrivia1 from "../images/ImgTrivia1.jpg";
-// import ImgTrivia2 from "../images/ImgTrivia2.jpg";
-// import ImgTrivia3 from "../images/ImgTrivia3.jpg";
-// import ImgTrivia4 from "../images/ImgTrivia4.jpg";
-// import ImgTrivia5 from "../images/ImgTrivia5.jpg";
-// import ImgTrivia6 from "../images/ImgTrivia6.jpg";
-// import ImgTrivia7 from "../images/ImgTrivia7.jpg";
-// import ImgTrivia8 from "../images/ImgTrivia8.jpg";
-// import ImgTrivia9 from "../images/ImgTrivia9.jpg";
-
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import { IconButton } from "@mui/material";
 import FooterGraphic from "../FuncComp/FooterGraphic";
@@ -102,7 +92,6 @@ export default function TriviaPage() {
           setData(result);
           fillTrivia(result);
           const pointsFromDatabase = result[currentQues]["noOfPoints"];
-          // setTotalPoints(pointsFromDatabase);
           setPoints(pointsFromDatabase);
         },
         (error) => {
@@ -189,7 +178,6 @@ export default function TriviaPage() {
     console.log(index, correctAns - 1);
     if (index == correctAns - 1) {
       setTotalPoints((prevTotalPoints) => prevTotalPoints + points);
-      // console.log("points:" + totalPoints);
     }
 
     // Hide the message after 3 seconds and remove the red background

@@ -82,7 +82,6 @@ export default function WordGamePage() {
           setData(result);
           fillWord(result);
           const pointsFromDatabase = result[currentQues]["noOfPoints"];
-          //   setTotalPoints(pointsFromDatabase);
           setPoints(pointsFromDatabase);
         },
         (error) => {
@@ -184,7 +183,6 @@ export default function WordGamePage() {
     // Increment points if correct answer
     if (index == 1) {
       setTotalPoints((prevTotalPoints) => prevTotalPoints + points);
-      // console.log("points:" + totalPoints);
     }
 
     // Hides the message after 3 seconds

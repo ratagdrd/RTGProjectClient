@@ -14,7 +14,6 @@ import "./../css/BonusStation.css";
 
 export default function BonusStationPage() {
   const [groupData, setGroupData] = useState(null);
-  // const [photoUrl, setPhotoUrl] = useState(null);
   const [ageDifference, setAgeDifference] = useState(0);
   const [totalPoints, setTotalPoints] = useState(0);
   const [txtToMainContent, setTxtToMainContent] = useState("");
@@ -33,17 +32,9 @@ export default function BonusStationPage() {
   ];
   const [showConfetti, setShowConfetti] = useState(true);
 
-  // const txtToHeader = `!כל הכבוד משפחת ${groupData.groupName}`;
-  //   let txtTomainContent = `הגעתם בהרכב מאוד מגוון.
-  //   הפרש הגילאים בין האדם המבוגר ביותר לצעיר ביותר הינו
-  //   ${ageDifference}
-  //   שנים
-  // `;
-
-  // const bonusContent = `זכיתם ב ${ageDifference * 10} נקודות`;
   const groupCode = sessionStorage.getItem("groupCode");
-  // const apiUrl = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`;
 
+  // const apiUrl = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`;
   const apiUrl =
     window.location.hostname === "localhost" ||
     location.hostname === "127.0.0.1"
@@ -69,12 +60,7 @@ export default function BonusStationPage() {
           .then((data) => {
             console.log("Group Details:", data);
             setGroupData(data);
-            // if (data.photo) {
-            //   console.log(data);
-            //   console.log(data.photo);
 
-            //   // setPhotoUrl(data.photo); // Assuming `data.photo` contains the URL or path directly
-            // }
             //calculate the maximun age diffrence
             if (data.minAge && data.maxAge) {
               const diff = Math.abs(data.maxAge - data.minAge); //in abs value for consider if the user made mistake and inster min age bigger the max age
@@ -85,29 +71,6 @@ export default function BonusStationPage() {
           .catch((error) => {
             console.error("Error fetching group details:", error);
           });
-
-        // fetch(`https://localhost:7052/api/Group/getPhoto/${groupCode}`, {
-        //   method: "GET",
-        //   headers: new Headers({
-        //     "Content-Type": "application/json; charset=UTF-8",
-        //     Accept: "application/json; charset=UTF-8",
-        //   }),
-        // })
-        //   .then((res) => {
-        //     console.log(res);
-        //     return res.text();
-        //   })
-        //   .then(
-        //     (result) => {
-        //       console.log("fetch result: ", result);
-        //       setPhotoUrl(result);
-        //       console.log(`https://localhost:7052${photoUrl}`);
-        //       console.log(`https://localhost:7052${result}`);
-        //     },
-        //     (error) => {
-        //       console.log("Error fetching  data:", error);
-        //     }
-        //   );
       } else {
         console.log("No group code found in session storage.");
       }
@@ -124,34 +87,7 @@ export default function BonusStationPage() {
     return () => clearTimeout(timer);
   }, []);
 
-  //for fetch image url if exist
-  // useEffect(() => {
-  //   if (photoUrl && !isImageUrl(photoUrl)) {
-  //     fetch(`https://localhost:7052/api/Group/getPhoto/${groupCode}`, {
-  //       method: "GET",
-  //       headers: new Headers({
-  //         "Content-Type": "application/json; charset=UTF-8",
-  //         Accept: "text/plain",
-  //       }),
-  //     })
-  //       .then((response) => {
-  //         if (!response.ok) throw new Error("Network response was not ok");
-  //         console.log(response);
-  //         return response.text();
-
-  //       })
-  //       .then((data) => {
-  //         console.log("Photo URL:", data);
-  //         setPhotoUrl(`http://localhost:7052${data}`);
-  //         console.log(photoUrl);
-  //       })
-  //       .catch((error) =>
-  //         console.error("Error fetching photo from server:", error)
-  //       );
-  //   }
-  // }, [photoUrl]);
-
-  //handle the source we get from game or from the register
+  //handle the source we get from game or from the register page
   useEffect(() => {
     switch (source) {
       case "register":
@@ -179,7 +115,7 @@ export default function BonusStationPage() {
       default:
         break;
     }
-  }, [source, ageDifference, totalPoints]); // Dependency array to ensure effect runs only when source changes
+  }, [source, ageDifference, totalPoints]);
 
   // check if the user insert photo or emoji to the family photo
   const isImageUrl = (photoName) => {
@@ -212,7 +148,7 @@ export default function BonusStationPage() {
             {showConfetti && (
               <div className="confetti-container">
                 <ConfettiExplosion
-                  colors={pastelColors} // Use pastel colors
+                  colors={pastelColors}
                   angle={90} // Adjust the angle to control the direction of confetti fall
                 />
               </div>
@@ -229,18 +165,6 @@ export default function BonusStationPage() {
             ) : (
               <div className="family-emoji-bonus">{groupData.photo}</div>
             )}
-
-            {/* <img
-              src={`https://localhost:7052${photoUrl}`}
-              alt="familyPhoto"
-              className="family-image"
-            /> */}
-
-            {/* {isImageUrl(groupData.photo) ? (
-              <img src={photoUrl} alt="familyPhoto" className="family-image" />
-            ) : (
-              <div className="family-emoji">{groupData.photo}</div>
-            )} */}
           </div>
           <MainButton
             textToBtn={txtToBtn}

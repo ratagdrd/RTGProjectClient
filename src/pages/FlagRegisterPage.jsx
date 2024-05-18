@@ -15,7 +15,6 @@ import Webcam from "react-webcam";
 
 import "@fontsource/roboto";
 import "./../css/Flag.css";
-// import flag from "../images/flag.png";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -117,24 +116,8 @@ function FlagRegisterPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //will use it in the case the user dont choose any emoji or photo
+    //Used when the user does not select an emoji or photo.
     const defaultEmoji = "😄";
-
-    // if (!selectedImage && !selectedEmoji) {
-    //   console.error("No image or emoji selected. so will use the defualt one");
-    //   setSelectedEmoji(defaultEmoji);
-    // // }
-    // const apiUrl = selectedImage
-    //   ? `https://localhost:7052/api/Group/Upload?groupCode=${groupCode}`
-    //   : `https://localhost:7052/api/Group/putEmoji?groupCode=${groupCode}&emoji=${selectedEmoji}`;
-
-    // const formData = new FormData();
-    // if (selectedImage) {
-    //   formData.append("files", selectedImage);
-    // } else {
-    //   formData.append("files", selectedEmoji);
-    // }
-
     let apiUrl;
     let formData = new FormData();
 

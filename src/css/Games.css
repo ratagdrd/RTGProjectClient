@@ -1,6 +1,6 @@
 /*trivia*/
 @import url("https://fonts.googleapis.com/css2?family=Secular+One&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
 
 .trivia-game {
   display: flex;
@@ -8,7 +8,6 @@
   border-radius: 20px;
   padding: 20px;
   max-width: 400px;
-  /* Adjust based on your layout requirements */
   margin: auto;
   height: 100vh;
   justify-content: space-between;
@@ -17,7 +16,7 @@
 
 .progress-bar-container {
   width: 100%;
-  margin: 20px auto  10px auto;
+  margin: 20px auto 10px auto;
   background-color: #f2f2f2;
   border-radius: 4px;
 }
@@ -37,9 +36,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* Align items to the start (left) */
   width: 100%;
-  position: relative; /* Make the container relative */
+  position: relative;
 }
 
 .quesProgress {
@@ -59,9 +57,8 @@
   width: 100%;
   margin-bottom: 5px;
   margin-left: auto;
-  position: absolute; /* Position the button absolutely */
+  position: absolute;
   left: 25%; /* Align the button to the right of its parent */
-  /* Add margin-bottom to create space between the button and the question */
 }
 
 .next-button {
@@ -102,20 +99,17 @@
   margin-top: 20px;
 }
 
-.buttons-game{
-  /* background-color: #004a3a; */
+.buttons-game {
   border: 1px solid #004a3a !important;
   color: aliceblue;
   border-radius: 10px;
   padding: 15px;
   margin: 0px;
   margin-bottom: 10px;
-   /* Space between buttons */
-   cursor: pointer;
-   font-family: "Secular One", sans-serif;
-   font-size: 20px;
+  cursor: pointer;
+  font-family: "Secular One", sans-serif;
+  font-size: 20px;
 }
-
 
 /*wordGame*/
 
@@ -127,15 +121,14 @@
   padding: 40% 0; /* Adjust padding for space around */
 }
 
-.correct-ans{
+.correct-ans {
   background-color: #004a3a;
 }
 
-.wrong-ans{
-  background-color: #CE6548;
-  border: 1px solid #CE6548 !important;
+.wrong-ans {
+  background-color: #ce6548;
+  border: 1px solid #ce6548 !important;
 }
-
 
 /* pop up window at the end of each game */
 
@@ -153,20 +146,20 @@
   direction: rtl;
   border-radius: 10px;
   width: 75%;
-  font-family: 'Rubik', sans-serif;
+  font-family: "Rubik", sans-serif;
   filter: none;
 }
 
-.popup-trivia{
+.popup-trivia {
   width: 50%;
   top: 25%;
   left: 45%;
 }
 
-.exit-popup{
+.exit-popup {
   width: 60%;
   top: 40%;
-  right:45%;
+  right: 45%;
 }
 
 .popup button {
@@ -191,57 +184,52 @@
   text-align: right;
 }
 
-.popup-header{
+.popup-header {
   margin: 10px 0px;
   color: #004a3a;
   text-align: center;
   font-weight: bold;
 }
 
-
 .bold-text {
   font-weight: bold;
 }
 
 .exit-popup button {
-  margin-top: 10px; /* Add margin to the top */
-  margin-right: 10px; /* Add margin to the right */
+  margin-top: 10px;
+  margin-right: 10px;
   padding: 10px 20px;
 }
 
-.exit-buttons{
+.exit-buttons {
   font-size: 15px;
 }
 
-.trivia > .exit-popup{
-  left:45%;
-  top:35%;
+.trivia > .exit-popup {
+  left: 45%;
+  top: 35%;
   box-shadow: 0 8px 500px rgba(0, 0, 0, 1);
 }
 
-.wordGame > .exit-popup{
-  left:40%;
-  top:30%;
+.wordGame > .exit-popup {
+  left: 40%;
+  top: 30%;
   box-shadow: 0 8px 500px rgba(0, 0, 0, 1);
 }
 
-.wordGame > .popup{
-  left:40%;
-  top:35%;
-  width:59%;
+.wordGame > .popup {
+  left: 40%;
+  top: 35%;
+  width: 59%;
 }
 
 .instructions {
   position: fixed;
-  top:  -150px !important;
-  left:  -50px !important;
+  top: -150px !important;
+  left: -50px !important;
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center; 
-  align-items: center ; 
+  justify-content: center;
+  align-items: center;
 }
-
-
-
-

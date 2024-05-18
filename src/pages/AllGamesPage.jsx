@@ -44,8 +44,6 @@ export default function AllGamesPage() {
           textToBtn={"דירוג התחנות"}
           navigateTo={"/cgroup60/test2/tar3/Rating"}
         />
-
-        {/* <FooterGraphic /> */}
       </div>
     </>
   );
