@@ -112,6 +112,7 @@ function FlagRegisterPage() {
         setUsingCamera(false);
         changeCSS("marginTop", "0");
       });
+    setIsFooterVisible(true);
   };
 
   const handleSubmit = (event) => {
@@ -192,6 +193,7 @@ function FlagRegisterPage() {
                     variant="standard"
                     displayEmpty
                     renderValue={(selected) => selected || "בחר אימוג'י"}
+                    disabled={usingCamera} // Disable when using camera
                   >
                     <MenuItem value="" disabled>
                       בחר אימוג'י
@@ -214,6 +216,7 @@ function FlagRegisterPage() {
                     type="file"
                     accept="image/*"
                     onChange={handleFileSelect}
+                    disabled={usingCamera} // Disable when using camera
                   />
                   <hr />
                 </Col>
@@ -282,7 +285,9 @@ function FlagRegisterPage() {
             </div>
           </form>
 
-          <div className={`footer-style ${!isFooterVisible && 'footer-hidden'}`}>
+          <div
+            className={`footer-style ${!isFooterVisible && "footer-hidden"}`}
+          >
             <FooterGraphic />
           </div>
         </ThemeProvider>
