@@ -57,7 +57,14 @@ const HipodromComp = () => {
 
     async function initAR() {
       //https://localhost:7052/api/Activity/4
-      fetch("https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/4", {
+      // https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/4
+      const apiUrl =
+        window.location.hostname === "localhost" ||
+        location.hostname === "127.0.0.1"
+          ? `https://localhost:7052/api/Activity/4`
+          : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/4`;
+
+      fetch(apiUrl, {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json; charset=UTF-8",

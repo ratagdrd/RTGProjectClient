@@ -18,16 +18,17 @@ import InfoIcon from "@mui/icons-material/Info";
 
 import FooterGraphic from "../FuncComp/FooterGraphic";
 
-const apiUrlWords = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/QuestionForActivity/2`;
-// const apiUrlWords = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
-// `https://localhost:7052/api/QuestionForActivity/2` :
-// `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/QuestionForActivity/2`;
+// const apiUrlWords = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/QuestionForActivity/2`;
+const apiUrlWords =
+  location.hostname === "localhost" || location.hostname === "127.0.0.1"
+    ? `https://localhost:7052/api/QuestionForActivity/2`
+    : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/QuestionForActivity/2`;
 
-const apiUrlActivity = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/2`;
-// const apiUrlActivity =
-//   location.hostname === "localhost" || location.hostname === "127.0.0.1"
-//     ? `https://localhost:7052/api/Activity/2`
-//     : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/2`;
+// const apiUrlActivity = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/2`;
+const apiUrlActivity =
+  location.hostname === "localhost" || location.hostname === "127.0.0.1"
+    ? `https://localhost:7052/api/Activity/2`
+    : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/2`;
 
 export default function WordGamePage() {
   const [data, setData] = useState(null);
@@ -46,11 +47,12 @@ export default function WordGamePage() {
   const navigate = useNavigate();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  const apiUrlPoints = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/${groupCode}/${totalPoints}`;
-  // const apiUrlPoints =
-  //   location.hostname === "localhost" || location.hostname === "127.0.0.1"
-  //     ? `https://localhost:7052/api/Group/${groupCode}/${totalPoints}`
-  //     : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/${groupCode}/${totalPoints}`;
+  // const apiUrlPoints = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/${groupCode}/${totalPoints}`;
+
+  const apiUrlPoints =
+    location.hostname === "localhost" || location.hostname === "127.0.0.1"
+      ? `https://localhost:7052/api/Group/${groupCode}/${totalPoints}`
+      : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/${groupCode}/${totalPoints}`;
 
   console.log(quesNum);
   console.log(percentage);
@@ -182,7 +184,7 @@ export default function WordGamePage() {
     // Increment points if correct answer
     if (index == 1) {
       setTotalPoints((prevTotalPoints) => prevTotalPoints + points);
-      console.log("points:" + totalPoints);
+      // console.log("points:" + totalPoints);
     }
 
     // Hides the message after 3 seconds

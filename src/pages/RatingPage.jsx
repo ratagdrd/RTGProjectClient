@@ -7,10 +7,11 @@ import Rating from "@mui/material/Rating";
 import Header from "../FuncComp/Header";
 import FooterGraphic from "../FuncComp/FooterGraphic";
 
-const apiUrlActivity = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity`;
-// const apiUrlActivity = location.hostname === "localhost" || location.hostname === "127.0.0.1" ?
-//   `https://localhost:7052/api/Activity` :
-//   `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity`;
+// const apiUrlActivity = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity`;
+const apiUrlActivity =
+  location.hostname === "localhost" || location.hostname === "127.0.0.1"
+    ? `https://localhost:7052/api/Activity`
+    : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity`;
 
 export default function RatingPage() {
   const txtToHeader = "דעתכם חשובה לנו! ";
@@ -62,11 +63,11 @@ export default function RatingPage() {
   };
 
   const updateRatingInDatabase = (activitycode, newRate) => {
-    const apiUrlRate = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/${activitycode}/${newRate}`;
-    // const apiUrlRate =
-    //   location.hostname === "localhost" || location.hostname === "127.0.0.1"
-    //     ? `https://localhost:7052/api/Activity/${activitycode}/${newRate}`
-    //     : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/${activitycode}/${newRate}`;
+    // const apiUrlRate = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/${activitycode}/${newRate}`;
+    const apiUrlRate =
+      location.hostname === "localhost" || location.hostname === "127.0.0.1"
+        ? `https://localhost:7052/api/Activity/${activitycode}/${newRate}`
+        : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/${activitycode}/${newRate}`;
 
     fetch(apiUrlRate, {
       method: "PUT",

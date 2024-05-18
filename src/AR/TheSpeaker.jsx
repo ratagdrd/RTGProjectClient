@@ -61,17 +61,21 @@ const TheSpeakerComp = () => {
 
     async function initAR() {
       // Fetch from Activity Data table
-      //localhost:7052/api/Activity/3
-      https: fetch(
-        "https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/3",
-        {
-          method: "GET",
-          headers: new Headers({
-            "Content-Type": "application/json; charset=UTF-8",
-            Accept: "application/json; charset=UTF-8",
-          }),
-        }
-      )
+      //https://localhost:7052/api/Activity/3
+      // https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/3
+      const apiUrl =
+        window.location.hostname === "localhost" ||
+        location.hostname === "127.0.0.1"
+          ? `https://localhost:7052/api/Activity/3`
+          : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity/3`;
+
+      https: fetch(apiUrl, {
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json; charset=UTF-8",
+          Accept: "application/json; charset=UTF-8",
+        }),
+      })
         .then((res) => {
           console.log("res=", res);
           console.log("res.status", res.status);

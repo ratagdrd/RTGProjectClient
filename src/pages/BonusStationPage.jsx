@@ -42,13 +42,13 @@ export default function BonusStationPage() {
 
   // const bonusContent = `זכיתם ב ${ageDifference * 10} נקודות`;
   const groupCode = sessionStorage.getItem("groupCode");
-  const apiUrl = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`;
+  // const apiUrl = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`;
 
-  // const apiUrl =
-  //   window.location.hostname === "localhost" ||
-  //   location.hostname === "127.0.0.1"
-  //     ? `https://localhost:7052/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`
-  //     : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`;
+  const apiUrl =
+    window.location.hostname === "localhost" ||
+    location.hostname === "127.0.0.1"
+      ? `https://localhost:7052/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`
+      : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/GetGroupByGroupCode?groupCode=${groupCode}`;
 
   useEffect(() => {
     function fetchGroupDetails() {
@@ -211,6 +211,7 @@ export default function BonusStationPage() {
             {isImageUrl(groupData.photo) ? (
               <img
                 // src={`https://localhost:7052/Images/${groupData.photo}`}
+                //לזכור שהקישור לא יעבוד במצב של פרודקשן באן פי אם ראן פריוויו או במצב של פיתוח אן פי אם ראן דב כי הרי במצבים הללו מדובר בלוקל הוסט ולכן התמונה של הקבוצה נשמרה לוקלית בצד שרת במחשב שלי והקישור פה של התמונה מחפש אותה בתיקית תמונות על השרת של רופין
                 src={`https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/${groupData.photo}`}
                 alt="familyPhoto"
                 className="family-image-bonus"
