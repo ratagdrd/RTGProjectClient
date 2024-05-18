@@ -37,8 +37,14 @@ function FlagRegisterPage() {
   const [imageUrl, setImageUrl] = useState(null);
   const [isFooterVisible, setIsFooterVisible] = useState(true);
 
-
   const navigate = useNavigate();
+
+  const changeCSS = (property, value) => {
+    const header = document.querySelector(".header");
+    if (header) {
+      header.style[property] = value;
+    }
+  };
 
   const theme = createTheme({ direction: "rtl" });
   const cacheRtl = createCache({
@@ -87,6 +93,7 @@ function FlagRegisterPage() {
     setSelectedEmoji("");
     setSelectedImage(null);
     setIsFooterVisible(usingCamera);
+    changeCSS("marginTop", !usingCamera ? "100px" : "0");
   };
 
   const capturePhoto = () => {
@@ -103,6 +110,7 @@ function FlagRegisterPage() {
         setImageUrl(imageSrc);
         setSelectedEmoji("");
         setUsingCamera(false);
+        changeCSS("marginTop", "0");
       });
   };
 
