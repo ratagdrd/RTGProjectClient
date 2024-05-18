@@ -188,6 +188,15 @@ export default function BonusStationPage() {
     return /\.(jpeg|jpg|gif|png|svg)$/.test(photoName);
   };
 
+  //Construct the URL to fetch the group photo from the appropriate server (local or Ruppin) based on the environment
+  let groupPhotoUrl = "";
+  if (groupData && groupData.photo) {
+    groupPhotoUrl =
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1"
+        ? `https://localhost:7052/Images/${groupData.photo}`
+        : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/${groupData.photo}`;
+  }
   return (
     <div className="bonus-container">
       {groupData && (
@@ -212,7 +221,8 @@ export default function BonusStationPage() {
               <img
                 // src={`https://localhost:7052/Images/${groupData.photo}`}
                 //לזכור שהקישור לא יעבוד במצב של פרודקשן באן פי אם ראן פריוויו או במצב של פיתוח אן פי אם ראן דב כי הרי במצבים הללו מדובר בלוקל הוסט ולכן התמונה של הקבוצה נשמרה לוקלית בצד שרת במחשב שלי והקישור פה של התמונה מחפש אותה בתיקית תמונות על השרת של רופין
-                src={`https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/${groupData.photo}`}
+                // https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/${groupData.photo}
+                src={groupPhotoUrl}
                 alt="familyPhoto"
                 className="family-image-bonus"
               />
