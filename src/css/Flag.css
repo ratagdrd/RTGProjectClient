@@ -52,3 +52,7 @@
   margin-top: 20px;
   margin-bottom: 120px;
 }
+
+.footer-hidden .footer-graphic img {
+  display: none;
+}

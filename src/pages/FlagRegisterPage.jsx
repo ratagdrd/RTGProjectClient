@@ -35,6 +35,8 @@ function FlagRegisterPage() {
   const [selectedEmoji, setSelectedEmoji] = useState("");
   const [usingCamera, setUsingCamera] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
+  const [isFooterVisible, setIsFooterVisible] = useState(true);
+
 
   const navigate = useNavigate();
 
@@ -84,6 +86,7 @@ function FlagRegisterPage() {
     setUsingCamera(!usingCamera);
     setSelectedEmoji("");
     setSelectedImage(null);
+    setIsFooterVisible(usingCamera);
   };
 
   const capturePhoto = () => {
@@ -270,7 +273,7 @@ function FlagRegisterPage() {
             </div>
           </form>
 
-          <div className="footer-style">
+          <div className={`footer-style ${!isFooterVisible && 'footer-hidden'}`}>
             <FooterGraphic />
           </div>
         </ThemeProvider>
