@@ -122,20 +122,20 @@ function FlagRegisterPage() {
     let formData = new FormData();
 
     if (selectedImage) {
-      // apiUrl = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/Upload?groupCode=${groupCode}`;
-      apiUrl =
-        location.hostname === "localhost" || location.hostname === "127.0.0.1"
-          ? `https://localhost:7052/api/Group/Upload?groupCode=${groupCode}`
-          : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/Upload?groupCode=${groupCode}`;
+      apiUrl = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/Upload?groupCode=${groupCode}`;
+      // apiUrl =
+      //   location.hostname === "localhost" || location.hostname === "127.0.0.1"
+      //     ? `https://localhost:7052/api/Group/Upload?groupCode=${groupCode}`
+      //     : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/Upload?groupCode=${groupCode}`;
 
       formData.append("files", selectedImage);
     } else {
       const emojiToSend = selectedEmoji || defaultEmoji;
-      // apiUrl = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/putEmoji?groupCode=${groupCode}&emoji=${emojiToSend}`;
-      apiUrl =
-        location.hostname === "localhost" || location.hostname === "127.0.0.1"
-          ? `https://localhost:7052/api/Group/putEmoji?groupCode=${groupCode}&emoji=${emojiToSend}`
-          : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/putEmoji?groupCode=${groupCode}&emoji=${emojiToSend}`;
+      apiUrl = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/putEmoji?groupCode=${groupCode}&emoji=${emojiToSend}`;
+      // apiUrl =
+      //   location.hostname === "localhost" || location.hostname === "127.0.0.1"
+      //     ? `https://localhost:7052/api/Group/putEmoji?groupCode=${groupCode}&emoji=${emojiToSend}`
+      //     : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/putEmoji?groupCode=${groupCode}&emoji=${emojiToSend}`;
       formData.append("files", emojiToSend);
     }
 

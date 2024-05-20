@@ -43,18 +43,18 @@ export default function TriviaPage() {
   const navigate = useNavigate();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  // const apiUrlQuestion = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/QuestionForActivity/1`;
-  const apiUrlQuestion =
-    location.hostname === "localhost" || location.hostname === "127.0.0.1"
-      ? `https://localhost:7052/api/QuestionForActivity/1`
-      : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/QuestionForActivity/1`;
+  const apiUrlQuestion = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/QuestionForActivity/1`;
+  // const apiUrlQuestion =
+  //   location.hostname === "localhost" || location.hostname === "127.0.0.1"
+  //     ? `https://localhost:7052/api/QuestionForActivity/1`
+  //     : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/QuestionForActivity/1`;
 
-  // const apiUrlPoints = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/${groupCode}/${totalPoints}`;
+  const apiUrlPoints = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/${groupCode}/${totalPoints}`;
 
-  const apiUrlPoints =
-    location.hostname === "localhost" || location.hostname === "127.0.0.1"
-      ? `https://localhost:7052/api/Group/${groupCode}/${totalPoints}`
-      : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/${groupCode}/${totalPoints}`;
+  // const apiUrlPoints =
+  //   location.hostname === "localhost" || location.hostname === "127.0.0.1"
+  //     ? `https://localhost:7052/api/Group/${groupCode}/${totalPoints}`
+  //     : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/${groupCode}/${totalPoints}`;
 
   const triviaImages = [
     ImgTrivia1,
