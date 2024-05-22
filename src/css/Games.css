@@ -112,8 +112,16 @@
 }
 
 /*wordGame*/
-
+.popup-message-word{
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-30%, -20%);
+  padding: 5px;
+}
 .words-container {
+  position: relative;
   font-family: "Secular One", sans-serif;
   font-size: 60px;
   font-weight: bold;
@@ -191,6 +199,9 @@
   font-weight: bold;
 }
 
+.popup-message {
+  padding: 10px;
+}
 .bold-text {
   font-weight: bold;
 }

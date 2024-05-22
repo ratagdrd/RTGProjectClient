@@ -228,7 +228,6 @@ export default function WordGamePage() {
 
   return (
     <div className="wordGame container">
-      {popupMessage && <div className="popup-message">{popupMessage}</div>}
       <div className="quesProgress-container">
         <IconButton onClick={handleInfoClick}>
           <InfoIcon />
@@ -281,6 +280,7 @@ export default function WordGamePage() {
       </div>
 
       <div className="words-container">{word}</div>
+      {popupMessage && <div className="popup-message-word">{popupMessage}</div>}
 
       <div className="answers-container">
         <button

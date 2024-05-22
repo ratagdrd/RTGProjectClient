@@ -165,6 +165,9 @@ function FlagRegisterPage() {
             <Row className="mb-3">
               <Header textToHeader={txtToHeader}></Header>
             </Row>
+            <Row className="mb-3">
+              <h6>בחרו אימוג'י או תמונה קבוצתית</h6>
+            </Row> 
             <div style={{ marginLeft: 50 }}>
               <Row className="mb-3 " style={{ marginTop: "50px" }}>
                 <Col xs={9} className="d-flex align-items-center">
@@ -175,7 +178,7 @@ function FlagRegisterPage() {
                     label="Emoji"
                     variant="standard"
                     displayEmpty
-                    renderValue={(selected) => selected || "בחר אימוג'י"}
+                    renderValue={(selected) => selected || "בחרו אימוג'י"}
                     disabled={usingCamera} // Disable when using camera
                   >
                     <MenuItem value="" disabled>

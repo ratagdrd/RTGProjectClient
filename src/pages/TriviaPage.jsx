@@ -217,7 +217,6 @@ export default function TriviaPage() {
   return (
     <div className="trivia">
       <div className="trivia-game">
-        {popupMessage && <div className="popup-message">{popupMessage}</div>}
         <div className="quesProgress-container">
           <div className="quesProgress">
             Q{quesNum}/{data?.length}
@@ -246,8 +245,10 @@ export default function TriviaPage() {
             alt="Trivia"
             className="trivia-image"
           />
+                  {popupMessage && <div className="popup-message">{popupMessage}</div>}
         </div>
-        <br />
+      <br />
+      <br />
         <div className="answers-container">
           {ansList.map((answer, index) => (
             <button
