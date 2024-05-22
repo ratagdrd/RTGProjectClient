@@ -177,8 +177,8 @@ const VideoComp = () => {
           <DialogContent
             style={{
               direction: "rtl",
-              width: "350px",
-              padding: "0px 14px 10px",
+              width: "95%",
+              padding: "0px 0px 10px",
             }}
           >
             <Typography> {Instructions} </Typography>

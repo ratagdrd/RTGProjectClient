@@ -6,7 +6,7 @@ import Header from "../FuncComp/Header";
 export default function AllGamesPage() {
   return (
     <>
-      <div className="container" style={{ height: "100vh", marginTop: "10%" }}>
+      <div className="container AllGames-container" >
         <Header textToHeader={"משחקים"} />
         <MainButton
           textToBtn={"משחק המילים"}

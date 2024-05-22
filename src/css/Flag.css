@@ -11,11 +11,8 @@
 .flag-container {
   position: absolute;
   top: 53%;
-  left: 15%;
-  width: 90vw; /* Set to a percentage of the viewport width for responsiveness */
-  max-width: 400px;
+  left: 15%; /* Set to a percentage of the viewport width for responsiveness */
   height: calc(90vw * 0.666); /* Height is set to maintain the aspect ratio */
-  max-height: 300px;
   margin: auto;
   margin-bottom: 200px;
   margin: 0 auto;

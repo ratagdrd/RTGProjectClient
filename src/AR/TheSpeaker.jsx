@@ -168,19 +168,19 @@ const TheSpeakerComp = () => {
         <IconButton onClick={handleInfoClick}>
           <InfoIcon />
         </IconButton>
-        <Dialog open={showInfo} onClose={handleInfoClose}>
-          <DialogTitle style={{ direction: "rtl", padding: "10px 14px" }}>
+        <Dialog open={showInfo} onClose={handleInfoClose} >
+          <DialogTitle style={{ direction: "rtl", padding: "10px 7%" }}>
             {" "}
             הוראות
           </DialogTitle>
           <DialogContent
-            style={{
-              direction: "rtl",
-              width: "350px",
-              padding: "0px 14px 10px",
-            }}
+           style={{
+            direction: "rtl",
+            width: "98%",
+            padding: "0px 0px 10px",
+          }}
           >
-            <Typography> {Instructions} </Typography>
+            <Typography style={{marginRight:"20px"}}> {Instructions} </Typography>
           </DialogContent>
           <DialogActions>
             <Button

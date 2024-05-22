@@ -116,7 +116,7 @@
   position: absolute;
   text-align: center;
   top: 50%;
-  left: 50%;
+  left: 40%;
   transform: translate(-30%, -20%);
   padding: 5px;
 }
@@ -161,7 +161,7 @@
 .popup-trivia {
   width: 50%;
   top: 25%;
-  left: 45%;
+  left: 40%;
 }
 
 .exit-popup {

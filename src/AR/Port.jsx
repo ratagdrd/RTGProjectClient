@@ -163,15 +163,15 @@ const PortComp = () => {
           <InfoIcon />
         </IconButton>
         <Dialog open={showInfo} onClose={handleInfoClose}>
-          <DialogTitle style={{ direction: "rtl", padding: "10px 14px" }}>
+          <DialogTitle style={{ direction: "rtl", padding: "10px 7%" }}>
             {" "}
             הוראות
           </DialogTitle>
           <DialogContent
             style={{
               direction: "rtl",
-              width: "350px",
-              padding: "0px 14px 10px",
+              width: "93%",
+              padding: "0px 0px 10px",
             }}
           >
             <Typography> {Instructions} </Typography>
