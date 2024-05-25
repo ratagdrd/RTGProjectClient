@@ -37,6 +37,7 @@ export default function RatingPage() {
         (activities) => {
           console.log("Activities fetch result: ", activities);
           setActivities(activities);
+          //initialize the ratings state with an array of zeros
           setRatings(new Array(activities.length).fill(0));
         },
         (error) => {

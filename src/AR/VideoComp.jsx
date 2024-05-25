@@ -27,6 +27,7 @@ const VideoComp = () => {
   const [showInfo, setShowInfo] = useState(false);
   const [Instructions, setInstructions] = useState("");
 
+  //useCallback- optimize performance by preventing unnecessary re-creations of functions and re-renders of components.
   const cleanupResources = useCallback(() => {
     if (rendererCommonRef.current) {
       rendererCommonRef.current.setAnimationLoop(null);

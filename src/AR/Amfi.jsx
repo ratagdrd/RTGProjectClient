@@ -99,7 +99,7 @@ const AmfiComp = () => {
         imageTargetSrc: "/cgroup60/test2/tar3/target/theater.mind",
       });
       console.log("mind", mindarThree);
-      const { scene, camera } = mindarThree;
+      const { scene, camera } = mindarThree;//extract the scene, camera from mindAR
       rendererCommon = mindarThree.renderer;
 
       const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
@@ -109,22 +109,28 @@ const AmfiComp = () => {
       const texture = await loadTexture("/cgroup60/test2/tar3/target/amfi.jpg");
       console.log("texture", texture);
 
+      //Geometry: Defines the shape of the mesh.
       const geometry = new THREE.PlaneGeometry(1, 0.55);
       console.log("geometry", geometry);
 
+      //Material: Defines the appearance of the mesh.context of Three.js 
       const material = new THREE.MeshBasicMaterial({ map: texture });
       console.log("material", material);
 
+
+      //Mesh: A 3D object made up of geometry and material.
       const plane = new THREE.Mesh(geometry, material);
       plane.rotation.x = -Math.PI / 16;
       plane.position.set(0, 0, 0);
       console.log("plane", plane);
 
+      //positions the image after target is detected
       const anchor = mindarThree.addAnchor(0);
       anchor.group.add(plane);
 
       await mindarThree.start();
 
+      // Set the animation loop to render the scene
       rendererCommon?.setAnimationLoop(() => {
         rendererCommon.render(scene, camera);
       });
