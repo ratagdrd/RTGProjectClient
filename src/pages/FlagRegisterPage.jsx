@@ -118,7 +118,7 @@ function FlagRegisterPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //Used when the user does not select an emoji or photo.
+    //Used when the user doesn't select an emoji or photo.
     const defaultEmoji = "😄";
     let apiUrl;
     let formData = new FormData();
