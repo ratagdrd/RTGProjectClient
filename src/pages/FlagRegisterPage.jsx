@@ -38,6 +38,8 @@ function FlagRegisterPage() {
 
   const navigate = useNavigate();
 
+
+  //Adding a 100px margin-top when the user opens the camera, else 0px
   const changeCSS = (property, value) => {
     const header = document.querySelector(".header");
     if (header) {

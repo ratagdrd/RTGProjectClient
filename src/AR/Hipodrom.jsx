@@ -167,7 +167,6 @@ const HipodromComp = () => {
           <DialogContent
             style={{
               direction: "rtl",
-              direction: "rtl",
               width: "95%",
               padding: "0px 0px 10px",
             }}
