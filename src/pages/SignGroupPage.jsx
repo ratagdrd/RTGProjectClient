@@ -41,7 +41,7 @@ const apiUrl = `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group`;
 //     ? `https://localhost:7052/api/Group`
 //     : `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group`;
 
-export default function SignTest() {
+export default function SignGroup() {
   const theme = createTheme({ direction: "rtl" });
 
   const cacheRtl = createCache({

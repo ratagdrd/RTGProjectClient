@@ -162,6 +162,7 @@ export default function TriviaPage() {
     console.log(correctAns);
     setIsButtonDisabled(true);
 
+    //adds css to show right/wrong answer
     const buttons = document.querySelectorAll(".buttons-game");
     buttons.forEach((button, i) => {
       if (i !== correctAns - 1) {
@@ -180,7 +181,7 @@ export default function TriviaPage() {
       setTotalPoints((prevTotalPoints) => prevTotalPoints + points);
     }
 
-    // Hide the message after 3 seconds and remove the red background
+    // Hide the message after 3 seconds and remove the orange background
     setTimeout(() => {
       setPopupMessage(null);
       setCurrentQues((prevCurrentQues) => prevCurrentQues + 1);
@@ -245,10 +246,10 @@ export default function TriviaPage() {
             alt="Trivia"
             className="trivia-image"
           />
-                  {popupMessage && <div className="popup-message">{popupMessage}</div>}
+          {popupMessage && <div className="popup-message">{popupMessage}</div>}
         </div>
-      <br />
-      <br />
+        <br />
+        <br />
         <div className="answers-container">
           {ansList.map((answer, index) => (
             <button

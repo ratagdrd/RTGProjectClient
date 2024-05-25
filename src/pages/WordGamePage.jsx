@@ -89,7 +89,7 @@ export default function WordGamePage() {
         }
       );
 
-    // Fetch from Activity Data table
+    // Fetch from Activity table
     fetch(apiUrlActivity, {
       method: "GET",
       headers: new Headers({

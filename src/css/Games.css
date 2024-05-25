@@ -216,6 +216,7 @@
   font-size: 15px;
 }
 
+/* exit-popup direct child of trivia */
 .trivia > .exit-popup {
   left: 45%;
   top: 35%;
