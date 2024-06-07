@@ -156,6 +156,7 @@ export default function SignGroup() {
                   style={{ textAlign: "center" }}
                   value={groupName}
                   onChange={handleGroupNameChange}
+                  InputProps={{ dir: 'rtl' }}
                 />
               </Col>
               <Col xs={3} className="d-flex align-items-center">

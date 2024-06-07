@@ -17,6 +17,7 @@ import AmfiComp from "./AR/Amfi";
 import SignGroupPage from "./pages/SignGroupPage";
 import AllGamesPage from "./pages/AllGamesPage";
 import FlagRegisterPage from "./pages/FlagRegisterPage";
+import EmployeeLoginPage from './pages/EmployeeLoginPage';
 
 function App() {
   return (
@@ -70,6 +71,7 @@ function App() {
               path="/cgroup60/test2/tar3/AllGamesPage"
               element={<AllGamesPage />}
             />
+              <Route path="/cgroup60/test2/tar3/EmployeeLoginPage" element={<EmployeeLoginPage />} />
           </Routes>
         </div>
       </Router>
