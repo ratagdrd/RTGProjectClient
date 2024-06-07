@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, TextField, Typography, Grid, Paper } from '@mui/material';
+import { Box, TextField, Grid } from '@mui/material';
 import "./../css/AdminPages.css";
 import MainButton from "../FuncComp/MainButton";
 import Header from "../FuncComp/Header";
@@ -26,7 +26,7 @@ export default function EmployeeLoginPage() {
 
     useEffect(() => {
         // Add the 'employeePage' class to the body element when the component mounts
-        document.body.className = 'employeePage';
+        document.body.className = 'adminPage';
 
         // Remove the 'employeePage' class from the body element when the component unmounts
         return () => {

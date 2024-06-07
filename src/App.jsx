@@ -18,6 +18,7 @@ import SignGroupPage from "./pages/SignGroupPage";
 import AllGamesPage from "./pages/AllGamesPage";
 import FlagRegisterPage from "./pages/FlagRegisterPage";
 import EmployeeLoginPage from './pages/EmployeeLoginPage';
+import DataTablePage from "./pages/DataTablePage";
 
 function App() {
   return (
@@ -72,6 +73,7 @@ function App() {
               element={<AllGamesPage />}
             />
               <Route path="/cgroup60/test2/tar3/EmployeeLoginPage" element={<EmployeeLoginPage />} />
+              <Route path="/cgroup60/test2/tar3/DataTablePage" element={<DataTablePage/>} />
           </Routes>
         </div>
       </Router>
