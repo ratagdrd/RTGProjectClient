@@ -30,3 +30,30 @@ body.adminPage {
 .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
     border-color: #004a3a !important; /* Change this to the color you want */
   }
+
+/* date table page */
+.container {
+    position: relative;
+}
+
+.selectContainer {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    left: 10px; /* Adjust as needed */
+    z-index: 1; /* Ensure it's above the table */
+}
+
+.tableContainer {
+    margin-top: 40px; /* Adjust as needed */
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.tableContainer table {
+    width: 100%;
+}
+.active>.page-link{
+    background: #004a3a !important; 
+    border-color:#004a3a;
+}
