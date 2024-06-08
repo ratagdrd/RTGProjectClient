@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -20,14 +20,31 @@ export default function DataTablePage() {
     const [selectedTable, setSelectedTable] = useState('');
     const [tableData, setTableData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [editFormData, setEditFormData] = useState({});
+    const [isEditClicked, setIsEditClicked] = useState(false); // State to track edit button click
     const rowsPerPage = 20;
-    const tableNames = ["Spot", "Activity", "QuestionForActivity"];
+    const tableNames = ["Activity", "Site", "Group", "Spot", "QuestionForActivity"];
     const txtToHeader = "מערכת ניהול";
     const theme = createTheme({ direction: "rtl" });
+    const [inputWidth, setInputWidth] = useState('auto');
+    const inputRef = useRef(null);
+
+    // Function to calculate input width based on content
+    const calculateInputWidth = () => {
+        if (inputRef.current) {
+            setInputWidth(`${inputRef.current.scrollWidth}px`);
+        }
+    };
+
+    useEffect(() => {
+        // Call the function initially and whenever the content changes
+        calculateInputWidth();
+    }, [inputRef.current]);
+
 
     const cacheRtl = createCache({
-      key: "muirtl",
-      stylisPlugins: [prefixer, rtlPlugin],
+        key: "muirtl",
+        stylisPlugins: [prefixer, rtlPlugin],
     });
 
     useEffect(() => {
@@ -72,6 +89,22 @@ export default function DataTablePage() {
     const handleEdit = (id) => {
         // Add edit functionality
         console.log(`Editing row with id ${id}`);
+        // Assuming id is the index of the row in tableData array
+        const rowData = tableData[id];
+        setEditFormData(rowData);
+        setIsEditClicked(true); // Set isEditClicked to true when edit button is clicked
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setEditFormData({ ...editFormData, [name]: value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Add submit functionality
+        console.log("Form submitted with data:", editFormData);
+        // You can send this data to your backend to update the record
     };
 
     const calculateAverageRate = (row) => {
@@ -84,91 +117,117 @@ export default function DataTablePage() {
 
     return (
         <CacheProvider value={cacheRtl}>
-        <ThemeProvider theme={theme}>
-        <div className="outer-container-admin">
-            <nav className="navbar navbar-fixed-top">
-                <div className="navbar-logo">
-                    <img src={Logo} alt="Logo"  style={{ width: "60px" }}/>
-                </div>
-                <div className="navbar-header">
-                <Header textToHeader={txtToHeader}></Header>
-                </div>
-                <FormControl>
-                    <Select
-                    className='selectTable'
-                        labelId="table-select-label"
-                        value={selectedTable}
-                        onChange={handleTableSelect}
-                        displayEmpty
-                        inputProps={{ 'aria-label': 'Without label' }}
-                    >
-                        <MenuItem value="">בחר טבלה</MenuItem>
-                        {tableNames.map((tableName) => (
-                            <MenuItem key={tableName} value={tableName}>
-                                {tableName}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-            </nav>
-            <div className="container">
-                {selectedTable && tableData.length > 0 && (
-                    <div>
-                        <Table striped bordered hover>
-                            <thead>
-                                <tr>
-                                    {Object.keys(tableData[0]).map((field, index) => (
-                                        <th key={field} style={{ order: selectedTable === "Activity" ? (Object.keys(tableData[0]).length - index) : index }}>
-                                            {field}
-                                        </th>
-                                    ))}
-                                    {selectedTable === "Activity" && <th>Average Rate</th>}
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {currentPageData.map((row, index) => (
-                                    <tr key={index}>
-                                        {Object.keys(row).map((field, index) => (
-                                            <td key={field} style={{ order: selectedTable === "Activity" ? (Object.keys(tableData[0]).length - index) : index }}>
-                                                {row[field]}
-                                            </td>
-                                        ))}
-                                        {selectedTable === "Activity" && (
-                                            <td>{calculateAverageRate(row)}</td>
-                                        )}
-                                        <td>
-                                            <IconButton color="info" onClick={() => handleEdit(row.id)}>
-                                                <EditIcon />
-                                            </IconButton>
-                                            <IconButton color="error" onClick={() => handleDelete(row.id)}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                        </td>
-                                    </tr>
+            <ThemeProvider theme={theme}>
+                <div className="outer-container-admin">
+                    <nav className="navbar navbar-fixed-top">
+                        <div className="navbar-logo">
+                            <img src={Logo} alt="Logo" style={{ width: "60px" }} />
+                        </div>
+                        <div className="navbar-header">
+                            <Header textToHeader={txtToHeader}></Header>
+                        </div>
+                        <FormControl>
+                            <Select
+                                className='selectTable'
+                                labelId="table-select-label"
+                                value={selectedTable}
+                                onChange={handleTableSelect}
+                                displayEmpty
+                                inputProps={{ 'aria-label': 'Without label' }}
+                            >
+                                <MenuItem value="">בחר טבלה</MenuItem>
+                                {tableNames.map((tableName) => (
+                                    <MenuItem key={tableName} value={tableName}>
+                                        {tableName}
+                                    </MenuItem>
                                 ))}
-                            </tbody>
-                        </Table>
-                        <Pagination>
-                            <Pagination.First onClick={() => setCurrentPage(1)} disabled={currentPage === 1} />
-                            <Pagination.Prev onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1} />
-                            {Array.from({ length: totalPages }, (_, index) => (
-                                <Pagination.Item
-                                    key={index + 1}
-                                    active={index + 1 === currentPage}
-                                    onClick={() => setCurrentPage(index + 1)}
-                                >
-                                    {index + 1}
-                                </Pagination.Item>
+                            </Select>
+                        </FormControl>
+                    </nav>
+                    <div className="container">
+                        {selectedTable && tableData.length > 0 && (
+                            <div>
+                                <Table striped bordered hover>
+                                    <thead>
+                                        <tr>
+                                            {Object.keys(tableData[0]).map((field, index) => (
+                                                <th key={field} style={{ order: selectedTable === "Activity" ? (Object.keys(tableData[0]).length - index) : index }}>
+                                                    {field}
+                                                </th>
+                                            ))}
+                                            {selectedTable === "Activity" && <th>Average Rate</th>}
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {currentPageData.map((row, index) => (
+                                            <tr key={index}>
+                                                {Object.keys(row).map((field, index) => (
+                                                    <td key={field} style={{ order: selectedTable === "Activity" ? (Object.keys(tableData[0]).length - index) : index }}>
+                                                        {row[field]}
+                                                    </td>
+                                                ))}
+                                                {selectedTable === "Activity" && (
+                                                    <td>{calculateAverageRate(row)}</td>
+                                                )}
+                                                <td>
+                                                    <IconButton color="info" onClick={() => handleEdit(index)}>
+                                                        <EditIcon />
+                                                    </IconButton>
+                                                    <IconButton color="error" onClick={() => handleDelete(row.id)}>
+                                                        <DeleteIcon />
+                                                    </IconButton>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </Table>
+                                <Pagination>
+                                    <Pagination.First onClick={() => setCurrentPage(1)} disabled={currentPage === 1} />
+                                    <Pagination.Prev onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1} />
+                                    {Array.from({ length: totalPages }, (_, index) => (
+                                        <Pagination.Item
+                                            key={index + 1}
+                                            active={index + 1 === currentPage}
+                                            onClick={() => setCurrentPage(index + 1)}
+                                        >
+                                            {index + 1}
+                                        </Pagination.Item>
+                                    ))}
+                                    <Pagination.Next onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages} />
+                                    <Pagination.Last onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages} />
+                                </Pagination  >
+                            </div>
+                        )}
+                    </div>
+                </div>
+                {isEditClicked && (
+                    <div className="edit-form-container">
+                        <form onSubmit={handleSubmit}>
+                            {Object.keys(editFormData).map((field, index, array) => (
+                                <div key={index}>
+                                    <label>{field}</label>
+                                    <input
+                                        type="text"
+                                        name={field}
+                                        value={editFormData[field]}
+                                        onChange={handleInputChange}
+                                        className="edit-input"
+                                        style={{ direction: "rtl" }} // Adjust the width here
+                                        disabled={
+                                            selectedTable === "Activity" ?
+                                                (index === 0 || index === array.length - 1 || index === array.length - 2) :
+                                                (index === 0)
+                                        } // Disable the first, last, and second last fields for Activity, only the first for other tables
+                                    />
+                                </div>
                             ))}
-                            <Pagination.Next onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages} />
-                            <Pagination.Last onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages} />
-                        </Pagination>
+                            <button type="submit" className="edit-submit-button">Submit</button>
+                        </form>
                     </div>
                 )}
-            </div>
-        </div>
-        </ThemeProvider>
+            </ThemeProvider>
         </CacheProvider>
     );
 }
+
