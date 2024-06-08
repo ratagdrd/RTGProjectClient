@@ -60,7 +60,8 @@ export default function DataTablePage() {
     };
 
     const calculateAverageRate = (row) => {
-        return row.rate / row.numOfRates;
+        const averageRate = row.rate / row.numOfRates;
+        return averageRate.toFixed(2);
     };
 
     const totalPages = Math.ceil(tableData.length / rowsPerPage);
