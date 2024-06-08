@@ -48,12 +48,19 @@ const TheSpeakerComp = () => {
   const [Instructions, setInstructions] = useState("");
 
   const handleFinish = () => {
+    cleanUpOverlays();
     navigate("/cgroup60/test2/tar3/AllGamesPage");
     //if the cleaning dont work we use this as last way out because reload did clean
     // setTimeout(() => {
     //   window.location.reload();
     // }, 30);
   };
+
+  const cleanUpOverlays = () => {
+    const overlays = document.querySelectorAll(".mindar-ui-overlay");
+    overlays.forEach((overlay) => overlay.remove());
+  };
+
   useEffect(() => {
     let mindarThree;
     let rendererCommon;
@@ -143,6 +150,7 @@ const TheSpeakerComp = () => {
     return () => {
       rendererCommon?.setAnimationLoop(null); // This stops the animation loop when component unmounts
       mindarThree.stop(); // stop and dispose of resources to prevent memory leaks
+      cleanUpOverlays();
     };
   }, []);
 
@@ -168,19 +176,21 @@ const TheSpeakerComp = () => {
         <IconButton onClick={handleInfoClick}>
           <InfoIcon />
         </IconButton>
-        <Dialog open={showInfo} onClose={handleInfoClose} >
+        <Dialog open={showInfo} onClose={handleInfoClose}>
           <DialogTitle style={{ direction: "rtl", padding: "10px 7%" }}>
             {" "}
             הוראות
           </DialogTitle>
           <DialogContent
-           style={{
-            direction: "rtl",
-            width: "98%",
-            padding: "0px 0px 10px",
-          }}
+            style={{
+              direction: "rtl",
+              width: "98%",
+              padding: "0px 0px 10px",
+            }}
           >
-            <Typography style={{marginRight:"20px"}}> {Instructions} </Typography>
+            <Typography style={{ marginRight: "20px" }}>
+              {Instructions}
+            </Typography>
           </DialogContent>
           <DialogActions>
             <Button

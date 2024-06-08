@@ -48,8 +48,15 @@ const PortComp = () => {
   const [Instructions, setInstructions] = useState("");
 
   const handleFinish = () => {
+    cleanUpOverlays();
     navigate("/cgroup60/test2/tar3/AllGamesPage");
   };
+
+  const cleanUpOverlays = () => {
+    const overlays = document.querySelectorAll(".mindar-ui-overlay");
+    overlays.forEach((overlay) => overlay.remove());
+  };
+
   useEffect(() => {
     let mindarThree;
     let rendererCommon;
@@ -137,6 +144,7 @@ const PortComp = () => {
     return () => {
       rendererCommon?.setAnimationLoop(null); // This stops the animation loop when component unmounts
       mindarThree.stop(); // stop and dispose of resources to prevent memory leaks
+      cleanUpOverlays();
     };
   }, []);
 

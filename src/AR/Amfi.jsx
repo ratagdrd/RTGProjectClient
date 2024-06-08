@@ -48,8 +48,15 @@ const AmfiComp = () => {
   const [Instructions, setInstructions] = useState("");
 
   const handleFinish = () => {
+    cleanUpOverlays();
     navigate("/cgroup60/test2/tar3/AllGamesPage");
   };
+
+  const cleanUpOverlays = () => {
+    const overlays = document.querySelectorAll(".mindar-ui-overlay");
+    overlays.forEach((overlay) => overlay.remove());
+  };
+
   useEffect(() => {
     let mindarThree;
     let rendererCommon;
@@ -99,7 +106,7 @@ const AmfiComp = () => {
         imageTargetSrc: "/cgroup60/test2/tar3/target/theater.mind",
       });
       console.log("mind", mindarThree);
-      const { scene, camera } = mindarThree;//extract the scene, camera from mindAR
+      const { scene, camera } = mindarThree; //extract the scene, camera from mindAR
       rendererCommon = mindarThree.renderer;
 
       const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
@@ -113,10 +120,9 @@ const AmfiComp = () => {
       const geometry = new THREE.PlaneGeometry(1, 0.55);
       console.log("geometry", geometry);
 
-      //Material: Defines the appearance of the mesh.context of Three.js 
+      //Material: Defines the appearance of the mesh.context of Three.js
       const material = new THREE.MeshBasicMaterial({ map: texture });
       console.log("material", material);
-
 
       //Mesh: A 3D object made up of geometry and material.
       const plane = new THREE.Mesh(geometry, material);
@@ -143,6 +149,7 @@ const AmfiComp = () => {
     return () => {
       rendererCommon?.setAnimationLoop(null); // This stops the animation loop when component unmounts
       mindarThree.stop(); // stop and dispose of resources to prevent memory leaks
+      cleanUpOverlays();
     };
   }, []);
 

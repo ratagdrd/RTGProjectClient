@@ -44,11 +44,17 @@ const VideoComp = () => {
       videoRef.current.load();
       videoRef.current = null;
     }
+    cleanUpOverlays();
   }, []);
 
   const handleFinish = () => {
     cleanupResources();
     navigate("/cgroup60/test2/tar3/AllGamesPage");
+  };
+
+  const cleanUpOverlays = () => {
+    const overlays = document.querySelectorAll(".mindar-ui-overlay");
+    overlays.forEach((overlay) => overlay.remove());
   };
 
   const loadVideo = useCallback((path) => {
