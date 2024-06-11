@@ -30,6 +30,7 @@ export default function DataTablePage() {
   const rowsPerPage = 20;
   const tableNames = ["Activity", "Site", "Group", "Spot"];
   const txtToHeader = "מערכת ניהול";
+  const knownEmojis = ["😄", "😀", "🐨", "🐶", "🐼", "👨‍👩‍👧‍👦", "😎"];
   const theme = createTheme({ direction: "rtl" });
 
   const cacheRtl = createCache({
@@ -213,7 +214,19 @@ export default function DataTablePage() {
                                   : index,
                             }}
                           >
-                            {row[field]}
+                            {field === "photo" && selectedTable === "Group" ? (
+                              knownEmojis.includes(row[field]) ? (
+                                row[field]
+                              ) : (
+                                <img
+                                  src={`https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/${row[field]}`}
+                                  alt="No Photo or Emoji"
+                                  style={{ width: "80px", height: "80px" }}
+                                />
+                              )
+                            ) : (
+                              row[field]
+                            )}
                           </td>
                         ))}
                         {selectedTable === "Activity" && (
