@@ -76,9 +76,49 @@ export default function DataTablePage() {
     }
   };
 
-  const handleDelete = (id) => {
-    // Add delete functionality
-    console.log(`Deleting row with id ${id}`);
+  const handleDeleteGroup = (groupCode) => {
+    fetch(`https://localhost:7052/api/Group/${groupCode}`, {
+      method: "DELETE",
+      headers: new Headers({
+        "Content-Type": "application/json; charset=UTF-8",
+        Accept: "application/json; charset=UTF-8",
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Error deleting group: ${response.statusText}`);
+        }
+        console.log(`Deleted group with id ${groupCode}`);
+        // Fetch the updated list of groups
+        return fetchGroups();
+      })
+      .catch((error) => {
+        console.error("Error deleting group:", error);
+      });
+  };
+
+  const fetchGroups = () => {
+    fetch(`https://localhost:7052/api/Group`, {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json; charset=UTF-8",
+        Accept: "application/json; charset=UTF-8",
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Error fetching groups: ${res.statusText}`);
+        }
+        return res.json();
+      })
+      .then(
+        (result) => {
+          setTableData(result);
+        },
+        (error) => {
+          console.error("Error fetching groups:", error);
+        }
+      );
   };
 
   const handleEdit = (id) => {
@@ -260,7 +300,7 @@ export default function DataTablePage() {
                           {selectedTable == "Group" && (
                             <IconButton
                               color="error"
-                              onClick={() => handleDelete(row.activityCode)}
+                              onClick={() => handleDeleteGroup(row.groupCode)}
                             >
                               <DeleteIcon />
                             </IconButton>
