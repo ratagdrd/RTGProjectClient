@@ -27,8 +27,9 @@ export default function DataTablePage() {
   const [selectedRow, setSelectedRow] = useState(null); // State to track selected row
   const [isQuestionEditMode, setIsQuestionEditMode] = useState(false); // State to track question edit mode
   const [questionEditIndex, setQuestionEditIndex] = useState(null); // State to track index of row being edited
+  const [questionEditFormData, setQuestionEditFormData] = useState({}); // State to manage the data for the question being edited
   const rowsPerPage = 20;
-  const tableNames = ["Activity", "Site", "Group", "Spot"];
+  const tableNames = ["Activity", "Site", "Group"];
   const txtToHeader = "מערכת ניהול";
   const knownEmojis = ["😄", "😀", "🐨", "🐶", "🐼", "👨‍👩‍👧‍👦", "😎"];
   const theme = createTheme({ direction: "rtl" });
@@ -48,6 +49,8 @@ export default function DataTablePage() {
   const handleTableSelect = (event) => {
     setSelectedTable(event.target.value);
     setIsEditClicked(false); // Close the edit form
+    setSelectedRow(null); // Hide the questions table
+    setIsQuestionEditMode(false); // Exit question edit mode
     if (event.target.value) {
       fetch(`https://localhost:7052/api/${event.target.value}`, {
         method: "GET",
@@ -132,13 +135,17 @@ export default function DataTablePage() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditFormData({ ...editFormData, [name]: value });
+    if (isQuestionEditMode) {
+      setQuestionEditFormData({ ...questionEditFormData, [name]: value });
+    } else {
+      setEditFormData({ ...editFormData, [name]: value });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add submit functionality
-    console.log("Form submitted with data:", editFormData);
+    console.log("Form submitted with data:", isQuestionEditMode ? questionEditFormData : editFormData);
     // You can send this data to your backend to update the record
   };
 
@@ -146,6 +153,7 @@ export default function DataTablePage() {
     const averageRate = row.rate / row.numOfRates;
     return averageRate.toFixed(2);
   };
+
   const handleEditContent = (activityCode, rowIndex) => {
     fetch(`https://localhost:7052/api/QuestionForActivity/${activityCode}`, {
       method: "GET",
@@ -179,7 +187,9 @@ export default function DataTablePage() {
   const handleQuestionEdit = (index) => {
     console.log(index);
     setQuestionEditIndex(index);
+    setQuestionEditFormData(questionsData[index]); // Set the selected question data
     setIsQuestionEditMode(true); // Enter question edit mode
+    setIsEditClicked(true); // Show the edit form
   };
 
   const totalPages = Math.ceil(tableData.length / rowsPerPage);
@@ -272,9 +282,9 @@ export default function DataTablePage() {
                         {selectedTable === "Activity" && (
                           <td>{calculateAverageRate(row)}</td>
                         )}
-                        {selectedTable === "Activity" &&
-                          (index === 0 || index === 1) && (
-                            <td>
+                        {selectedTable === "Activity" && (
+                          <td>
+                            {(row.activitycode === 1 || row.activitycode === 2) && (
                               <IconButton
                                 color="primary"
                                 onClick={() =>
@@ -283,10 +293,8 @@ export default function DataTablePage() {
                               >
                                 <ContentPasteIcon />
                               </IconButton>
-                            </td>
-                          )}
-                        {selectedTable === "Activity" && index > 1 && (
-                          <td></td> // Empty cell for other rows
+                            )}
+                          </td>
                         )}
                         <td>
                           {selectedTable !== "Group" && (
@@ -297,7 +305,7 @@ export default function DataTablePage() {
                               <EditIcon />
                             </IconButton>
                           )}
-                          {selectedTable == "Group" && (
+                          {selectedTable === "Group" && (
                             <IconButton
                               color="error"
                               onClick={() => handleDeleteGroup(row.groupCode)}
@@ -343,7 +351,7 @@ export default function DataTablePage() {
                 </Pagination>
               </div>
             )}
-            {selectedRow !== null && !isQuestionEditMode && (
+            {selectedRow !== null && (
               <div>
                 <Table striped bordered hover>
                   <thead>
@@ -367,21 +375,43 @@ export default function DataTablePage() {
                           >
                             <EditIcon />
                           </IconButton>
-                          {/* cancel the delete option */}
-                          {/* <IconButton
-                            color="error"
-                            onClick={() => handleDelete(row.id)}
-                          >
-                            <DeleteIcon />
-                          </IconButton> */}
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </Table>
+                {isQuestionEditMode && (
+                  <div className="edit-form-container">
+                    <form onSubmit={handleSubmit}>
+                      {Object.keys(questionEditFormData).map((field, index, array) => (
+                        <div key={index}>
+                          <label>{field}</label>
+                          <input
+                            type="text"
+                            name={field}
+                            value={questionEditFormData[field]}
+                            onChange={handleInputChange}
+                            className="edit-input"
+                            style={{ direction: "rtl" }}
+                            disabled={
+                              selectedTable === "Activity"
+                                ? index === 0 ||
+                                  index === array.length - 1 ||
+                                  index === array.length - 2
+                                : index === 0
+                            }
+                          />
+                        </div>
+                      ))}
+                      <button type="submit" className="edit-submit-button">
+                        ערוך
+                      </button>
+                    </form>
+                  </div>
+                )}
               </div>
             )}
-            {isEditClicked && (
+            {isEditClicked && !isQuestionEditMode && (
               <div className="edit-form-container">
                 <form onSubmit={handleSubmit}>
                   {Object.keys(editFormData).map((field, index, array) => (
@@ -393,43 +423,14 @@ export default function DataTablePage() {
                         value={editFormData[field]}
                         onChange={handleInputChange}
                         className="edit-input"
-                        style={{ direction: "rtl" }} // Adjust the width here
+                        style={{ direction: "rtl" }}
                         disabled={
                           selectedTable === "Activity"
                             ? index === 0 ||
                               index === array.length - 1 ||
                               index === array.length - 2
                             : index === 0
-                        } // Disable the first, last, and second last fields for Activity, only the first for other tables
-                      />
-                    </div>
-                  ))}
-                  <button type="submit" className="edit-submit-button">
-                    ערוך
-                  </button>
-                </form>
-              </div>
-            )}
-            {selectedRow !== null && isQuestionEditMode && (
-              <div className="edit-form-container">
-                <form onSubmit={handleSubmit}>
-                  {Object.keys(editFormData).map((field, index, array) => (
-                    <div key={index}>
-                      <label>{field}</label>
-                      <input
-                        type="text"
-                        name={field}
-                        value={editFormData[field]}
-                        onChange={handleInputChange}
-                        className="edit-input"
-                        style={{ direction: "rtl" }} // Adjust the width here
-                        disabled={
-                          selectedTable === "Activity"
-                            ? index === 0 ||
-                              index === array.length - 1 ||
-                              index === array.length - 2
-                            : index === 0
-                        } // Disable the first, last, and second last fields for Activity, only the first for other tables
+                        }
                       />
                     </div>
                   ))}
