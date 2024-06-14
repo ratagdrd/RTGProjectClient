@@ -48,6 +48,7 @@ export default function DataTablePage() {
 
   const handleTableSelect = (event) => {
     setSelectedTable(event.target.value);
+    setCurrentPage(1); 
     setIsEditClicked(false); // Close the edit form
     setSelectedRow(null); // Hide the questions table
     setIsQuestionEditMode(false); // Exit question edit mode
@@ -324,9 +325,7 @@ export default function DataTablePage() {
                     disabled={currentPage === 1}
                   />
                   <Pagination.Prev
-                    onClick={() =>
-                      setCurrentPage((prev) => Math.max(prev - 1, 1))
-                    }
+                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                     disabled={currentPage === 1}
                   />
                   {Array.from({ length: totalPages }, (_, index) => (
@@ -339,9 +338,7 @@ export default function DataTablePage() {
                     </Pagination.Item>
                   ))}
                   <Pagination.Next
-                    onClick={() =>
-                      setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                    }
+                    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                     disabled={currentPage === totalPages}
                   />
                   <Pagination.Last
@@ -396,8 +393,8 @@ export default function DataTablePage() {
                             disabled={
                               selectedTable === "Activity"
                                 ? index === 0 ||
-                                  index === array.length - 1 ||
-                                  index === array.length - 2
+                                index === array.length - 1 ||
+                                index === array.length - 2
                                 : index === 0
                             }
                           />
@@ -427,8 +424,8 @@ export default function DataTablePage() {
                         disabled={
                           selectedTable === "Activity"
                             ? index === 0 ||
-                              index === array.length - 1 ||
-                              index === array.length - 2
+                            index === array.length - 1 ||
+                            index === array.length - 2
                             : index === 0
                         }
                       />
