@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Table, Pagination } from "react-bootstrap";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -33,6 +33,9 @@ export default function DataTablePage() {
   const txtToHeader = "מערכת ניהול";
   const knownEmojis = ["😄", "😀", "🐨", "🐶", "🐼", "👨‍👩‍👧‍👦", "😎"];
   const theme = createTheme({ direction: "rtl" });
+  const editFormRef = useRef(null);
+  const questionsTableRef = useRef(null);
+
 
   const cacheRtl = createCache({
     key: "muirtl",
@@ -48,7 +51,7 @@ export default function DataTablePage() {
 
   const handleTableSelect = (event) => {
     setSelectedTable(event.target.value);
-    setCurrentPage(1); 
+    setCurrentPage(1);
     setIsEditClicked(false); // Close the edit form
     setSelectedRow(null); // Hide the questions table
     setIsQuestionEditMode(false); // Exit question edit mode
@@ -132,6 +135,11 @@ export default function DataTablePage() {
     const rowData = tableData[id];
     setEditFormData(rowData);
     setIsEditClicked(true); // Set isEditClicked to true when edit button is clicked
+
+    // Scroll to edit form
+  if (editFormRef.current) {
+    editFormRef.current.scrollIntoView({ behavior: "smooth" });
+  }
   };
 
   const handleInputChange = (e) => {
@@ -183,6 +191,10 @@ export default function DataTablePage() {
           );
         }
       );
+
+      if (questionsTableRef.current) {
+        questionsTableRef.current.scrollIntoView({ behavior: "smooth" });
+      }
   };
 
   const handleQuestionEdit = (index) => {
@@ -191,6 +203,11 @@ export default function DataTablePage() {
     setQuestionEditFormData(questionsData[index]); // Set the selected question data
     setIsQuestionEditMode(true); // Enter question edit mode
     setIsEditClicked(true); // Show the edit form
+
+     // Scroll to edit form
+  if (editFormRef.current) {
+    editFormRef.current.scrollIntoView({ behavior: "smooth" });
+  }
   };
 
   const totalPages = Math.ceil(tableData.length / rowsPerPage);
@@ -202,7 +219,7 @@ export default function DataTablePage() {
   return (
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
-        <div className="outer-container-admin">
+        <div className="outer-container-admin" style={{ direction: 'rtl' }}>
           <nav className="navbar navbar-fixed-top">
             <div className="navbar-logo">
               <img src={Logo} alt="Logo" style={{ width: "60px" }} />
@@ -349,7 +366,7 @@ export default function DataTablePage() {
               </div>
             )}
             {selectedRow !== null && (
-              <div>
+              <div ref={questionsTableRef}>
                 <Table striped bordered hover>
                   <thead>
                     <tr>
@@ -378,7 +395,7 @@ export default function DataTablePage() {
                   </tbody>
                 </Table>
                 {isQuestionEditMode && (
-                  <div className="edit-form-container">
+                  <div className="edit-form-container" ref={editFormRef}>
                     <form onSubmit={handleSubmit}>
                       {Object.keys(questionEditFormData).map((field, index, array) => (
                         <div key={index}>
@@ -409,7 +426,7 @@ export default function DataTablePage() {
               </div>
             )}
             {isEditClicked && !isQuestionEditMode && (
-              <div className="edit-form-container">
+              <div className="edit-form-container" ref={editFormRef}>
                 <form onSubmit={handleSubmit}>
                   {Object.keys(editFormData).map((field, index, array) => (
                     <div key={index}>
