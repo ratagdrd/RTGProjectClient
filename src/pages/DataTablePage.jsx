@@ -22,12 +22,12 @@ export default function DataTablePage() {
   const [tableData, setTableData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [editFormData, setEditFormData] = useState({});
-  const [isEditClicked, setIsEditClicked] = useState(false); // State to track edit button click
+  const [isEditClicked, setIsEditClicked] = useState(false);
   const [questionsData, setQuestionsData] = useState([]);
-  const [selectedRow, setSelectedRow] = useState(null); // State to track selected row
-  const [isQuestionEditMode, setIsQuestionEditMode] = useState(false); // State to track question edit mode
-  const [questionEditIndex, setQuestionEditIndex] = useState(null); // State to track index of row being edited
-  const [questionEditFormData, setQuestionEditFormData] = useState({}); // State to manage the data for the question being edited
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [isQuestionEditMode, setIsQuestionEditMode] = useState(false);
+  const [questionEditIndex, setQuestionEditIndex] = useState(null);
+  const [questionEditFormData, setQuestionEditFormData] = useState({});
   const rowsPerPage = 20;
   const tableNames = ["Activity", "Site", "Group"];
   const txtToHeader = "מערכת ניהול";
@@ -35,7 +35,6 @@ export default function DataTablePage() {
   const theme = createTheme({ direction: "rtl" });
   const editFormRef = useRef(null);
   const questionsTableRef = useRef(null);
-
 
   const cacheRtl = createCache({
     key: "muirtl",
@@ -52,16 +51,17 @@ export default function DataTablePage() {
   const handleTableSelect = (event) => {
     setSelectedTable(event.target.value);
     setCurrentPage(1);
-    setIsEditClicked(false); // Close the edit form
-    setSelectedRow(null); // Hide the questions table
-    setIsQuestionEditMode(false); // Exit question edit mode
+    setIsEditClicked(false);
+    setSelectedRow(null);
+    setIsQuestionEditMode(false);
+
     if (event.target.value) {
       fetch(`https://localhost:7052/api/${event.target.value}`, {
         method: "GET",
-        headers: new Headers({
+        headers: {
           "Content-Type": "application/json; charset=UTF-8",
           Accept: "application/json; charset=UTF-8",
-        }),
+        },
       })
         .then((res) => {
           if (!res.ok) {
@@ -69,17 +69,72 @@ export default function DataTablePage() {
           }
           return res.json();
         })
-        .then(
-          (result) => {
-            setTableData(result);
-          },
-          (error) => {
-            console.error(
-              `Error fetching data for table ${event.target.value}:`,
-              error
+        .then((activityResult) => {
+          if (event.target.value === "Activity") {
+            const activityCodes = activityResult.map(
+              (activity) => activity.activitycode
             );
+            const fetchActivityStatusPromises = activityCodes.map((code) => {
+              return fetch(
+                `https://localhost:7052/api/ActivityStatus?activitycode=${code}`,
+                {
+                  method: "GET",
+                  headers: {
+                    "Content-Type": "application/json; charset=UTF-8",
+                    Accept: "application/json; charset=UTF-8",
+                  },
+                }
+              )
+                .then((res) => {
+                  if (!res.ok) {
+                    throw new Error(
+                      `Error fetching ActivityStatus data for activity code ${code}: ${res.statusText}`
+                    );
+                  }
+                  return res.json();
+                })
+                .then((statusResult) => ({
+                  activitycode: code,
+                  ...statusResult,
+                }))
+                .catch((error) => {
+                  console.error(
+                    `Error fetching ActivityStatus data for activity code ${code}: ${error}`
+                  );
+                  return {
+                    activitycode: code,
+                    isAccessible: false,
+                    isBlocked: false,
+                  };
+                });
+            });
+
+            Promise.all(fetchActivityStatusPromises)
+              .then((activityStatusResults) => {
+                const mergedData = activityResult.map((activity) => {
+                  const status = activityStatusResults.find(
+                    (status) => status.activitycode === activity.activitycode
+                  );
+                  return {
+                    ...activity,
+                    isAccessible: status ? status.isAccessible : false,
+                    isBlocked: status ? status.isBlocked : false,
+                  };
+                });
+                setTableData(mergedData);
+              })
+              .catch((error) => {
+                console.error(`Error fetching ActivityStatus data: ${error}`);
+                setTableData(activityResult);
+              });
+          } else {
+            setTableData(activityResult);
           }
-        );
+        })
+        .catch((error) => {
+          console.error(`Error fetching data for table ${event.target.value}:`, error);
+          setTableData([]);
+        });
     }
   };
 
@@ -96,7 +151,6 @@ export default function DataTablePage() {
           throw new Error(`Error deleting group: ${response.statusText}`);
         }
         console.log(`Deleted group with id ${groupCode}`);
-        // Fetch the updated list of groups
         return fetchGroups();
       })
       .catch((error) => {
@@ -129,17 +183,13 @@ export default function DataTablePage() {
   };
 
   const handleEdit = (id) => {
-    // Add edit functionality
-    console.log(`Editing row with id ${id}`);
-    // Assuming id is the index of the row in tableData array
     const rowData = tableData[id];
     setEditFormData(rowData);
-    setIsEditClicked(true); // Set isEditClicked to true when edit button is clicked
+    setIsEditClicked(true);
 
-    // Scroll to edit form
-  if (editFormRef.current) {
-    editFormRef.current.scrollIntoView({ behavior: "smooth" });
-  }
+    if (editFormRef.current) {
+      editFormRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const handleInputChange = (e) => {
@@ -153,9 +203,7 @@ export default function DataTablePage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add submit functionality
     console.log("Form submitted with data:", isQuestionEditMode ? questionEditFormData : editFormData);
-    // You can send this data to your backend to update the record
   };
 
   const calculateAverageRate = (row) => {
@@ -180,34 +228,29 @@ export default function DataTablePage() {
       .then(
         (result) => {
           setQuestionsData(result);
-          setSelectedRow(rowIndex); // Set the selected row index
-          setIsQuestionEditMode(false); // Exit question edit mode
-          setIsEditClicked(false); // Close the edit form
+          setSelectedRow(rowIndex);
+          setIsQuestionEditMode(false);
+          setIsEditClicked(false);
         },
         (error) => {
-          console.error(
-            `Error fetching questions for activity ${activityCode}:`,
-            error
-          );
+          console.error(`Error fetching questions for activity ${activityCode}:`, error);
         }
       );
 
-      if (questionsTableRef.current) {
-        questionsTableRef.current.scrollIntoView({ behavior: "smooth" });
-      }
+    if (questionsTableRef.current) {
+      questionsTableRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const handleQuestionEdit = (index) => {
-    console.log(index);
     setQuestionEditIndex(index);
-    setQuestionEditFormData(questionsData[index]); // Set the selected question data
-    setIsQuestionEditMode(true); // Enter question edit mode
-    setIsEditClicked(true); // Show the edit form
+    setQuestionEditFormData(questionsData[index]);
+    setIsQuestionEditMode(true);
+    setIsEditClicked(true);
 
-     // Scroll to edit form
-  if (editFormRef.current) {
-    editFormRef.current.scrollIntoView({ behavior: "smooth" });
-  }
+    if (editFormRef.current) {
+      editFormRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const totalPages = Math.ceil(tableData.length / rowsPerPage);
@@ -251,19 +294,18 @@ export default function DataTablePage() {
                 <Table striped bordered hover>
                   <thead>
                     <tr>
-                      {Object.keys(tableData[0]).map((field, index) => (
-                        <th
-                          key={field}
-                          style={{
-                            order:
-                              selectedTable === "Activity"
-                                ? Object.keys(tableData[0]).length - index
-                                : index,
-                          }}
-                        >
-                          {field}
-                        </th>
-                      ))}
+                      {Object.keys(tableData[0]).map((field) => {
+                        if (field === "statusId") return null;
+                        return (
+                          <th key={field}>
+                            {field === "isAccessible" || field === "isBlocked" ? (
+                              field // Render text instead of checkbox
+                            ) : (
+                              field
+                            )}
+                          </th>
+                        );
+                      })}
                       {selectedTable === "Activity" && <th>Average Rate</th>}
                       {selectedTable === "Activity" && <th>Edit Content</th>}
                       <th>Actions</th>
@@ -272,47 +314,60 @@ export default function DataTablePage() {
                   <tbody>
                     {currentPageData.map((row, index) => (
                       <tr key={index}>
-                        {Object.keys(row).map((field, index) => (
-                          <td
-                            key={field}
-                            style={{
-                              order:
-                                selectedTable === "Activity"
-                                  ? Object.keys(tableData[0]).length - index
-                                  : index,
-                            }}
-                          >
-                            {field === "photo" && selectedTable === "Group" ? (
-                              knownEmojis.includes(row[field]) ? (
-                                row[field]
-                              ) : (
-                                <img
-                                  src={`https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/${row[field]}`}
-                                  alt="No Photo or Emoji"
-                                  style={{ width: "80px", height: "80px" }}
+                        {Object.keys(row).map((field) => {
+                          if (field === "statusId") return null;
+                          return (
+                            <td key={field}>
+                              {field === "photo" && selectedTable === "Group" ? (
+                                knownEmojis.includes(row[field]) ? (
+                                  row[field]
+                                ) : (
+                                  <img
+                                    src={`https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/${row[field]}`}
+                                    alt="No Photo or Emoji"
+                                    style={{ width: "80px", height: "80px" }}
+                                  />
+                                )
+                              ) : field === "isAccessible" &&
+                                selectedTable === "Activity" ? (
+                                <input
+                                  type="checkbox"
+                                  checked={row.isAccessible}
+                                  readOnly
                                 />
-                              )
-                            ) : (
-                              row[field]
-                            )}
-                          </td>
-                        ))}
+                              ) : field === "isBlocked" &&
+                                selectedTable === "Activity" ? (
+                                <input
+                                  type="checkbox"
+                                  checked={row.isBlocked}
+                                  readOnly
+                                />
+                              ) : field === "activitycode" &&
+                                selectedTable === "Activity" ? (
+                                row.activitycode
+                              ) : (
+                                row[field]
+                              )}
+                            </td>
+                          );
+                        })}
                         {selectedTable === "Activity" && (
-                          <td>{calculateAverageRate(row)}</td>
-                        )}
-                        {selectedTable === "Activity" && (
-                          <td>
-                            {(row.activitycode === 1 || row.activitycode === 2) && (
-                              <IconButton
-                                color="primary"
-                                onClick={() =>
-                                  handleEditContent(row.activitycode, index)
-                                }
-                              >
-                                <ContentPasteIcon />
-                              </IconButton>
-                            )}
-                          </td>
+                          <>
+                            <td>{calculateAverageRate(row)}</td>
+                            <td>
+                              {(row.activitycode === 1 ||
+                                row.activitycode === 2) && (
+                                <IconButton
+                                  color="primary"
+                                  onClick={() =>
+                                    handleEditContent(row.activitycode, index)
+                                  }
+                                >
+                                  <ContentPasteIcon />
+                                </IconButton>
+                              )}
+                            </td>
+                          </>
                         )}
                         <td>
                           {selectedTable !== "Group" && (
@@ -326,7 +381,9 @@ export default function DataTablePage() {
                           {selectedTable === "Group" && (
                             <IconButton
                               color="error"
-                              onClick={() => handleDeleteGroup(row.groupCode)}
+                              onClick={() =>
+                                handleDeleteGroup(row.groupCode)
+                              }
                             >
                               <DeleteIcon />
                             </IconButton>
@@ -336,13 +393,16 @@ export default function DataTablePage() {
                     ))}
                   </tbody>
                 </Table>
+
                 <Pagination>
                   <Pagination.First
                     onClick={() => setCurrentPage(1)}
                     disabled={currentPage === 1}
                   />
                   <Pagination.Prev
-                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.max(prev - 1, 1))
+                    }
                     disabled={currentPage === 1}
                   />
                   {Array.from({ length: totalPages }, (_, index) => (
@@ -355,7 +415,11 @@ export default function DataTablePage() {
                     </Pagination.Item>
                   ))}
                   <Pagination.Next
-                    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                    onClick={() =>
+                      setCurrentPage((prev) =>
+                        Math.min(prev + 1, totalPages)
+                      )
+                    }
                     disabled={currentPage === totalPages}
                   />
                   <Pagination.Last
@@ -371,7 +435,7 @@ export default function DataTablePage() {
                   <thead>
                     <tr>
                       {Object.keys(questionsData[0]).map((field, index) => (
-                        <th key={field}>{field}</th>
+                        <th key={index}>{field}</th>
                       ))}
                       <th>Actions</th>
                     </tr>
@@ -410,8 +474,8 @@ export default function DataTablePage() {
                             disabled={
                               selectedTable === "Activity"
                                 ? index === 0 ||
-                                index === array.length - 1 ||
-                                index === array.length - 2
+                                  index === array.length - 1 ||
+                                  index === array.length - 2
                                 : index === 0
                             }
                           />
@@ -441,8 +505,8 @@ export default function DataTablePage() {
                         disabled={
                           selectedTable === "Activity"
                             ? index === 0 ||
-                            index === array.length - 1 ||
-                            index === array.length - 2
+                              index === array.length - 1 ||
+                              index === array.length - 2
                             : index === 0
                         }
                       />
