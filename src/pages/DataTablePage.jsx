@@ -212,7 +212,7 @@ export default function DataTablePage() {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    // Check if selectedTable is "Activity"
+   
     if (selectedTable === "Activity") {
       // Prepare update data
       const updateData = {
@@ -250,7 +250,48 @@ export default function DataTablePage() {
     } else {
       console.warn("Cannot submit form: Selected table is not 'Activity'");
     }
-
+    if (selectedTable === "Site") {
+      // Prepare update data
+      const updateData = {
+        siteCode: editFormData.siteCode, // Assuming you have siteCode in editFormData
+        siteName: editFormData.siteName,
+        address: editFormData.address,
+        sDescription: editFormData.sDescription,
+        phoneNo: editFormData.phoneNo,
+        webSite: editFormData.webSite,
+        openingHours: editFormData.openingHours
+      };
+  
+      // Send PUT request to update site
+      fetch(`https://localhost:7052/api/Site?siteCode=${updateData.siteCode}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(updateData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Error updating site: ${response.statusText}`);
+          }
+          console.log(`Site ${updateData.siteCode} updated successfully.`);
+          // Handle success response as needed
+        })
+        .then(() => {
+          const mockEvent = {
+            target: {
+              value: "Site"
+            }
+          };
+          handleTableSelect(mockEvent);
+        })
+        .catch((error) => {
+          console.error("Error updating site:", error);
+        });
+    } else {
+      console.warn("Cannot submit form: Selected table is not 'Site'");
+    }
 
   };
   
