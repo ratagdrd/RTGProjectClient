@@ -211,8 +211,49 @@ export default function DataTablePage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted with data:", isQuestionEditMode ? questionEditFormData : editFormData);
+  
+    // Check if selectedTable is "Activity"
+    if (selectedTable === "Activity") {
+      // Prepare update data
+      const updateData = {
+        activityCode: editFormData.activitycode,
+        activityname: editFormData.activityname,
+        instruction: editFormData.instruction
+      };
+  console.log(updateData);
+      // Send PUT request to update activity
+      fetch(`https://localhost:7052/api/Activity?activityCode=${updateData.activityCode}&activityname=${updateData.activityname}&instruction=${updateData.instruction}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(updateData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Error updating activity: ${response.statusText}`);
+          }
+          console.log(`Activity ${updateData.activityCode} updated successfully.`);
+          // Handle success response as needed
+        })
+        .then(() => {
+          const mockEvent = {
+            target: {
+              value: "Activity" 
+            }
+          };
+          handleTableSelect(mockEvent);            })
+        .catch((error) => {
+          console.error("Error updating activity:", error);
+        });
+    } else {
+      console.warn("Cannot submit form: Selected table is not 'Activity'");
+    }
+
+
   };
+  
 
   const calculateAverageRate = (row) => {
     const averageRate = row.rate / row.numOfRates;
