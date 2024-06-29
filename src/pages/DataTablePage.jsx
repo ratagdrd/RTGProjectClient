@@ -184,7 +184,7 @@ export default function DataTablePage() {
 
   const handleEdit = (id) => {
     const rowData = tableData[id];
-  
+
     // Check if selectedTable is "Activity" before setting editFormData
     if (selectedTable === "Activity") {
       const { isAccessible, isBlocked, ...formData } = rowData;
@@ -192,13 +192,13 @@ export default function DataTablePage() {
     } else {
       setEditFormData(rowData);
     }
-  
+
     setIsEditClicked(true);
-  
+
     if (editFormRef.current) {
       editFormRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  };  
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -212,7 +212,7 @@ export default function DataTablePage() {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-   
+    // Check if selectedTable is "Activity"
     if (selectedTable === "Activity") {
       // Prepare update data
       const updateData = {
@@ -220,7 +220,7 @@ export default function DataTablePage() {
         activityname: editFormData.activityname,
         instruction: editFormData.instruction
       };
-  console.log(updateData);
+      console.log(updateData);
       // Send PUT request to update activity
       fetch(`https://localhost:7052/api/Activity?activityCode=${updateData.activityCode}&activityname=${updateData.activityname}&instruction=${updateData.instruction}`, {
         method: "PUT",
@@ -240,10 +240,11 @@ export default function DataTablePage() {
         .then(() => {
           const mockEvent = {
             target: {
-              value: "Activity" 
+              value: "Activity"
             }
           };
-          handleTableSelect(mockEvent);            })
+          handleTableSelect(mockEvent);
+        })
         .catch((error) => {
           console.error("Error updating activity:", error);
         });
@@ -294,7 +295,7 @@ export default function DataTablePage() {
     }
 
   };
-  
+
 
   const calculateAverageRate = (row) => {
     const averageRate = row.rate / row.numOfRates;
@@ -356,10 +357,10 @@ export default function DataTablePage() {
       const updatedData = tableData.map((row, i) =>
         i === index ? { ...row, [field]: !row[field] } : row
       );
-  
+
       const isAccessible = updatedData[index].isAccessible;
       const isBlocked = updatedData[index].isBlocked;
-  
+
       console.log(`Sending request to update activity status for ${activitycode}`);
       fetch(`https://localhost:7052/api/ActivityStatus?activityCode=${activitycode}&isAccessible=${isAccessible}&isBlocked=${isBlocked}`, {
         method: "PUT",
@@ -383,8 +384,8 @@ export default function DataTablePage() {
         });
     }
   };
-  
-  
+
+
 
   return (
     <CacheProvider value={cacheRtl}>
@@ -484,15 +485,15 @@ export default function DataTablePage() {
                             <td>
                               {(row.activitycode === 1 ||
                                 row.activitycode === 2) && (
-                                <IconButton
-                                  color="primary"
-                                  onClick={() =>
-                                    handleEditContent(row.activitycode, index)
-                                  }
-                                >
-                                  <ContentPasteIcon />
-                                </IconButton>
-                              )}
+                                  <IconButton
+                                    color="primary"
+                                    onClick={() =>
+                                      handleEditContent(row.activitycode, index)
+                                    }
+                                  >
+                                    <ContentPasteIcon />
+                                  </IconButton>
+                                )}
                             </td>
                           </>
                         )}
@@ -601,8 +602,8 @@ export default function DataTablePage() {
                             disabled={
                               selectedTable === "Activity"
                                 ? index === 0 ||
-                                  index === array.length - 1 ||
-                                  index === array.length - 2
+                                index === array.length - 1 ||
+                                index === array.length - 2
                                 : index === 0
                             }
                           />
@@ -632,8 +633,8 @@ export default function DataTablePage() {
                         disabled={
                           selectedTable === "Activity"
                             ? index === 0 ||
-                              index === array.length - 1 ||
-                              index === array.length - 2
+                            index === array.length - 1 ||
+                            index === array.length - 2
                             : index === 0
                         }
                       />
