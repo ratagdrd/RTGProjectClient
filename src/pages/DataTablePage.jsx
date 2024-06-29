@@ -259,6 +259,43 @@ export default function DataTablePage() {
     currentPage * rowsPerPage
   );
 
+  const handleCheckboxChange = (field, index) => {
+    const confirmed = window.confirm("האם את/ה בטוח/ה?");
+    if (confirmed) {
+      const activitycode = tableData[index].activitycode;  // Access the activitycode from the original tableData
+      const updatedData = tableData.map((row, i) =>
+        i === index ? { ...row, [field]: !row[field] } : row
+      );
+  
+      const isAccessible = updatedData[index].isAccessible;
+      const isBlocked = updatedData[index].isBlocked;
+  
+      console.log(`Sending request to update activity status for ${activitycode}`);
+      fetch(`https://localhost:7052/api/ActivityStatus?activityCode=${activitycode}&isAccessible=${isAccessible}&isBlocked=${isBlocked}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Error updating status: ${response.statusText}`);
+          }
+          return response.json();
+        })
+        .then((result) => {
+          console.log("Status updated successfully:", result);
+          setTableData(updatedData);
+        })
+        .catch((error) => {
+          console.error("Error updating status:", error);
+        });
+    }
+  };
+  
+  
+
   return (
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
@@ -333,14 +370,14 @@ export default function DataTablePage() {
                                 <input
                                   type="checkbox"
                                   checked={row.isAccessible}
-                                  readOnly
+                                  onChange={() => handleCheckboxChange("isAccessible", index)}
                                 />
                               ) : field === "isBlocked" &&
                                 selectedTable === "Activity" ? (
                                 <input
                                   type="checkbox"
                                   checked={row.isBlocked}
-                                  readOnly
+                                  onChange={() => handleCheckboxChange("isBlocked", index)}
                                 />
                               ) : field === "activitycode" &&
                                 selectedTable === "Activity" ? (
