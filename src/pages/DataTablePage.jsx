@@ -184,13 +184,21 @@ export default function DataTablePage() {
 
   const handleEdit = (id) => {
     const rowData = tableData[id];
-    setEditFormData(rowData);
+  
+    // Check if selectedTable is "Activity" before setting editFormData
+    if (selectedTable === "Activity") {
+      const { isAccessible, isBlocked, ...formData } = rowData;
+      setEditFormData(formData);
+    } else {
+      setEditFormData(rowData);
+    }
+  
     setIsEditClicked(true);
-
+  
     if (editFormRef.current) {
       editFormRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  };
+  };  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
