@@ -132,7 +132,10 @@ export default function DataTablePage() {
           }
         })
         .catch((error) => {
-          console.error(`Error fetching data for table ${event.target.value}:`, error);
+          console.error(
+            `Error fetching data for table ${event.target.value}:`,
+            error
+          );
           setTableData([]);
         });
     }
@@ -211,18 +214,23 @@ export default function DataTablePage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    // Check if selectedTable is "Activity"
-    if (selectedTable === "Activity") {
-      // Prepare update data
+    //here i start change:
+    if (isQuestionEditMode) {
+      // Prepare update data for the question
       const updateData = {
-        activityCode: editFormData.activitycode,
-        activityname: editFormData.activityname,
-        instruction: editFormData.instruction
+        activitycode: questionEditFormData.activitycode,
+        questionNo: questionEditFormData.questionNo,
+        question: questionEditFormData.question,
+        answer1: questionEditFormData.answer1,
+        answer2: questionEditFormData.answer2,
+        answer3: questionEditFormData.answer3,
+        answer4: questionEditFormData.answer4,
+        correctedAnswer: questionEditFormData.correctedAnswer,
+        noOfPoints: questionEditFormData.noOfPoints,
       };
       console.log(updateData);
-      // Send PUT request to update activity
-      fetch(`https://localhost:7052/api/Activity?activityCode=${updateData.activityCode}&activityname=${updateData.activityname}&instruction=${updateData.instruction}`, {
+      // Send PUT request to update the question
+      fetch(`https://localhost:7052/api/QuestionForActivity`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -232,26 +240,68 @@ export default function DataTablePage() {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error(`Error updating activity: ${response.statusText}`);
+            throw new Error(`Error updating question: ${response.statusText}`);
           }
-          console.log(`Activity ${updateData.activityCode} updated successfully.`);
+          console.log(
+            `Question ${updateData.questionNo} updated successfully.`
+          );
           // Handle success response as needed
         })
         .then(() => {
           const mockEvent = {
             target: {
-              value: "Activity"
-            }
+              value: "Activity",
+            },
+          };
+          handleTableSelect(mockEvent);
+        })
+        .catch((error) => {
+          console.error("Error updating question:", error);
+        });
+    }
+    // Check if selectedTable is "Activity"
+    else if (selectedTable === "Activity") {
+      // Prepare update data
+      const updateData = {
+        activityCode: editFormData.activitycode,
+        activityname: editFormData.activityname,
+        instruction: editFormData.instruction,
+      };
+      console.log(updateData);
+
+      // Send PUT request to update activity
+      fetch(
+        `https://localhost:7052/api/Activity?activityCode=${updateData.activityCode}&activityname=${updateData.activityname}&instruction=${updateData.instruction}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(updateData),
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Error updating activity: ${response.statusText}`);
+          }
+          console.log(
+            `Activity ${updateData.activityCode} updated successfully.`
+          );
+          // Handle success response as needed
+        })
+        .then(() => {
+          const mockEvent = {
+            target: {
+              value: "Activity",
+            },
           };
           handleTableSelect(mockEvent);
         })
         .catch((error) => {
           console.error("Error updating activity:", error);
         });
-    } else {
-      console.warn("Cannot submit form: Selected table is not 'Activity'");
-    }
-    if (selectedTable === "Site") {
+    } else if (selectedTable === "Site") {
       // Prepare update data
       const updateData = {
         siteCode: editFormData.siteCode, // Assuming you have siteCode in editFormData
@@ -260,9 +310,9 @@ export default function DataTablePage() {
         sDescription: editFormData.sDescription,
         phoneNo: editFormData.phoneNo,
         webSite: editFormData.webSite,
-        openingHours: editFormData.openingHours
+        openingHours: editFormData.openingHours,
       };
-  
+
       // Send PUT request to update site
       fetch(`https://localhost:7052/api/Site?siteCode=${updateData.siteCode}`, {
         method: "PUT",
@@ -282,8 +332,8 @@ export default function DataTablePage() {
         .then(() => {
           const mockEvent = {
             target: {
-              value: "Site"
-            }
+              value: "Site",
+            },
           };
           handleTableSelect(mockEvent);
         })
@@ -293,9 +343,7 @@ export default function DataTablePage() {
     } else {
       console.warn("Cannot submit form: Selected table is not 'Site'");
     }
-
   };
-
 
   const calculateAverageRate = (row) => {
     const averageRate = row.rate / row.numOfRates;
@@ -324,7 +372,10 @@ export default function DataTablePage() {
           setIsEditClicked(false);
         },
         (error) => {
-          console.error(`Error fetching questions for activity ${activityCode}:`, error);
+          console.error(
+            `Error fetching questions for activity ${activityCode}:`,
+            error
+          );
         }
       );
 
@@ -353,7 +404,7 @@ export default function DataTablePage() {
   const handleCheckboxChange = (field, index) => {
     const confirmed = window.confirm("האם את/ה בטוח/ה?");
     if (confirmed) {
-      const activitycode = tableData[index].activitycode;  // Access the activitycode from the original tableData
+      const activitycode = tableData[index].activitycode; // Access the activitycode from the original tableData
       const updatedData = tableData.map((row, i) =>
         i === index ? { ...row, [field]: !row[field] } : row
       );
@@ -361,14 +412,19 @@ export default function DataTablePage() {
       const isAccessible = updatedData[index].isAccessible;
       const isBlocked = updatedData[index].isBlocked;
 
-      console.log(`Sending request to update activity status for ${activitycode}`);
-      fetch(`https://localhost:7052/api/ActivityStatus?activityCode=${activitycode}&isAccessible=${isAccessible}&isBlocked=${isBlocked}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      })
+      console.log(
+        `Sending request to update activity status for ${activitycode}`
+      );
+      fetch(
+        `https://localhost:7052/api/ActivityStatus?activityCode=${activitycode}&isAccessible=${isAccessible}&isBlocked=${isBlocked}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      )
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Error updating status: ${response.statusText}`);
@@ -385,12 +441,10 @@ export default function DataTablePage() {
     }
   };
 
-
-
   return (
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
-        <div className="outer-container-admin" style={{ direction: 'rtl' }}>
+        <div className="outer-container-admin" style={{ direction: "rtl" }}>
           <nav className="navbar navbar-fixed-top">
             <div className="navbar-logo">
               <img src={Logo} alt="Logo" style={{ width: "60px" }} />
@@ -426,11 +480,9 @@ export default function DataTablePage() {
                         if (field === "statusId") return null;
                         return (
                           <th key={field}>
-                            {field === "isAccessible" || field === "isBlocked" ? (
-                              field // Render text instead of checkbox
-                            ) : (
-                              field
-                            )}
+                            {field === "isAccessible" || field === "isBlocked"
+                              ? field // Render text instead of checkbox
+                              : field}
                           </th>
                         );
                       })}
@@ -446,7 +498,8 @@ export default function DataTablePage() {
                           if (field === "statusId") return null;
                           return (
                             <td key={field}>
-                              {field === "photo" && selectedTable === "Group" ? (
+                              {field === "photo" &&
+                              selectedTable === "Group" ? (
                                 knownEmojis.includes(row[field]) ? (
                                   row[field]
                                 ) : (
@@ -461,14 +514,18 @@ export default function DataTablePage() {
                                 <input
                                   type="checkbox"
                                   checked={row.isAccessible}
-                                  onChange={() => handleCheckboxChange("isAccessible", index)}
+                                  onChange={() =>
+                                    handleCheckboxChange("isAccessible", index)
+                                  }
                                 />
                               ) : field === "isBlocked" &&
                                 selectedTable === "Activity" ? (
                                 <input
                                   type="checkbox"
                                   checked={row.isBlocked}
-                                  onChange={() => handleCheckboxChange("isBlocked", index)}
+                                  onChange={() =>
+                                    handleCheckboxChange("isBlocked", index)
+                                  }
                                 />
                               ) : field === "activitycode" &&
                                 selectedTable === "Activity" ? (
@@ -485,15 +542,15 @@ export default function DataTablePage() {
                             <td>
                               {(row.activitycode === 1 ||
                                 row.activitycode === 2) && (
-                                  <IconButton
-                                    color="primary"
-                                    onClick={() =>
-                                      handleEditContent(row.activitycode, index)
-                                    }
-                                  >
-                                    <ContentPasteIcon />
-                                  </IconButton>
-                                )}
+                                <IconButton
+                                  color="primary"
+                                  onClick={() =>
+                                    handleEditContent(row.activitycode, index)
+                                  }
+                                >
+                                  <ContentPasteIcon />
+                                </IconButton>
+                              )}
                             </td>
                           </>
                         )}
@@ -509,9 +566,7 @@ export default function DataTablePage() {
                           {selectedTable === "Group" && (
                             <IconButton
                               color="error"
-                              onClick={() =>
-                                handleDeleteGroup(row.groupCode)
-                              }
+                              onClick={() => handleDeleteGroup(row.groupCode)}
                             >
                               <DeleteIcon />
                             </IconButton>
@@ -544,9 +599,7 @@ export default function DataTablePage() {
                   ))}
                   <Pagination.Next
                     onClick={() =>
-                      setCurrentPage((prev) =>
-                        Math.min(prev + 1, totalPages)
-                      )
+                      setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                     }
                     disabled={currentPage === totalPages}
                   />
@@ -589,26 +642,27 @@ export default function DataTablePage() {
                 {isQuestionEditMode && (
                   <div className="edit-form-container" ref={editFormRef}>
                     <form onSubmit={handleSubmit}>
-                      {Object.keys(questionEditFormData).map((field, index, array) => (
-                        <div key={index}>
-                          <label>{field}</label>
-                          <input
-                            type="text"
-                            name={field}
-                            value={questionEditFormData[field]}
-                            onChange={handleInputChange}
-                            className="edit-input"
-                            style={{ direction: "rtl" }}
-                            disabled={
-                              selectedTable === "Activity"
-                                ? index === 0 ||
-                                index === array.length - 1 ||
-                                index === array.length - 2
-                                : index === 0
-                            }
-                          />
-                        </div>
-                      ))}
+                      {Object.keys(questionEditFormData).map(
+                        (field, index, array) => (
+                          <div key={index}>
+                            <label>{field}</label>
+                            <input
+                              type="text"
+                              name={field}
+                              value={questionEditFormData[field]}
+                              onChange={handleInputChange}
+                              className="edit-input"
+                              style={{ direction: "rtl" }}
+                              disabled={
+                                selectedTable === "Activity"
+                                  ? field === "activitycode" ||
+                                    field === "questionNo"
+                                  : index === 0 // so siteCode will be disabled
+                              }
+                            />
+                          </div>
+                        )
+                      )}
                       <button type="submit" className="edit-submit-button">
                         ערוך
                       </button>
@@ -632,10 +686,10 @@ export default function DataTablePage() {
                         style={{ direction: "rtl" }}
                         disabled={
                           selectedTable === "Activity"
-                            ? index === 0 ||
-                            index === array.length - 1 ||
-                            index === array.length - 2
-                            : index === 0
+                            ? field === "activitycode" ||
+                              field === "rate" ||
+                              field === "numOfRates"
+                            : index === 0 // so siteCode will be disabled
                         }
                       />
                     </div>
