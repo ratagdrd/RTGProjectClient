@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export default function MainButton({ textToBtn, navigateTo }) {
+export default function MainButton({ textToBtn, navigateTo, style, children }) {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
@@ -8,7 +8,8 @@ export default function MainButton({ textToBtn, navigateTo }) {
   };
 
   return (
-    <button className="main-button" onClick={handleNavigation}>
+    <button className="main-button" onClick={handleNavigation} style={style}>
+      {children}
       {textToBtn}
     </button>
   );
