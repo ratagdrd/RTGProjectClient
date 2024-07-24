@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 import MainButton from "../FuncComp/MainButton";
-import Header from "../FuncComp/Header";
 
 import NotAccessibleIcon from "@mui/icons-material/NotAccessible";
 export default function AllGamesPage() {
   const [activityStatuses, setActivityStatuses] = useState({});
   const [groupRoadType, setgroupRoadType] = useState(null);
-
   const groupCode = sessionStorage.getItem("groupCode");
   const containerStyle = {
-    backgroundImage: `url(background5.webp)`,
+    backgroundImage: `url(https://proj.ruppin.ac.il/cgroup60/test2/tar1/Images/background/background5.webp)`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     height: "100vh",
@@ -136,8 +134,9 @@ export default function AllGamesPage() {
         const activityCodes = [1, 2, 3, 4, 5, 6, 7];
 
         const promises = activityCodes.map(async (code) => {
+          //https://localhost:7052/api/ActivityStatus?activitycode=${code}
           const response = await fetch(
-            `https://localhost:7052/api/ActivityStatus?activitycode=${code}`
+            `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/ActivityStatus?activitycode=${code}`
           );
 
           if (!response.ok) {

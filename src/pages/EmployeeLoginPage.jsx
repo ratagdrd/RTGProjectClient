@@ -50,7 +50,8 @@ export default function EmployeeLoginPage() {
       role: "",
     };
     console.log("login data:", loginData);
-    fetch("https://localhost:7052/api/Employee", {
+    //https://localhost:7052/api/Employee
+    fetch("https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Employee", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

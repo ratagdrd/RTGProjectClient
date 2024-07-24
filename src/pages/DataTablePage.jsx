@@ -56,13 +56,17 @@ export default function DataTablePage() {
     setIsQuestionEditMode(false);
 
     if (event.target.value) {
-      fetch(`https://localhost:7052/api/${event.target.value}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json; charset=UTF-8",
-          Accept: "application/json; charset=UTF-8",
-        },
-      })
+      //https://localhost:7052/api/${event.target.value}
+      fetch(
+        `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/${event.target.value}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+            Accept: "application/json; charset=UTF-8",
+          },
+        }
+      )
         .then((res) => {
           if (!res.ok) {
             throw new Error(`Error fetching data: ${res.statusText}`);
@@ -75,8 +79,9 @@ export default function DataTablePage() {
               (activity) => activity.activitycode
             );
             const fetchActivityStatusPromises = activityCodes.map((code) => {
+              //https://localhost:7052/api/ActivityStatus?activitycode=${code}
               return fetch(
-                `https://localhost:7052/api/ActivityStatus?activitycode=${code}`,
+                `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/ActivityStatus?activitycode=${code}`,
                 {
                   method: "GET",
                   headers: {
@@ -142,13 +147,17 @@ export default function DataTablePage() {
   };
 
   const handleDeleteGroup = (groupCode) => {
-    fetch(`https://localhost:7052/api/Group/${groupCode}`, {
-      method: "DELETE",
-      headers: new Headers({
-        "Content-Type": "application/json; charset=UTF-8",
-        Accept: "application/json; charset=UTF-8",
-      }),
-    })
+    //https://localhost:7052/api/Group/${groupCode}
+    fetch(
+      `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group/${groupCode}`,
+      {
+        method: "DELETE",
+        headers: new Headers({
+          "Content-Type": "application/json; charset=UTF-8",
+          Accept: "application/json; charset=UTF-8",
+        }),
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Error deleting group: ${response.statusText}`);
@@ -162,7 +171,8 @@ export default function DataTablePage() {
   };
 
   const fetchGroups = () => {
-    fetch(`https://localhost:7052/api/Group`, {
+    //https://localhost:7052/api/Group
+    fetch(`https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Group`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json; charset=UTF-8",
@@ -230,14 +240,18 @@ export default function DataTablePage() {
       };
       console.log(updateData);
       // Send PUT request to update the question
-      fetch(`https://localhost:7052/api/QuestionForActivity`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(updateData),
-      })
+      //https://localhost:7052/api/QuestionForActivity
+      fetch(
+        `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/QuestionForActivity`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(updateData),
+        }
+      )
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Error updating question: ${response.statusText}`);
@@ -270,8 +284,9 @@ export default function DataTablePage() {
       console.log(updateData);
 
       // Send PUT request to update activity
+      //https://localhost:7052/api/Activity?activityCode=${updateData.activityCode}&activityname=${updateData.activityname}&instruction=${updateData.instruction}
       fetch(
-        `https://localhost:7052/api/Activity?activityCode=${updateData.activityCode}&activityname=${updateData.activityname}&instruction=${updateData.instruction}`,
+        `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Activity?activityCode=${updateData.activityCode}&activityname=${updateData.activityname}&instruction=${updateData.instruction}`,
         {
           method: "PUT",
           headers: {
@@ -314,14 +329,18 @@ export default function DataTablePage() {
       };
 
       // Send PUT request to update site
-      fetch(`https://localhost:7052/api/Site?siteCode=${updateData.siteCode}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(updateData),
-      })
+      //https://localhost:7052/api/Site?siteCode=${updateData.siteCode}
+      fetch(
+        `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/Site?siteCode=${updateData.siteCode}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(updateData),
+        }
+      )
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Error updating site: ${response.statusText}`);
@@ -351,13 +370,17 @@ export default function DataTablePage() {
   };
 
   const handleEditContent = (activityCode, rowIndex) => {
-    fetch(`https://localhost:7052/api/QuestionForActivity/${activityCode}`, {
-      method: "GET",
-      headers: new Headers({
-        "Content-Type": "application/json; charset=UTF-8",
-        Accept: "application/json; charset=UTF-8",
-      }),
-    })
+    //https://localhost:7052/api/QuestionForActivity/${activityCode}
+    fetch(
+      `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/QuestionForActivity/${activityCode}`,
+      {
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json; charset=UTF-8",
+          Accept: "application/json; charset=UTF-8",
+        }),
+      }
+    )
       .then((res) => {
         if (!res.ok) {
           throw new Error(`Error fetching questions: ${res.statusText}`);
@@ -415,8 +438,9 @@ export default function DataTablePage() {
       console.log(
         `Sending request to update activity status for ${activitycode}`
       );
+      //https://localhost:7052/api/ActivityStatus?activityCode=${activitycode}&isAccessible=${isAccessible}&isBlocked=${isBlocked}
       fetch(
-        `https://localhost:7052/api/ActivityStatus?activityCode=${activitycode}&isAccessible=${isAccessible}&isBlocked=${isBlocked}`,
+        `https://proj.ruppin.ac.il/cgroup60/test2/tar1/api/ActivityStatus?activityCode=${activitycode}&isAccessible=${isAccessible}&isBlocked=${isBlocked}`,
         {
           method: "PUT",
           headers: {
