@@ -21,7 +21,7 @@ export default function AllGamesPage() {
     position: "absolute",
     opacity: 0.85, // Adjust the opacity to make the buttons more transparent
     width: "115px",
-    top: 70,
+    top: 60, // used to be 70
     right: 30,
   };
   const triviaIconStyle = {
@@ -36,7 +36,7 @@ export default function AllGamesPage() {
     position: "absolute",
     opacity: 0.85, // Adjust the opacity to make the buttons more transparent
     width: "115px",
-    top: 530,
+    top: 510, //used to be 530
     left: 220,
   };
   const amfiIconStyle = {
@@ -51,7 +51,7 @@ export default function AllGamesPage() {
     position: "absolute",
     opacity: 0.85, // Adjust the opacity to make the buttons more transparent
     width: "115px",
-    top: 200,
+    top: 180, //used to be 200
     left: 250,
   };
   const speakerIconStyle = {
@@ -66,8 +66,8 @@ export default function AllGamesPage() {
     position: "absolute",
     opacity: 0.85, // Adjust the opacity to make the buttons more transparent
     width: "135px",
-    top: 330,
-    left: 40,
+    top: 280, //used to be 330
+    left: 60, //used to be 40
   };
   const hipodromIconStyle = {
     position: "relative",
@@ -81,7 +81,7 @@ export default function AllGamesPage() {
     position: "absolute",
     opacity: 0.85, // Adjust the opacity to make the buttons more transparent
     width: "115px",
-    top: 650,
+    top: 550, //used to be 650
     left: 40,
   };
   const portIconStyle = {
@@ -96,7 +96,7 @@ export default function AllGamesPage() {
     position: "absolute",
     opacity: 0.85, // Adjust the opacity to make the buttons more transparent
     width: "115px",
-    top: 400,
+    top: 360, //used to be 400
     left: 200,
   };
   const theaterIconStyle = {
@@ -111,7 +111,7 @@ export default function AllGamesPage() {
     position: "absolute",
     opacity: 0.85, // Adjust the opacity to make the buttons more transparent
     width: "100px",
-    top: 70,
+    top: 60, //used to be 70
   };
   const palaceIconStyle = {
     position: "relative",
@@ -124,8 +124,8 @@ export default function AllGamesPage() {
   const rankButtonStyle = {
     position: "absolute",
     width: "250px",
-    top: 750,
-    right: 70,
+    top: 640, //used to be 750
+    right: 85, //used to be 70
     fontSize: "20px",
   };
 
