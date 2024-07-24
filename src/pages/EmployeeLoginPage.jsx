@@ -44,21 +44,6 @@ export default function EmployeeLoginPage() {
 
     event.preventDefault(); // Prevent the default form submission behavior
 
-    // fetch(`https://localhost:7052/api/Employee/LogIn?username=${username}&password=${password}`)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         if (data === 1) {
-    //             console.log('Login successful');
-    //             // You can redirect the user to another page or perform other actions here
-    //         } else {
-    //             console.log('Invalid username or password');
-    //             // Show an error message to the user
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.error('Error during fetch:', error);
-    //         // Handle errors such as network issues
-    //     });
     const loginData = {
       username: username,
       password: password,
@@ -99,40 +84,6 @@ export default function EmployeeLoginPage() {
           alert("An unexpected error occurred. Please try again later.");
         }
       });
-
-    // const loginData = {
-    //   username: username,
-    //   password: password,
-    // };
-
-    // console.log("Sending login request with data:", loginData);
-
-    // fetch("https://localhost:7052/api/Employee/LogIn", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json; charset=UTF-8",
-    //   },
-    //   body: JSON.stringify(loginData),
-    // })
-    //   .then((res) => {
-    //     console.log("res=", res);
-    //     return res.json();
-    //   })
-    //   .then(
-    //     (result) => {
-    //       console.log("fetch POST= ", result);
-    //       if (result === 1) {
-    //         console.log("Login successful");
-    //         // You can redirect the user to another page or perform other actions here
-    //       } else {
-    //         console.log("Invalid username or password");
-    //       }
-    //     },
-    //     (error) => {
-    //       console.log("err post=", error);
-    //     }
-    //   );
   };
 
   return (
